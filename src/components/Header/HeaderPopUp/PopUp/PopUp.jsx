@@ -1,9 +1,9 @@
 import React from 'react'
 
-function PopUp({text}) {
+function PopUp({text,className}) {
     console.log(text)
   return (
-    <div>
+    <div className={`text-mainTextClr hover:text-activeClr cursor-pointer ${className}`}>
       {text}
     </div>
   )

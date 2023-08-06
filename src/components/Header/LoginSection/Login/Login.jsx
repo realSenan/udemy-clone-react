@@ -1,10 +1,10 @@
 import React from 'react'
 
-function Login() {
+function Login({text,bg}) {
   return (
-    <div>
-      
-    </div>
+    <button className={`border  px-[15px] py-2 min-w-max ${bg} font-bold`}>
+      {text}
+    </button>
   )
 }
 

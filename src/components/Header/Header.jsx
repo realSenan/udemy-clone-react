@@ -3,18 +3,22 @@ import Category from "./Categories/Category";
 import Logo from "./Logo/Logo";
 import Search from "./SearchBar/Search";
 import HeaderPopUp from "./HeaderPopUp/HeaderPopUp";
+import LoginSection from "./LoginSection/LoginSection";
+import { TfiAlignJustify } from "react-icons/tfi";
 
 function Header() {
     return (
-        <header className="h-[72px] bg-white flex items-center">
-            <div className="container px-6">
-                <nav className="flex items-center justify-between">
-                    <div className="left">
+        <header className="h-[72px] bg-white flex items-center shadow-2xl ">
+            <div className="container px-2">
+                <nav className="flex items-center gap-5 justify-between md:justify-normal">
+                    <TfiAlignJustify className="md:hidden" size={20}/>
+                    <div className="left flex items-center gap-4">
                         <Logo />
                         <Category />
                     </div>
-                    <Search/>
-                    <HeaderPopUp/>
+                    <Search />
+                    <HeaderPopUp />
+                    <LoginSection />
                 </nav>
             </div>
         </header>

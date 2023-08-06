@@ -1,11 +1,11 @@
-import React from 'react'
+import React from "react";
 
-function Category() {
-  return (
-    <>
-    
-    </>
-  )
+const openCategoryDropDown = () => {
+  
 }
 
-export default Category
+function Category() {
+    return <div className="text-mainTextClr  hover:text-activeClr cursor-pointer hidden md:flex" onMouseEnter={openCategoryDropDown}>Categories</div>;
+}
+
+export default Category;
