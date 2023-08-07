@@ -1,11 +1,26 @@
-import React from "react";
+import React, { useState } from "react";
+import CategoryDropDown from "./DropDownCategories/CategoryDropDown";
 
-const openCategoryDropDown = () => {
-  
-}
+function Category({linkData}) {
+    const [dropStatus, setDropStatus] = useState(true);
 
-function Category() {
-    return <div className="text-mainTextClr  hover:text-activeClr cursor-pointer hidden md:flex" onMouseEnter={openCategoryDropDown}>Categories</div>;
+    const openCategoryDropDown = () => {
+        setDropStatus(true);
+    };
+
+    const CloseCategoryDropDown = () => {
+        // setDropStatus(false);
+    };
+    return (
+        <div
+            className="text-mainTextClr  hover:text-activeClr cursor-pointer hidden md:flex relative"
+            onMouseEnter={openCategoryDropDown}
+            onMouseLeave={CloseCategoryDropDown}
+        >
+            Categories
+            <CategoryDropDown className={`${dropStatus ? "block" : "hidden"}`}  linkData = {linkData}/>
+        </div>
+    );
 }
 
 export default Category;
