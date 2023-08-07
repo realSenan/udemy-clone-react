@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import Middle from "./MiddleCategories/MiddleCategories";
-import MiniCategories from "./MiniCategories/MiniCategories";
+import Middle from "../MiddleCategories/MiddleCategories";
+import MiniCategories from "../MiniCategories/MiniCategories";
 import { FiChevronRight } from "react-icons/fi";
 
 function CategoryDropDown({ className, linkData, dropDown3, setDropDown3 }) {
