@@ -4,7 +4,7 @@ export default {
     theme: {
         container: {
             center: true,
-            screens:false
+            screens: false,
         },
         fontFamily: {
             main: "system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif",
@@ -13,9 +13,13 @@ export default {
             disableColor: "#898b8d",
             "gray-secondary": "#f5f5f5",
             mainTextClr: "#1c1d1f",
-            activeClr: "#6b3fd6"
+            activeClr: "#6b3fd6",
         },
-        extend: {},
+        extend: {
+            boxShadow: {
+                custom: "  0px 9px 15px -3px rgba(0,0,0,0.1)",
+            },
+        },
     },
     plugins: [],
 };
