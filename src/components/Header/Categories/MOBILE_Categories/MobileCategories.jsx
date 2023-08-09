@@ -18,14 +18,21 @@ function MobileCategories({ linkData, activeMbMenu, setActiveMbMenu }) {
         setFilter(lastFilter);
     }, [mbPopUp]);
 
+    function checkClickBoard(e){
+       if(!e.target.parentElement.parentElement.tagName.toLowerCase() == 'menu' || 'div'){
+        setActiveMbMenu(false)
+       }
+    }
+    
     return (
         <div
             className={`block md:hidden fixed left-0 top-0 w-full  h-full bg-[#02050c85] transition-all  ${
                 activeMbMenu ? "visible " : " invisible"
             }`}
+            onClick={(e) => checkClickBoard(e)}
         >
             <menu
-                className={`h-full w-[17.5rem] bg-[#fff] py-2  overflow-x-hidden relative transition-all ease-linear delay-600  ${
+                className={`h-full w-[17.5rem] bg-[#fff] py-2  overflow-x-hidden relative transition-all ease-linear delay-600 csxmenu z-10 ${
                     activeMbMenu ? "left-0" : "-left-80"
                 }`}
             >

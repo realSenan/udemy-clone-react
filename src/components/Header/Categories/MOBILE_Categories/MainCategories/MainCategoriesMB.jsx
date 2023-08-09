@@ -9,7 +9,9 @@ function MainCategoriesMB({ linkData, setMbPopUp, setOpenPop, openPop }) {
             .map((items) => {
                 return (
                     <li
-                        onClick={filterCategory}
+                        onClick={(e) => {
+                            filterCategory(e), settop();
+                        }}
                         key={nanoid()}
                         className="cursor-pointer py-2 px-4 flex items-center justify-between text-lg"
                     >
@@ -22,7 +24,11 @@ function MainCategoriesMB({ linkData, setMbPopUp, setOpenPop, openPop }) {
     function filterCategory(e) {
         setMbPopUp(e.target.textContent);
         setOpenPop(true);
-        window.scrollTo({
+    }
+
+    const menu = document.querySelector(".csxmenu");
+    function settop() {
+        menu.scrollTo({
             top: 0,
         });
     }
@@ -30,7 +36,12 @@ function MainCategoriesMB({ linkData, setMbPopUp, setOpenPop, openPop }) {
     return (
         <ul className="text-[#2d2f31]">
             {mainLink}
-            <li className="cursor-pointer py-2 px-4 flex items-center justify-between text-lg">
+            <li
+                className="cursor-pointer py-2 px-4 flex items-center justify-between text-lg"
+                onClick={(e) => {
+                    filterCategory(e), settop();
+                }}
+            >
                 All categories <FiChevronRight />
             </li>
         </ul>

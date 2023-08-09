@@ -10,7 +10,10 @@ import MobileCategories from "./Categories/MOBILE_Categories/MobileCategories";
 function Header({ linkData }) {
     const [activeMbMenu, setActiveMbMenu] = useState(false);
 
-    function MobileMenu(linkData,) {
+    const bodys = document.querySelector("body");
+    activeMbMenu ? bodys.classList.add("overflow-hidden") : bodys.classList.remove("overflow-hidden");
+
+    function MobileMenu(linkData) {
         return <MobileCategories linkData={linkData} activeMbMenu={activeMbMenu} setActiveMbMenu={setActiveMbMenu} />;
     }
 
