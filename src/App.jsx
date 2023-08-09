@@ -17,7 +17,7 @@ function App() {
                 console.log("Erroring data :", error);
             }
         };
-        FetchData();
+        FetchData()
     }, []);
 
     return (
