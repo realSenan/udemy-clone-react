@@ -10,7 +10,7 @@ function App() {
     useEffect(() => {
         const FetchData = async () => {
             try {
-                const response = await axios.get("/src/fetch/NavLink.json");
+                const response = await axios.get("./fetch/NavLink.json");
                 setDataLink(response.data.UdemyCategories);
                 console.log(response.data.UdemyCategories);
             } catch (error) {
