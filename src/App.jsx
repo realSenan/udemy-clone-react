@@ -22,7 +22,7 @@ function App() {
 
     return (
         <>
-            <Header value={searchValue} setValue={searchValue} dataLink={dataLink} />
+            <Header value={searchValue} setValue={searchValue} linkData={dataLink} />
             <Main />
         </>
     );
