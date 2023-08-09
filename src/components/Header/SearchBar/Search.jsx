@@ -4,8 +4,8 @@ import {AiOutlineSearch} from "react-icons/ai";
 function Search() {
     return (
         <>
-            <div className="w-2/4  hidden md:flex items-center rounded-3xl border bg-gray-secondary">
-                <AiOutlineSearch size={28} className="text-disableColor mx-3 hover:cursor-not-allowed" />
+            <div className="w-3/4  hidden md:flex items-center rounded-3xl border bg-gray-secondary">
+                <AiOutlineSearch size={24} className="text-disableColor mx-3 hover:cursor-not-allowed" />
                 <input
                     type="text"
                     name=""

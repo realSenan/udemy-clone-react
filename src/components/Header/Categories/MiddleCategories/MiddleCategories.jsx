@@ -1,6 +1,6 @@
 import React from "react";
 
-function SubsCategories({ Subcategories, subsHover, FiChevronRight, setDropDown3 ,dropDown2}) {
+function SubsCategories({ Subcategories, subsHover, FiChevronRight, setDropDown3, dropDown2 }) {
     const hoverFunc = (e) => {
         subsHover(e);
         setDropDown3(true);
@@ -20,7 +20,9 @@ function SubsCategories({ Subcategories, subsHover, FiChevronRight, setDropDown3
                         onMouseEnter={hoverFunc}
                     >
                         {item}
-                        <FiChevronRight />
+                        <span className="md:hidden lg:block">
+                            <FiChevronRight />
+                        </span>
                     </li>
                 );
             })}

@@ -5,6 +5,7 @@ export default {
         container: {
             center: true,
             screens: false,
+
         },
         fontFamily: {
             main: "system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif",

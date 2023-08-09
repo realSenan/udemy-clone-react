@@ -10,14 +10,14 @@ import MobileCategories from "./Categories/MOBILE_Categories/MobileCategories";
 function Header({ linkData }) {
     const [activeMbMenu, setActiveMbMenu] = useState(false);
 
-    function MobileMenu(linkData) {
-        return <MobileCategories linkData={linkData} />;
+    function MobileMenu(linkData,) {
+        return <MobileCategories linkData={linkData} activeMbMenu={activeMbMenu} setActiveMbMenu={setActiveMbMenu} />;
     }
 
     return (
         <header className="h-[72px] bg-white flex items-center shadow-2xl ">
-            <div className="container mx-auto px-2">
-                <nav className="flex items-center gap-5 justify-between md:justify-normal">
+            <div className="container mx-auto px-5 text-sm">
+                <nav className="flex items-center gap-5 justify-between md:justify-normal scroll-smooth">
                     <TfiAlignJustify className="md:hidden cursor-pointer " size={20} onClick={() => setActiveMbMenu(!activeMbMenu)} />
 
                     <div className="left flex items-center gap-4">
@@ -28,7 +28,7 @@ function Header({ linkData }) {
                     <HeaderPopUp />
                     <LoginSection />
                 </nav>
-                {activeMbMenu && MobileMenu(linkData)}
+                {MobileMenu(linkData)}
             </div>
         </header>
     );

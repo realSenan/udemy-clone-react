@@ -2,23 +2,33 @@ import { nanoid } from "nanoid";
 import React from "react";
 import { FiChevronRight } from "react-icons/fi";
 
-function MainCategoriesMB({ linkData }) {
+function MainCategoriesMB({ linkData, setMbPopUp, setOpenPop, openPop }) {
     const mainLink = linkData.map((item) => {
         return Object.keys(item.Subcategories)
             .slice(0, 1)
             .map((items) => {
-                console.log(items);
                 return (
-                    <li key={nanoid()} className="cursor-pointer py-2 px-4 flex items-center justify-between text-lg">
+                    <li
+                        onClick={filterCategory}
+                        key={nanoid()}
+                        className="cursor-pointer py-2 px-4 flex items-center justify-between text-lg"
+                    >
                         {items} <FiChevronRight />
                     </li>
                 );
             });
-        // console.log(Object.keys(item.Subcategories))
     });
 
+    function filterCategory(e) {
+        setMbPopUp(e.target.textContent);
+        setOpenPop(true);
+        window.scrollTo({
+            top: 0,
+        });
+    }
+
     return (
-        <ul>
+        <ul className="text-[#2d2f31]">
             {mainLink}
             <li className="cursor-pointer py-2 px-4 flex items-center justify-between text-lg">
                 All categories <FiChevronRight />
