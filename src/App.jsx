@@ -2,16 +2,11 @@ import { useEffect, useState } from "react";
 import Header from "./components/Header/Header";
 import Main from "./components/Main/Main";
 import NavLink from "./fetch/NavLink.json";
-import axios from "axios";
 
 function App() {
     const [searchValue, setSearchValue] = useState("");
-    const [dataLink, setDataLink] = useState([]);
+    const [dataLink, setDataLink] = useState(NavLink.UdemyCategories);
 
-    useEffect(() => {
-        setDataLink(NavLink.UdemyCategories);
-
-    }, []);
 
     return (
         <>

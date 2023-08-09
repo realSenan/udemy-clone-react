@@ -21,7 +21,7 @@ function MobileCategories({ linkData, activeMbMenu, setActiveMbMenu }) {
     function checkClickBoard(e) {
         const target = e.target.parentElement.parentElement.tagName.toLowerCase();
         if (!(target == "menu" || target == "main" || target == "div")) {
-            setActiveMbMenu(false)
+            setActiveMbMenu(false);
         }
     }
 
@@ -64,7 +64,7 @@ function MobileCategories({ linkData, activeMbMenu, setActiveMbMenu }) {
                 <Login text={<BsGlobe size={20} />} tx2={"English"} pad={"ms-4"} w={"w-[140px] flex items-center font-normal text-lg"} />
             </menu>
             <div
-                className="closeButton  z-10  fixed left-[310px] top-10 w-14 h-14 rounded-full bg-[#fff] flex items-center justify-center "
+                className="closeButton  z-10  fixed left-[310px] top-10 w-14 h-14 rounded-full bg-[#fff] flex items-center justify-center hover:bg-[#e0e0e0] cursor-pointer"
                 onClick={() => setActiveMbMenu(false)}
             >
                 <MdClose size={25} />

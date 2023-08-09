@@ -18,7 +18,7 @@ function Header({ linkData }) {
     }
 
     return (
-        <header className="h-[72px] bg-white flex items-center shadow-2xl ">
+        <header className="h-[72px] bg-white flex items-center shadow-xl z-10 relative ">
             <div className="container mx-auto px-5 text-sm">
                 <nav className="flex items-center gap-5 justify-between md:justify-normal scroll-smooth">
                     <TfiAlignJustify className="md:hidden cursor-pointer " size={20} onClick={() => setActiveMbMenu(!activeMbMenu)} />

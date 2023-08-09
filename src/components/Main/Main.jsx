@@ -1,8 +1,11 @@
 import React from 'react'
+import HeroSection from './HeroSection/HeroSection'
+
 
 function Main() {
   return (
-    <main className='h-[200vh]'>
+    <main>
+      <HeroSection/>
       
     </main>
   )
