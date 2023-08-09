@@ -18,12 +18,13 @@ function MobileCategories({ linkData, activeMbMenu, setActiveMbMenu }) {
         setFilter(lastFilter);
     }, [mbPopUp]);
 
-    function checkClickBoard(e){
-       if(!e.target.parentElement.parentElement.tagName.toLowerCase() == 'menu' || 'div'){
-        setActiveMbMenu(false)
-       }
+    function checkClickBoard(e) {
+        const target = e.target.parentElement.parentElement.tagName.toLowerCase();
+        if (!(target == "menu" || target == "main" || target == "div")) {
+            setActiveMbMenu(false)
+        }
     }
-    
+
     return (
         <div
             className={`block md:hidden fixed left-0 top-0 w-full  h-full bg-[#02050c85] transition-all  ${

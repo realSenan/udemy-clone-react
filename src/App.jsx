@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import Header from "./components/Header/Header";
 import Main from "./components/Main/Main";
+import NavLink from "./fetch/NavLink.json";
 import axios from "axios";
 
 function App() {
@@ -8,16 +9,8 @@ function App() {
     const [dataLink, setDataLink] = useState([]);
 
     useEffect(() => {
-        const FetchData = async () => {
-            try {
-                const response = await axios.get("/src/fetch/NavLink.json");
-                setDataLink(response.data.UdemyCategories);
-                console.log(response.data.UdemyCategories);
-            } catch (error) {
-                console.log("Erroring data :", error);
-            }
-        };
-        FetchData()
+        setDataLink(NavLink.UdemyCategories);
+
     }, []);
 
     return (
@@ -29,3 +22,14 @@ function App() {
 }
 
 export default App;
+
+// const FetchData = async () => {
+//     try {
+//         const response = await axios.get(NavLink);
+//         setDataLink(response.data.UdemyCategories);
+//         console.log(response.data.UdemyCategories);
+//     } catch (error) {
+//         console.log("Erroring data :", error);
+//     }
+// };
+// FetchData();
