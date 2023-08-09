@@ -26,7 +26,7 @@ function HeroSection() {
             </div>
             <div className="relative">
                 <picture className="focus:outline-none">
-                    <img src="/src/assets/img/slider/slider2.jpg" alt="" />
+                    <img src="/src/assets/img/slider/sldier2.jpg" alt="" />
                 </picture>
                 <div className="z-10 max-[700px]:hidden w-[400px] max-[982px]:w-[340px] min-[1200px]:w-[440px] p-4 invisible sm:visible absolute top-3 min-[982px]:top-10 min-[1200px]:top-16 left-16 bg-[#fff] shadow-lg">
                     <h2 className="text-[#2d2f31] text-3xl font-bold mb-2 font-SusseWorks max-[982px]:text-[20px] sm:line-clamp-1 lg:line-clamp-none">
