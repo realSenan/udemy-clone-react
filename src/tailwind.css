@@ -3,11 +3,21 @@
 @tailwind utilities;
 
 
-*{
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
 
 @font-face {
-    font-family: SusseWorks;
+    font-family: SusseWorks ;
     src: url(../public/Fonts/SuisseWorks-Bold-v1.woff2);
+}
+
+.PopDown{
+    animation: PopDown 1s ;
+}
+
+@keyframes PopDown {
+    0% {
+        scale: 0.8;
+    }
+    10% {
+        scale: 1;
+    }
 }

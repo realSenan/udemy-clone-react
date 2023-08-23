@@ -38,7 +38,7 @@ function HeroSection() {
                     <p className="text-[#2d3f52] max-[982px]:text-sm">
                         Udemy Business is trusted by 12.5K+ companies around the world. Find out what we can do for yours.
                     </p>
-                    <button className="bg-[#202020] hover:bg-[#000000] transition delay-200 text-[white] mt-4 p-3">Request a demo</button>
+                    <button className="bg-[#202020] hover:bg-[#000000] transition duration-200 text-[white] mt-4 p-3">Request a demo</button>
                 </div>
             </div>
         </Slider>
