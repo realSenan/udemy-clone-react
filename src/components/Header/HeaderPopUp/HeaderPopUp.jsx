@@ -1,15 +1,27 @@
-import React from "react";
+import React, { useState } from "react";
 import PopUp from "./PopUp/PopUp";
-import { GiShoppingCart } from "react-icons/gi";
 import { AiOutlineSearch } from "react-icons/ai";
+import ShopCart from "./ShopCart/ShopCart";
 
-function HeaderPopUp() {
+function HeaderPopUp({ GiShoppingCart }) {
     return (
         <div className="flex gap-4  md:gap-6 items-center text-[15px] min-w-max ">
             <AiOutlineSearch size={28} className=" block md:hidden" />
-            <PopUp text={"Udmey Buisness"} className=" hidden xl:block " />
-            <PopUp text={"Tech on Udemy"} className="hidden lg:block" />
-            <PopUp text={<GiShoppingCart size={28} />} />
+            <PopUp
+                text={"Udmey Buisness"}
+                className=" hidden xl:block "
+                text2={"Get your team access to over 22,000 top Udemy courses, anytime, anywhere."}
+                text3={"Try Udemy Buisness"}
+                GiShoppingCart={GiShoppingCart}
+            />
+            <PopUp
+                text={"Tech on Udemy"}
+                className="hidden lg:block"
+                text2={"Turn what you know into an opportunity and reach millions around the world."}
+                text3={"Learn More"}
+                GiShoppingCart={GiShoppingCart}
+            />
+            <ShopCart GiShoppingCart={GiShoppingCart} />
         </div>
     );
 }

@@ -5,6 +5,7 @@ import Search from "./SearchBar/Search";
 import HeaderPopUp from "./HeaderPopUp/HeaderPopUp";
 import LoginSection from "./LoginSection/LoginSection";
 import { TfiAlignJustify } from "react-icons/tfi";
+import { GiShoppingCart } from "react-icons/gi";
 
 function Header({ linkData }) {
     const [activeMbMenu, setActiveMbMenu] = useState(false);
@@ -28,7 +29,7 @@ function Header({ linkData }) {
                         <Category linkData={linkData} activeMbMenu={activeMbMenu} setActiveMbMenu={setActiveMbMenu} />
                     </div>
                     <Search />
-                    <HeaderPopUp />
+                    <HeaderPopUp GiShoppingCart={GiShoppingCart} />
                     <LoginSection />
                 </nav>
             </div>

@@ -18,13 +18,3 @@ function App() {
 
 export default App;
 
-// const FetchData = async () => {
-//     try {
-//         const response = await axios.get(NavLink);
-//         setDataLink(response.data.UdemyCategories);
-//         console.log(response.data.UdemyCategories);
-//     } catch (error) {
-//         console.log("Erroring data :", error);
-//     }
-// };
-// FetchData();
