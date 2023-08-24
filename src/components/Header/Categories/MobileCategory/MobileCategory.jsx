@@ -7,7 +7,8 @@ const MobileCategory = ({ linkData, BiChevronRight, activeMbMenu, setActiveMbMen
     const [firstCategory, setFirstCategory] = useState("Web Development");
     const [secondaryCategory, setSecondaryCategory] = useState(false);
     const [lastLinksCategory, setlastLinksCategory] = useState(false);
-    const [lastCategoryInner, setLastCategoryInner] = useState("");
+    const [lastLinksCategoryLast, setlastLinksCategoryLast] = useState(false);
+    const [lastCategoryInner, setLastCategoryInner] = useState("Development");
 
     const linkWrap = useRef();
 
@@ -82,7 +83,7 @@ const MobileCategory = ({ linkData, BiChevronRight, activeMbMenu, setActiveMbMen
                                 setlastLinksCategory(true), setTopFunction();
                             }}
                         >
-                            All Categories <BiChevronRight />{" "}
+                            All Categories <BiChevronRight />
                         </li>
                     </ul>
 
@@ -128,7 +129,7 @@ const MobileCategory = ({ linkData, BiChevronRight, activeMbMenu, setActiveMbMen
                     } absolute  top-0 w-72 bg-white h-full z-10  shadow-xl transition-all duration-300 ease-in-out `}
                 >
                     <div className="p-4 flex items-center gap-4">
-                        <span className="rotate-180" onClick={() => setlastLinksCategory(true)}>
+                        <span className="rotate-180" onClick={() => setlastLinksCategory(false)}>
                             <BiChevronRight />
                         </span>
                         Menu
@@ -136,30 +137,35 @@ const MobileCategory = ({ linkData, BiChevronRight, activeMbMenu, setActiveMbMen
 
                     <ul className="py-2 px-6">
                         {linkData.map((link) => (
-                            <li onClick={secondaryClickHandler} key={nanoid()} className="py-2 flex items-center justify-between">
+                            <li
+                                onClick={(e) => {
+                                    secondaryClickHandler(e), setlastLinksCategoryLast(true);
+                                }}
+                                key={nanoid()}
+                                className="py-2 flex items-center justify-between"
+                            >
                                 {link.CategoryName} <BiChevronRight />
                             </li>
                         ))}
                     </ul>
                 </div>
 
+                {/* Four Category */}
                 <div
                     className={`${
-                        lastLinksCategory ? "left-0" : "left-72"
+                        lastLinksCategoryLast ? "left-0" : "left-72"
                     } absolute  top-0 w-72 bg-white h-full z-50 shadow-xl transition-all duration-300 ease-in-out`}
                 >
                     <div className="p-4 flex items-center gap-4">
-                        <span className="rotate-180" onClick={() => setlastLinksCategory(false)}>
+                        <span className="rotate-180" onClick={() => setlastLinksCategoryLast(false)}>
                             <BiChevronRight />
-                        </span> 
+                        </span>
                         Menu
                     </div>
 
                     <ul className="py-2 px-6">
-                        {Object.keys(FilterLastSecondaryLink[0].Subcategories).map((itme) => (
-                            <li className="py-2 flex items-center justify-between">
-                                {itme} <BiChevronRight />
-                            </li>
+                        {Object.keys(FilterLastSecondaryLink[0].Subcategories).map((item) => (
+                            <li className="py-2">{item}</li>
                         ))}
                     </ul>
                 </div>
@@ -176,3 +182,19 @@ const MobileCategory = ({ linkData, BiChevronRight, activeMbMenu, setActiveMbMen
 {
 }
 export default MobileCategory;
+{
+    /* <div
+                    className={`${
+                        lastLinksCategory ? "left-0" : "left-72"
+                    } absolute  top-0 w-72 bg-white h-full z-50 shadow-xl transition-all duration-300 ease-in-out`}
+                >
+                    <div className="p-4 flex items-center gap-4">
+                        <span className="rotate-180" onClick={() => setlastLinksCategory(false)}>
+                            <BiChevronRight />
+                        </span>
+                        Menu
+                    </div>
+
+                    <ul className="py-2 px-6">{console.log(FilterLastSecondaryLink)}</ul>
+                </div> */
+}
