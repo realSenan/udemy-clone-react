@@ -921,6 +921,15 @@ video {
   background-color: rgb(45 47 49 / var(--tw-bg-opacity));
 }
 
+.bg-center {
+  background-position: center;
+}
+
+.object-cover {
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
 .p-3 {
   padding: 0.75rem;
 }
@@ -1007,6 +1016,26 @@ video {
 
 .text-center {
   text-align: center;
+}
+
+.align-middle {
+  vertical-align: middle;
+}
+
+.align-bottom {
+  vertical-align: bottom;
+}
+
+.align-text-bottom {
+  vertical-align: text-bottom;
+}
+
+.align-sub {
+  vertical-align: sub;
+}
+
+.align-super {
+  vertical-align: super;
 }
 
 .font-SusseWorks {
@@ -1261,6 +1290,10 @@ video {
 @media (max-width: 700px) {
   .max-\[700px\]\:hidden {
     display: none;
+  }
+
+  .max-\[700px\]\:min-h-\[250px\] {
+    min-height: 250px;
   }
 }
 
