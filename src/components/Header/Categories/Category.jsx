@@ -6,7 +6,7 @@ import { BiChevronRight } from "react-icons/bi";
 import MobileCategory from "./MobileCategory/MobileCategory";
 
 function Category({ linkData, activeMbMenu, setActiveMbMenu }) {
-    const [dropStatus, setDropStatus] = useState(true);
+    const [dropStatus, setDropStatus] = useState(false);
     const [dropStatus2, setDropStatus2] = useState(false);
     const [dropStatus3, setDropStatus3] = useState(false);
 
