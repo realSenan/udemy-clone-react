@@ -13,7 +13,7 @@ const ShopCart = ({ GiShoppingCart, className }) => {
             {showButton && (
                 <div className={`absolute right-0 pt-9 PopDown `}>
                     <div className="bg-white w-72 min-h-28  p-4 flex flex-col items-center justify-center shadow-md">
-                        <h3 className="text-mainTextClr text-[16px] text-center  ">List is Emply</h3>
+                        <h3 className="text-mainTextClr text-[16px] text-center  ">Your cart is empty.</h3>
                         <a
                             href="#"
                             className="flex items-center justify-center
