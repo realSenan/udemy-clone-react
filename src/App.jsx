@@ -1,20 +1,22 @@
-import { useEffect, useState } from "react";
 import Header from "./components/Header/Header";
 import Main from "./components/Main/Main";
-import NavLink from "./fetch/NavLink.json";
+import { Provider } from "react-redux";
+import store from "./redux/store";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+
+import Home from "./pages/Home";
 
 function App() {
-    const [searchValue, setSearchValue] = useState("");
-    const [dataLink, setDataLink] = useState(NavLink.UdemyCategories);
-
-
     return (
-        <>
-            <Header value={searchValue} setValue={searchValue} linkData={dataLink} />
-            <Main />
-        </>
+        <Provider store={store}>
+            <Header />
+            <Router>
+                <Routes>
+                    <Route path="/" element={<Home />} />
+                </Routes>
+            </Router>
+        </Provider>
     );
 }
 
 export default App;
-

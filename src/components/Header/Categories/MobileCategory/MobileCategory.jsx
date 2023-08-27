@@ -165,7 +165,9 @@ const MobileCategory = ({ linkData, BiChevronRight, activeMbMenu, setActiveMbMen
 
                     <ul className="py-2 px-6">
                         {Object.keys(FilterLastSecondaryLink[0].Subcategories).map((item) => (
-                            <li key={nanoid()} className="py-2">{item}</li>
+                            <li key={nanoid()} className="py-2">
+                                {item}
+                            </li>
                         ))}
                     </ul>
                 </div>

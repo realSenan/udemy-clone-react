@@ -6,8 +6,11 @@ import HeaderPopUp from "./HeaderPopUp/HeaderPopUp";
 import LoginSection from "./LoginSection/LoginSection";
 import { TfiAlignJustify } from "react-icons/tfi";
 import { GiShoppingCart } from "react-icons/gi";
+import { useSelector } from "react-redux";
 
-function Header({ linkData }) {
+function Header() {
+    const linkData = useSelector(state => state.data.navLinks.UdemyCategories)
+    
     const [activeMbMenu, setActiveMbMenu] = useState(false);
 
     const bodys = document.querySelector("body");

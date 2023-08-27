@@ -37,15 +37,17 @@ function Category({ linkData, activeMbMenu, setActiveMbMenu }) {
     return (
         <>
             <div
-                className="text-mainTextClr  hover:text-activeClr cursor-pointer hidden md:flex relative"
+                className="text-liColor  hover:text-activeClr cursor-pointer hidden md:flex relative"
                 onMouseEnter={openCategoryDropDown}
                 onMouseLeave={CloseCategoryDropDown}
             >
                 Categories
                 <div
                     onMouseLeave={() => setDropStatus2(false)}
-                    className={`${dropStatus ? "block" : "hidden"} absolute top-0 left-0 pt-14  cursor-default flex`}
+                    className={`${dropStatus ? "block" : "hidden"} 
+                    absolute top-[50px] left-0  cursor-default flex !text-liColor shadow-dropDownBox tracking-[-.2px]`}
                 >
+                    <div className="absolute  h-14 w-1/3 -top-14"></div>
                     <FIrstCategory linkData={linkData} SecondaryFilterHandler={SecondaryFilterHandler} BiChevronRight={BiChevronRight} />
 
                     {dropStatus2 && (
