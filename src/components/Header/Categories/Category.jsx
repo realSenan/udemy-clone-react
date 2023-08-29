@@ -13,6 +13,7 @@ function Category({ linkData, activeMbMenu, setActiveMbMenu }) {
                     {/* First List */}
                     <ul className="w-[16rem] bg-[#fff] py-3 shadow-md min-h-[600px] border-r border-l  border-border text-liColor">
                         {linkData.map((link) => (
+                            // Object.assign(link.Subcategories),
                             <li
                                 key={nanoid()}
                                 className="px-4 py-2 hover:text-activeClr cursor-pointer flex items-center justify-between showliwrapper "
@@ -30,16 +31,14 @@ function Category({ linkData, activeMbMenu, setActiveMbMenu }) {
                                             <ul className="showlastli w-[16rem] bg-[#fff] py-3 shadow-md min-h-[600px] border-r border-l  border-border  hidden absolute top-0 left-[254px] text-liColor">
                                                 {}
 
-                                                {/* {Object.values(link.Subcategories).map((item) =>
-                                                    item.map((it) => (
-                                                        <li
-                                                            key={nanoid()}
-                                                            className="px-4 py-2 hover:text-activeClr cursor-pointer flex items-center justify-between showlimiddle "
-                                                        >
-                                                            {it}
-                                                        </li>
-                                                    ))
-                                                )} */}
+                                                {link.Subcategories[item].map((items) => (
+                                                    <li
+                                                        key={nanoid()}
+                                                        className="px-4 py-2 hover:text-activeClr cursor-pointer flex items-center justify-between showlimiddle "
+                                                    >
+                                                        {items}
+                                                    </li>
+                                                ))}
                                             </ul>
                                             {/* Tree List */}
                                         </li>
