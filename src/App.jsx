@@ -1,5 +1,4 @@
 import Header from "./components/Header/Header";
-import Main from "./components/Main/Main";
 import { Provider } from "react-redux";
 import store from "./redux/store";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";

@@ -2,15 +2,21 @@
 @tailwind components;
 @tailwind utilities;
 
-
-
 @font-face {
-    font-family: SusseWorks ;
+    font-family: SusseWorks;
     src: url(../public/Fonts/SuisseWorks-Bold-v1.woff2);
 }
 
-.PopDown{
-    animation: PopDown 1s ;
+.showliwrapper:hover  .showli {
+    display: block !important;
+}
+
+.showlimiddle:hover .showlastli{
+    display: block !important;
+}
+
+.PopDown {
+    animation: PopDown 1s;
 }
 
 @keyframes PopDown {
