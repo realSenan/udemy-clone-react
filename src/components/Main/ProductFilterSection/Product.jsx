@@ -63,7 +63,8 @@ const Product = () => {
 
                 {/* Swipper Section */}
                 <Swiper
-                    slidesPerView={5}
+                    slidesPerView={"auto"}
+                    spaceBetween={20}
                     className="mt-10"
                     navigation={{
                         nextEl: ".image-swiper-button-next",
@@ -76,8 +77,8 @@ const Product = () => {
                         filterButtonForProduct.map(
                             (btCntx) =>
                                 product.category == btCntx.id && (
-                                    <SwiperSlide key={nanoid()} id={product.id}>
-                                        <div className={` w-[230px] h-[280px] `}>
+                                    <SwiperSlide key={nanoid()} id={product.id} className="w-fit">
+                                        <div className={` !w-[230px] h-[280px] `}>
                                             <picture className="block h-[130px] border border-border">
                                                 <img className="w-full" src={product.img || defaultPng} alt="xs" />
                                             </picture>

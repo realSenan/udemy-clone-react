@@ -859,6 +859,15 @@ video {
   width: min-content;
 }
 
+.\!w-\[230px\] {
+  width: 230px !important;
+}
+
+.w-fit {
+  width: -moz-fit-content;
+  width: fit-content;
+}
+
 .min-w-max {
   min-width: -moz-max-content;
   min-width: max-content;
