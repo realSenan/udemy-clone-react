@@ -584,8 +584,12 @@ video {
   left: 20rem;
 }
 
-.left-\[16rem\] {
-  left: 16rem;
+.left-\[254px\] {
+  left: 254px;
+}
+
+.left-\[255px\] {
+  left: 255px;
 }
 
 .right-0 {
@@ -610,30 +614,6 @@ video {
 
 .top-\[50px\] {
   top: 50px;
-}
-
-.left-\[\] {
-  left: ;
-}
-
-.left-\[250px\] {
-  left: 250px;
-}
-
-.left-\[205\] {
-  left: 205;
-}
-
-.left-\[255px\] {
-  left: 255px;
-}
-
-.left-\[16r\] {
-  left: 16r;
-}
-
-.left-\[254px\] {
-  left: 254px;
 }
 
 .z-10 {

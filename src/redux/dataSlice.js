@@ -5,10 +5,23 @@ export const counterSlice = createSlice({
     name: "datas",
     initialState: {
         navLinks: navLinkAPi,
+        product: [],
+        isLoading: false,
+        isError: null,
     },
-    reducers: {},
+    reducers: {
+        getProducts: (state, action) => {
+            state.product = action.payload;
+        },
+        changeLoading: (state) => {
+            state.isLoading = !state.isLoading;
+        },
+        changeError: (state, action) => {
+            state.isError = action.payload;
+        },
+    },
 });
 
-export const { increment } = counterSlice.actions;
+export const { increment, getProducts, changeLoading, changeError } = counterSlice.actions;
 
 export default counterSlice.reducer;

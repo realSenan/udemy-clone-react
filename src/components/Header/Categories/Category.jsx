@@ -4,11 +4,21 @@ import MobileCategory from "./MobileCategory/MobileCategory";
 import { nanoid } from "nanoid";
 
 function Category({ linkData, activeMbMenu, setActiveMbMenu }) {
+    const [status, setStatus] = useState(false);
+
     return (
         <>
-            <div className="text-liColor  hover:text-activeClr cursor-pointer hidden md:flex relative">
+            <div
+                className="text-liColor  hover:text-activeClr cursor-pointer hidden md:flex relative"
+                onMouseEnter={() => setStatus(true)}
+                onMouseLeave={() => setStatus(false)}
+            >
                 Categories
-                <div className={`absolute top-[50px] left-0  cursor-default flex  shadow-dropDownBox tracking-[-.2px] PopDown`}>
+                <div
+                    className={`${
+                        status ? "block" : "hidden"
+                    } absolute top-[50px] left-0  cursor-default flex  shadow-dropDownBox tracking-[-.2px] PopDown`}
+                >
                     <div className="absolute  h-14 w-1/3 -top-14"></div>
                     {/* First List */}
                     <ul className="w-[16rem] bg-[#fff] py-3 shadow-md min-h-[600px] border-r border-l  border-border text-liColor">
