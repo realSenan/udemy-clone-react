@@ -7,11 +7,19 @@
     src: url(../public/Fonts/SuisseWorks-Bold-v1.woff2);
 }
 
-.showliwrapper:hover  .showli {
+body {
+    @apply overflow-x-hidden h-[5000vh];
+}
+
+.swiper-button-disabled {
+    @apply !hidden;
+}
+
+.showliwrapper:hover .showli {
     display: block !important;
 }
 
-.showlimiddle:hover .showlastli{
+.showlimiddle:hover .showlastli {
     display: block !important;
 }
 

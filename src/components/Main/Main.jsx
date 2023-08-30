@@ -1,7 +1,7 @@
 import React from "react";
 import HeroSection from "./HeroSection/HeroSection";
 import SponsorSection from "./SponsorSection/SponsorSection";
-import Product from "./Products/Product";
+import ProductFilterSection from "./ProductFilterSection/Product";
 
 function Main() {
 
@@ -11,7 +11,7 @@ function Main() {
         <main>
             <HeroSection />
             <SponsorSection />
-            <Product/>
+            <ProductFilterSection/>
         </main>
     );
 }

@@ -11,7 +11,7 @@ export const counterSlice = createSlice({
     },
     reducers: {
         getProducts: (state, action) => {
-            state.product = action.payload;
+            state.product = action.payload.data;
         },
         changeLoading: (state) => {
             state.isLoading = !state.isLoading;

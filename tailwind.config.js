@@ -19,6 +19,9 @@ export default {
             activeClr: "#6b3fd6",
             border: "#d1d7dc",
             liColor: "#2d2f31",
+            softBlack: "#2d2f31",
+            activeButton: "#2d2f31",
+            deactiveButton: "#6a6f73",
         },
         extend: {
             boxShadow: {
