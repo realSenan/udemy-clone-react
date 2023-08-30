@@ -5,7 +5,7 @@ import { changeError, changeLoading, getProducts } from "../redux/dataSlice";
 
 const useFetch = (url) => {
     const dispatch = useDispatch();
-    
+
     useEffect(() => {
         dispatch(changeLoading());
         axios

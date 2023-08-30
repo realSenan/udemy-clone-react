@@ -18,6 +18,7 @@ export const counterSlice = createSlice({
         },
         changeError: (state, action) => {
             state.isError = action.payload;
+            console.log(state.isError);
         },
     },
 });
