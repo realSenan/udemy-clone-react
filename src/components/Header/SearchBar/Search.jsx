@@ -12,7 +12,7 @@ function Search() {
     };
 
     return (
-        <>
+        <React.Fragment>
             <div className="w-3/4  hidden md:flex items-center rounded-3xl border bg-gray-secondary">
                 <AiOutlineSearch size={24} className="text-disableColor mx-3 hover:cursor-not-allowed" />
                 <input
@@ -25,7 +25,7 @@ function Search() {
                     placeholder="Search for anyhing "
                 />
             </div>
-        </>
+        </React.Fragment>
     );
 }
 

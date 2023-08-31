@@ -7,7 +7,7 @@ function Category({ linkData, activeMbMenu, setActiveMbMenu }) {
     const [status, setStatus] = useState(false);
 
     return (
-        <>
+        <React.Fragment>
             <div
                 className="text-liColor  hover:text-activeClr cursor-pointer hidden md:flex relative"
                 onMouseEnter={() => setStatus(true)}
@@ -68,7 +68,7 @@ function Category({ linkData, activeMbMenu, setActiveMbMenu }) {
                 activeMbMenu={activeMbMenu}
                 setActiveMbMenu={setActiveMbMenu}
             />
-        </>
+        </React.Fragment>
     );
 }
 

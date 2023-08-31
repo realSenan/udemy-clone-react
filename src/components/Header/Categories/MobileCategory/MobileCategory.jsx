@@ -33,7 +33,7 @@ const MobileCategory = ({ linkData, BiChevronRight, activeMbMenu, setActiveMbMen
     };
 
     return (
-        <>
+        <React.Fragment>
             {/* Background */}
             <div
                 onClick={() => setActiveMbMenu(false)}
@@ -177,7 +177,7 @@ const MobileCategory = ({ linkData, BiChevronRight, activeMbMenu, setActiveMbMen
                     <BsGlobe /> English
                 </div>
             </div>
-        </>
+        </React.Fragment>
     );
 };
 

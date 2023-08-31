@@ -18,7 +18,7 @@ function HeroSection() {
         loop: true,
     };
     return (
-        <>
+        <React.Fragment>
             <Slider {...settings} className="overflow-hidden container max-w-[1340px]">
                 <div className="relative ">
                     <picture className="focus:outline-none">
@@ -63,7 +63,7 @@ function HeroSection() {
                     </span>
                 </div>
             </div>
-        </>
+        </React.Fragment>
     );
 }
 
