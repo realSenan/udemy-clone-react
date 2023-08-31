@@ -4,9 +4,6 @@ import SponsorSection from "./SponsorSection/SponsorSection";
 import ProductFilterSection from "./ProductFilterSection/Product";
 
 function Main() {
-
-    
-
     return (
         <main>
             <HeroSection />

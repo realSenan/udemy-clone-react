@@ -15,7 +15,7 @@ const Product = () => {
     const productDatas = useSelector((state) => state.data.product);
     const buttons = useSelector((state) => state.button.value);
 
-    const filterButtonForProduct = buttons.filter((btn) => btn.status == true);
+    const filterButtonForProduct = buttons?.filter((btn) => btn.status == true);
 
     return (
         <section className="container  max-w-[1340px] mt-20 px-5">
@@ -51,7 +51,7 @@ const Product = () => {
 
             {/* Product filter section */}
             <section className="border p-8 border-border ">
-                {filterButtonForProduct.map((bt) => (
+                {filterButtonForProduct?.map((bt) => (
                     <section key={nanoid()}>
                         <h2 className="font-extrabold text-softBlack text-2xl ">{bt["head text"]}</h2>
                         <p className="mt-3 max-w-[800px] line-clamp-3">{bt["paragraph text"]}</p>
