@@ -12,7 +12,9 @@ import defaultPng from "../../../assets/img/loading.jpg";
 
 const Product = () => {
     useFetch(import.meta.env.VITE_DATA_API);
+
     const productDatas = useSelector((state) => state.data.product);
+
     const buttons = useSelector((state) => state.button.value);
 
     const filterButtonForProduct = buttons?.filter((btn) => btn.status == true);

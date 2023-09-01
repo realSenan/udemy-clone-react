@@ -3,6 +3,8 @@ import dataSlice from "./dataSlice";
 import searchSlice from "./searchSlice";
 import buttonSlice from "./buttonSlice";
 
+
+
 export default configureStore({
     reducer: {
         data: dataSlice,

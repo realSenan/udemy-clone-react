@@ -11,6 +11,7 @@ const useFetch = (url) => {
         axios
             .get(url)
             .then((response) => {
+                console.log(response);
                 dispatch(getProducts(response));
             })
             .catch((err) => {
