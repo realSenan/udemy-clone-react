@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import navLinkAPi from "../api/NavLink.json";
 
-export  const counterSlice = createSlice({
+export const counterSlice = createSlice({
     name: "datas",
     initialState: {
         navLinks: navLinkAPi,
@@ -10,8 +10,8 @@ export  const counterSlice = createSlice({
         isError: null,
     },
     reducers: {
-        getProducts:  (state = initialState.product, action)  => {
-            state.product =  action.payload?.data;
+        getProducts: (state = initialState.product, action) => {
+            state.product = action.payload;
         },
         changeLoading: (state) => {
             state.isLoading = !state.isLoading;

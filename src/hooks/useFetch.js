@@ -12,7 +12,7 @@ const useFetch = (url) => {
             .get(url)
             .then((response) => {
                 console.log(response);
-                dispatch(getProducts(response));
+                dispatch(getProducts(response.data));
             })
             .catch((err) => {
                 dispatch(changeError(err));
