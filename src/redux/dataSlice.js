@@ -3,7 +3,9 @@ import navLinkAPi from "../api/NavLink.json";
 import axios from "axios";
 
 export const myData = createAsyncThunk("getCountry", async () => {
-    const { data } = await axios.get(import.meta.env.VITE_DATA_API);
+    const { data } = await axios
+        .get(import.meta.env.VITE_DATA_API)
+        .catch((err) => console.log(err));
     return data;
 });
 
@@ -29,8 +31,8 @@ export const counterSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder.addCase(myData.fulfilled, (state, action) => {
-            state.product = action.payload
-            console.log(action.payload)
+            state.product = action.payload;
+            console.log(action.payload);
         });
     },
 });
