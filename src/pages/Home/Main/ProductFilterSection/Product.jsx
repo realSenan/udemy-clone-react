@@ -1,6 +1,6 @@
 import Button from "./Button";
 import useFetch from "/src/hooks/useFetch";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { nanoid } from "nanoid";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
@@ -9,9 +9,17 @@ import "swiper/css";
 import { IoIosArrowBack, IoIosArrowForward, IoMdVolumeHigh } from "react-icons/io";
 import Star from "./Star";
 import defaultPng from "/src/assets/img/loading.jpg";
+import { myData } from "../../../../redux/dataSlice";
+import { useEffect } from "react";
 
 const Product = () => {
-    useFetch(import.meta.env.VITE_DATA_API);
+    // useFetch(import.meta.env.VITE_DATA_API);
+
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(myData());
+    }, []);
 
     const productDatas = useSelector((state) => state.data.product);
 

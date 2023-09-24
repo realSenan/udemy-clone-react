@@ -5,22 +5,7 @@ import { changeError, changeLoading, getProducts } from "../redux/dataSlice";
 
 const useFetch = (url) => {
     const dispatch = useDispatch();
-
-    useEffect(() => {
-        dispatch(changeLoading());
-        axios
-            .get(url)
-            .then((response) => {
-                console.log(response);
-                dispatch(getProducts(response.data));
-            })
-            .catch((err) => {
-                dispatch(changeError(err));
-            })
-            .finally(() => {
-                dispatch(changeLoading());
-            });
-    }, [url]);
+    
 };
 
 export default useFetch;

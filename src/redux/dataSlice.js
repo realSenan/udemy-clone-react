@@ -1,5 +1,11 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import navLinkAPi from "../api/NavLink.json";
+import axios from "axios";
+
+export const myData = createAsyncThunk("getCountry", async () => {
+    const { data } = await axios.get(import.meta.env.VITE_DATA_API);
+    return data;
+});
 
 export const counterSlice = createSlice({
     name: "datas",
@@ -20,6 +26,11 @@ export const counterSlice = createSlice({
             state.isError = action.payload;
             console.log(state.isError);
         },
+    },
+    extraReducers: (builder) => {
+        builder.addCase(myData.fulfilled, (state, action) => {
+            state.product = action.payload
+        });
     },
 });
 
