@@ -15,7 +15,7 @@ const Button = ({ btn, sliderWrapper }) => {
         <button
             onClick={clickHandler}
             id={id}
-            className={`btns border-none bg-none font-extrabold hover:text-activeButton transition-all duration-300  ${
+            className={`btns border-none bg-none font-bold hover:text-activeButton transition-all duration-300  ${
                 status ? "text-activeButton" : "text-deactiveButton "
             }`}
         >

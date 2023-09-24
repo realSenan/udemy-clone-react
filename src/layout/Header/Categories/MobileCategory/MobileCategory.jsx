@@ -23,7 +23,9 @@ const MobileCategory = ({ linkData, BiChevronRight, activeMbMenu, setActiveMbMen
         setTopFunction();
     };
 
-    const FilterLastSecondaryLink = linkData.filter((link) => link.CategoryName == lastCategoryInner);
+    const FilterLastSecondaryLink = linkData.filter(
+        (link) => link.CategoryName == lastCategoryInner,
+    );
 
     const setTopFunction = () => {
         linkWrap.current.scrollTo({
@@ -47,7 +49,7 @@ const MobileCategory = ({ linkData, BiChevronRight, activeMbMenu, setActiveMbMen
                 onClick={() => setActiveMbMenu(false)}
                 className={`${
                     activeMbMenu ? "scale-1" : "scale-0"
-                } absolute left-80 top-10 h-14 w-14 rounded-full bg-white flex items-center justify-center transition-all duration-500 ease-in-out`}
+                } absolute left-[19.6875rem] top-10 h-14 w-14 rounded-full bg-white z-10 flex items-center justify-center transition-all duration-500 ease-in-out`}
             >
                 <GrClose size={17} />
             </div>
@@ -71,7 +73,11 @@ const MobileCategory = ({ linkData, BiChevronRight, activeMbMenu, setActiveMbMen
                     {/* Category First Menu */}
                     <ul className="px-4  border-b border-border">
                         {linkData.slice(0, 10).map((link) => (
-                            <li onClick={cliclkHandler} key={nanoid()} className="py-2 flex items-center justify-between">
+                            <li
+                                onClick={cliclkHandler}
+                                key={nanoid()}
+                                className="py-2 flex items-center justify-between"
+                            >
                                 {Object.keys(link.Subcategories)[0]}
                                 <BiChevronRight />
                             </li>
@@ -87,7 +93,9 @@ const MobileCategory = ({ linkData, BiChevronRight, activeMbMenu, setActiveMbMen
                         </li>
                     </ul>
 
-                    <h3 className="px-4 py-2 text-[15px] font-bold text-[#6a6f73]">More from Udemy</h3>
+                    <h3 className="px-4 py-2 text-[15px] font-bold text-[#6a6f73]">
+                        More from Udemy
+                    </h3>
 
                     {/* More from udemy */}
                     <ul className="px-4">
@@ -114,10 +122,13 @@ const MobileCategory = ({ linkData, BiChevronRight, activeMbMenu, setActiveMbMen
                     <ul className="py-2 px-4">
                         {linkData.map((link) =>
                             link.Subcategories[firstCategory]?.map((item) => (
-                                <li key={nanoid()} className="py-2 flex items-center justify-between">
+                                <li
+                                    key={nanoid()}
+                                    className="py-2 flex items-center justify-between"
+                                >
                                     {item}
                                 </li>
-                            ))
+                            )),
                         )}
                     </ul>
                 </div>
@@ -157,7 +168,10 @@ const MobileCategory = ({ linkData, BiChevronRight, activeMbMenu, setActiveMbMen
                     } absolute  top-0 w-72 bg-white h-full z-50 shadow-xl transition-all duration-300 ease-in-out`}
                 >
                     <div className="p-4 flex items-center gap-4">
-                        <span className="rotate-180" onClick={() => setlastLinksCategoryLast(false)}>
+                        <span
+                            className="rotate-180"
+                            onClick={() => setlastLinksCategoryLast(false)}
+                        >
                             <BiChevronRight />
                         </span>
                         Menu

@@ -7,10 +7,9 @@ import { Navigation } from "swiper/modules";
 import "swiper/css/navigation";
 import "swiper/css";
 import { IoIosArrowBack, IoIosArrowForward, IoMdVolumeHigh } from "react-icons/io";
-import Star from "./Star";
-import defaultPng from "/src/assets/img/loading.jpg";
 import { myData } from "../../../../redux/dataSlice";
 import { useEffect, useRef } from "react";
+import Cards from "../../../../components/Cards";
 
 const Product = () => {
     // useFetch(import.meta.env.VITE_DATA_API);
@@ -33,7 +32,7 @@ const Product = () => {
         <section className="container  max-w-[1340px] mt-20 px-5">
             <section className="text-softBlack">
                 <h2 className="font-SusseWorks text-3xl">A broad selection of courses</h2>
-                <p className="text-xl mt-2">
+                <p className="text-xl mt-5">
                     Choose from over 210,000 online video courses with new additions published every
                     month
                 </p>
@@ -47,11 +46,11 @@ const Product = () => {
                 }}
                 modules={[Navigation]}
                 slidesPerView={"auto"}
-                className="mySwiper mt-10 mb-4 !mx-0 "
+                className="mySwiper my-5 !mx-0 "
             >
                 {buttons?.map((btn) => (
                     <SwiperSlide key={nanoid()} className="whitespace-nowrap me-5 !w-fit ">
-                        <Button btn={btn} sliderWrapper ={sliderWrapper}/>
+                        <Button btn={btn} sliderWrapper={sliderWrapper} />
                     </SwiperSlide>
                 ))}
 
@@ -68,9 +67,7 @@ const Product = () => {
             <section className="border p-8 border-border ">
                 {filterButtonForProduct?.map((bt) => (
                     <section key={nanoid()}>
-                        <h2 className="font-extrabold text-softBlack text-2xl ">
-                            {bt["head text"]}
-                        </h2>
+                        <h2 className="font-bold text-softBlack text-2xl ">{bt["head text"]}</h2>
                         <p className="mt-3 max-w-[800px] line-clamp-3">{bt["paragraph text"]}</p>
                         <button className="border py-2 px-3 text-sm mt-5 font-extrabold text-softBlack hover:bg-[#6a6f7348]">
                             Explore {bt.text}
@@ -83,7 +80,7 @@ const Product = () => {
                     ref={sliderWrapper}
                     slidesPerView={"auto"}
                     spaceBetween={15}
-                    className="mt-10"
+                    className="mt-10 !overflow-y-visible"
                     navigation={{
                         nextEl: ".image-swiper-button-next",
                         prevEl: ".image-swiper-button-prev",
@@ -95,33 +92,12 @@ const Product = () => {
                         filterButtonForProduct.map(
                             (btCntx) =>
                                 product.category == btCntx.id && (
-                                    <SwiperSlide key={nanoid()} id={product.id} className="w-fit">
-                                        <div className={` !w-[230px] h-[280px] `}>
-                                            <picture className="block h-[130px] border border-border">
-                                                <img
-                                                    className="w-full"
-                                                    src={product.img || defaultPng}
-                                                    alt="xs"
-                                                />
-                                            </picture>
-                                            <section className="mt-2">
-                                                <h3 className="font-extrabold text-softBlack line-clamp-2 leading-5">
-                                                    {product["headTexts:"]}
-                                                </h3>
-                                                <h4 className="text-sm mt-1 font-medium text-softBlack">
-                                                    {product["user:"]}
-                                                </h4>
-                                                <Star product={product} />
-                                                <h3 className="font-extrabold text-md text-softBlack mt-1">
-                                                    ${product.price}
-                                                </h3>
-                                                {product.bestseller && (
-                                                    <div className="text-[#3c3b0a] bg-[#e6e592] w-min text-[12px] px-2 mt-2 ">
-                                                        Bestseller
-                                                    </div>
-                                                )}
-                                            </section>
-                                        </div>
+                                    <SwiperSlide
+                                        key={nanoid()}
+                                        id={product.id}
+                                        className="w-fit "
+                                    >
+                                        <Cards product={product} />
                                     </SwiperSlide>
                                 ),
                         ),
