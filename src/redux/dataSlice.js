@@ -3,11 +3,15 @@ import navLinkAPi from "../api/NavLink.json";
 import axios from "axios";
 
 export const myData = createAsyncThunk("getCountry", async () => {
-    const { data } = await axios
-        .get(import.meta.env.VITE_DATA_API)
-        .catch((err) => console.log(err));
-    return data;
+    try {
+        const { data } = await axios.get(import.meta.env.VITE_DATA_API);
+        return data;
+    } catch (err) {
+        console.error(err);
+        throw err; // Hata yeniden fırlatılıyor
+    }
 });
+
 
 export const counterSlice = createSlice({
     name: "datas",
