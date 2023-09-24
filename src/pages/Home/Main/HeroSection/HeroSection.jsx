@@ -2,12 +2,13 @@ import React from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import slideImg1 from "/src/assets/img/slider/slider3.jpg";
-import slideImg2 from "/src/assets/img/slider/sldier2.jpg";
+import slideImg1 from "/src/assets/img/slider/sldier2.jpg";
+import slideImg2 from "/src/assets/img/slider/slider4.jpg";
 import { AiOutlineSearch } from "react-icons/ai";
 
 function HeroSection() {
     const settings = {
+        speed: 800,
         slidesToShow: 1,
         slidesToScroll: 1,
         arrows: false,

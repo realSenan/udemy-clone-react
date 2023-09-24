@@ -10,7 +10,7 @@ import { IoIosArrowBack, IoIosArrowForward, IoMdVolumeHigh } from "react-icons/i
 import Star from "./Star";
 import defaultPng from "/src/assets/img/loading.jpg";
 import { myData } from "../../../../redux/dataSlice";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 
 const Product = () => {
     // useFetch(import.meta.env.VITE_DATA_API);
@@ -26,6 +26,8 @@ const Product = () => {
     const buttons = useSelector((state) => state.button.value);
 
     const filterButtonForProduct = buttons?.filter((btn) => btn.status == true);
+
+    const sliderWrapper = useRef();
 
     return (
         <section className="container  max-w-[1340px] mt-20 px-5">
@@ -49,7 +51,7 @@ const Product = () => {
             >
                 {buttons?.map((btn) => (
                     <SwiperSlide key={nanoid()} className="whitespace-nowrap me-5 !w-fit ">
-                        <Button btn={btn} />
+                        <Button btn={btn} sliderWrapper ={sliderWrapper}/>
                     </SwiperSlide>
                 ))}
 
@@ -78,8 +80,9 @@ const Product = () => {
 
                 {/* Swipper Section */}
                 <Swiper
+                    ref={sliderWrapper}
                     slidesPerView={"auto"}
-                    spaceBetween={20}
+                    spaceBetween={15}
                     className="mt-10"
                     navigation={{
                         nextEl: ".image-swiper-button-next",

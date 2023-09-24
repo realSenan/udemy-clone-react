@@ -1,12 +1,14 @@
 import { useDispatch } from "react-redux";
 import { changeActive } from "../../../../redux/buttonSlice";
 
-const Button = ({ btn }) => {
+const Button = ({ btn, sliderWrapper }) => {
     const dispatch = useDispatch();
 
     const { id, text, status } = btn;
+
     const clickHandler = (e) => {
         dispatch(changeActive(e.currentTarget.id));
+        sliderWrapper?.current.swiper.slideTo(0);
     };
 
     return (
