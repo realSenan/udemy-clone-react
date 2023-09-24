@@ -4,13 +4,16 @@ import axios from "axios";
 
 export const myData = createAsyncThunk("getCountry", async () => {
     try {
-        const { data } = await axios.get(import.meta.env.VITE_DATA_API);
+        const dataAPI = import.meta.env.VITE_DATA_API;
+        console.log("Data API:", dataAPI); // Değeri konsola yazdırın
+        const { data } = await axios.get(dataAPI);
         return data;
     } catch (err) {
         console.error(err);
-        throw err; // Hata yeniden fırlatılıyor
+        throw err;
     }
 });
+
 
 
 export const counterSlice = createSlice({
