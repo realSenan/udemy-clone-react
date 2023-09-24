@@ -30,6 +30,7 @@ export const counterSlice = createSlice({
     extraReducers: (builder) => {
         builder.addCase(myData.fulfilled, (state, action) => {
             state.product = action.payload
+            console.log(action.payload)
         });
     },
 });
