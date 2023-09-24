@@ -1,6 +1,6 @@
 import { nanoid } from "nanoid";
-import fullStar from "../../../assets/img/star/FullStar.png";
-import halfStar from "../../../assets/img/star/halfStar.png";
+import fullStar from "/src/assets/img/star/FullStar.png";
+import halfStar from "/src/assets/img/star/halfStar.png";
 
 const Star = ({ product }) => {
     const ratingCalculator = product.rating;

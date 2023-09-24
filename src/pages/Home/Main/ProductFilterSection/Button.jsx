@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux";
-import { changeActive } from "../../../redux/buttonSlice";
+import { changeActive } from "../../../../redux/buttonSlice";
 
 const Button = ({ btn }) => {
     const dispatch = useDispatch();
