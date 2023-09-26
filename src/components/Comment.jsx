@@ -11,7 +11,7 @@ const Comment = ({ data }) => {
                 height="16"
                 loading="lazy"
             ></img>
-            <p className="mt-4 min-h-[6rem]">
+            <p className="mt-4 min-h-[6rem] ">
                 {data.text1}
                 <span className="font-bold">{data.darkText}</span> {data.text2}
             </p>
@@ -21,9 +21,9 @@ const Comment = ({ data }) => {
                 </div>
                 <div className="">{data.name}</div>
             </div>
-            <div className="text-activeClr pt-4 flex items-center gap-4 font-bold  border-t border-[#d1d7dc]">
+            <div className="text-activeClr pt-4 flex items-center gap-4 font-bold  border-t border-[#d1d7dc] cursor-pointer hover:opacity-80 transition-all duration-200">
                 <AiFillPlayCircle size={40} className="!min-w-min" />
-                {data.video}
+                <span className="line-clamp-2">{data.video}</span>
             </div>
         </div>
     );

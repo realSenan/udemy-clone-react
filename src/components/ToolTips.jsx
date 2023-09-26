@@ -7,7 +7,7 @@ const ToolTips = ({ product }) => {
         >
             <h2 className="text-xl font-semibold">{product["headTexts:"]}</h2>
             <h2 className="text-[#5d8d85] text-sm mt-2">
-                Category : <span className="font-semibold">{product.category}</span>
+                Category : <span className="font-semibold capitalize">{product.category}</span>
             </h2>
 
             <h2>

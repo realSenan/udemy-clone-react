@@ -7,8 +7,8 @@ const Cards = ({ product }) => {
     const [ToolTip, setToolTip] = useState(false);
 
     return (
-        <div onMouseEnter={(e) => setToolTip(true)} onMouseLeave={(e) => setToolTip(false)}>
-            <div className={`!w-[14.375rem] h-[17.5rem]  bg-white  `}>
+        <div onMouseEnter={(e) => setToolTip(true)} onMouseLeave={(e) => setToolTip(false)} >
+            <div className={`!w-[14.375rem] h-[17.5rem]  bg-white `}>
                 <picture className="block h-[130px] border border-border bg-liColor">
                     <img
                         className={`w-full ${ToolTip && "opacity-95"} transition-all duration-200`}

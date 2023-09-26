@@ -98,7 +98,8 @@ const Product = () => {
                             <SwiperSlide
                                 key={nanoid()}
                                 id={product.id}
-                                className="w-fit !overflow-visible"
+                                className={`w-fit`}
+                                style={{ zIndex: -product.id - 1 }}
                             >
                                 <Cards product={product} />
                             </SwiperSlide>
