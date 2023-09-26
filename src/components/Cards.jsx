@@ -5,9 +5,24 @@ import ToolTips from "./ToolTips";
 
 const Cards = ({ product }) => {
     const [ToolTip, setToolTip] = useState(false);
+    const [left, setLeft] = useState("220px");
+
+    const enterMouseHandler = (e) => {
+        setToolTip(true);
+        const offset = e.nativeEvent.fromElement.offsetWidth;
+        const item = e.currentTarget.getBoundingClientRect().left;
+
+        console.log(offset - item);
+
+        if (offset - item < 475) {
+            setLeft("-23.75rem");
+        } else {
+            setLeft("13.75rem");
+        }
+    };
 
     return (
-        <div onMouseEnter={(e) => setToolTip(true)} onMouseLeave={(e) => setToolTip(false)} >
+        <div onMouseEnter={enterMouseHandler} onMouseLeave={(e) => setToolTip(false)}>
             <div className={`!w-[14.375rem] h-[17.5rem]  bg-white `}>
                 <picture className="block h-[130px] border border-border bg-liColor">
                     <img
@@ -30,7 +45,7 @@ const Cards = ({ product }) => {
                     )}
                 </section>
             </div>
-            {ToolTip && <ToolTips product={product} />}
+            {ToolTip && <ToolTips product={product} left={left} />}
         </div>
     );
 };
