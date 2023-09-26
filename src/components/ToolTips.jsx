@@ -3,7 +3,7 @@ import { FiHeart } from "react-icons/fi";
 const ToolTips = ({ product }) => {
     return (
         <div
-            className={`fixed -top-28 left-52 !z-50 w-[22.5rem] h-[30.5rem] shadow-dropDownBox p-4 bg-white`}
+            className={`absolute -top-28 left-52 z-10 w-[22.5rem] min-h-[28.5rem] shadow-dropDownBox p-4 bg-white PopDown`}
         >
             <h2 className="text-xl font-semibold">{product["headTexts:"]}</h2>
             <h2 className="text-[#5d8d85] text-sm mt-2">

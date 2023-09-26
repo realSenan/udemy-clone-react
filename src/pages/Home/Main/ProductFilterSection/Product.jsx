@@ -88,20 +88,22 @@ const Product = () => {
                     }}
                     modules={[Navigation]}
                 >
-                    {productDatas.map((product) =>
-                        filterButtonForProduct.map(
-                            (btCntx) =>
-                                product.category == btCntx.id && (
-                                    <SwiperSlide
-                                        key={nanoid()}
-                                        id={product.id}
-                                        className="w-fit "
-                                    >
-                                        <Cards product={product} />
-                                    </SwiperSlide>
-                                ),
-                        ),
-                    )}
+                    {productDatas
+                        .filter((product) =>
+                            filterButtonForProduct.some(
+                                (btnConText) => product.category == btnConText.id,
+                            ),
+                        )
+                        .map((product) => (
+                            <SwiperSlide
+                                key={nanoid()}
+                                id={product.id}
+                                className="w-fit !overflow-visible"
+                            >
+                                <Cards product={product} />
+                            </SwiperSlide>
+                        ))}
+
                     <button className="image-swiper-button-next absolute right-0 top-[20%] z-10 w-12 h-12 bg-[#393c3ee8] hover:bg-[#393c3ef3] rounded-full flex items-center justify-center cursor-pointer">
                         <IoIosArrowForward size={28} color="#fff" />
                     </button>
