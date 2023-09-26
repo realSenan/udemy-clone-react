@@ -35,10 +35,10 @@ const BestSeller = () => {
                         </SwiperSlide>
                     ))}
 
-                <button className="image-swiper-button-next absolute right-0 top-[20%] z-10 w-12 h-12 bg-[#393c3ee8] hover:bg-[#393c3ef3] rounded-full flex items-center justify-center cursor-pointer">
+                <button className="image-swiper-button-next absolute right-0 top-[30%] z-10 w-12 h-12 bg-[#393c3e] hover:bg-[#393c3ef3] rounded-full flex items-center justify-center cursor-pointer">
                     <IoIosArrowForward size={28} color="#fff" />
                 </button>
-                <button className="image-swiper-button-prev absolute left-0 top-[20%] z-10 w-12 h-12 bg-[#393c3ee8] hover:bg-[#393c3ef3] rounded-full flex items-center justify-center cursor-pointer">
+                <button className="image-swiper-button-prev absolute left-0 top-[30%] z-10 w-12 h-12 bg-[#393c3e] hover:bg-[#393c3ef3] rounded-full flex items-center justify-center cursor-pointer">
                     <IoIosArrowBack size={28} color="#fff" />
                 </button>
             </Swiper>

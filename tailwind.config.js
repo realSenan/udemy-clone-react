@@ -3,6 +3,9 @@ export default {
     mode: "jit",
     content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
     theme: {
+        screens: {
+            mobil: "435px",
+        },
         container: {
             center: true,
             screens: false,

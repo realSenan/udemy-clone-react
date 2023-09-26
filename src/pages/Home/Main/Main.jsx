@@ -5,6 +5,7 @@ import ProductFilterSection from "./ProductFilterSection/Product";
 import CommentSection from "./CommentSection/CommentSection";
 import BestSeller from "./BestSellerSection/BestSeller";
 import TopCategory from "./TopCategorySection/TopCategory";
+import Featured from "./FeaturedSection/Featured";
 
 function Main() {
     return (
@@ -15,6 +16,7 @@ function Main() {
             <CommentSection />
             <BestSeller />
             <TopCategory />
+            <Featured />
         </main>
     );
 }
