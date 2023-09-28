@@ -36,7 +36,7 @@ const ToolTips = ({ product }) => {
                 <button className="py-3 bg-[#a435f0] w-64 text-white hover:bg-opacity-90 transition-all duration-300">
                     Add To Cart
                 </button>
-                <div className="border rounded-full !w-12 h-12 flex items-center justify-center bg-white hover:bg-[#e3e7ea] duration-300 transition-all">
+                <div className="border rounded-full !w-12 h-12 flex items-center justify-center bg-white hover:bg-[#e3e7ea] duration-300 transition-all cursor-pointer">
                     <FiHeart size={24} />
                 </div>
             </div>
