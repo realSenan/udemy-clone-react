@@ -7,16 +7,16 @@ import { useEffect, useState } from "react";
 import { myData } from "./redux/dataSlice";
 import { useURL } from "./hooks/useURL";
 import Loading from "./components/Loading";
+import Footer from "./layout/Footer/Footer";
 
 function App() {
+    const [loading, setLoading] = useState(false);
     const dispatch = store.dispatch;
 
     useEffect(() => {
         dispatch(myData());
         useURL(dispatch);
     }, []);
-
-    const [loading, setLoading] = useState(false);
 
     setTimeout(() => {
         setLoading(true);
@@ -29,6 +29,7 @@ function App() {
                 <Routes>
                     <Route path="/" element={<Home />} />
                 </Routes>
+                <Footer />
             </Router>
         </Provider>
     ) : (

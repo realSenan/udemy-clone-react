@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 const FeaturedLink = ({ text, student, category, text2, student2, text3, student3 }) => {
     return (
         <div>
-            <h3 className="text-xl text-liColor font-bold">{category}</h3>
+            <h3 className="text-xl text-liColor font-bold line-clamp-1">{category}</h3>
             <ul>
                 <li className="mt-5">
                     <Link className="text-activeClr font-bold underline">{text}</Link>
