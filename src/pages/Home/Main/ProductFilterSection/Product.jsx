@@ -6,20 +6,14 @@ import { Navigation } from "swiper/modules";
 import "swiper/css/navigation";
 import "swiper/css";
 import { IoIosArrowBack, IoIosArrowForward, IoMdVolumeHigh } from "react-icons/io";
-import { myData } from "../../../../redux/dataSlice";
-import { useEffect, useRef, useState } from "react";
 import Cards from "../../../../components/Cards";
-import { useURL } from "../../../../hooks/useURL";
+import { useRef } from "react";
 
 const Product = () => {
-    // useFetch(import.meta.env.VITE_DATA_API);
 
     const dispatch = useDispatch();
 
-    useEffect(() => {
-        dispatch(myData());
-        useURL(dispatch);
-    }, []);
+
 
     const productDatas = useSelector((state) => state.data.product);
 

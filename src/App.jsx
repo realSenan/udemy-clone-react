@@ -1,21 +1,39 @@
-import { Provider } from "react-redux";
+import { Provider, useSelector } from "react-redux";
 import store from "./redux/store";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import { applyMiddleware } from "redux";
-import thunk from "redux-thunk";
 import Header from "./layout/Header/Header";
 import Home from "./pages/Home/Home";
+import { useEffect } from "react";
+import { changeLoading, myData } from "./redux/dataSlice";
+import { useURL } from "./hooks/useURL";
+import Loading from "./components/Loading";
 
 function App() {
-    return (
+    const dispatch = store.dispatch;
+
+    useEffect(() => {
+        dispatch(myData());
+        useURL(dispatch);
+    }, []);
+
+    const loading = store.getState().data.isLoading;
+    const data = store.getState().data.product;
+
+    setTimeout(() => {
+        dispatch(changeLoading());
+    }, 400);
+
+    return loading ? (
         <Provider store={store}>
-            <Header/>
+            <Header />
             <Router>
                 <Routes>
                     <Route path="/" element={<Home />} />
                 </Routes>
             </Router>
         </Provider>
+    ) : (
+        <Loading />
     );
 }
 

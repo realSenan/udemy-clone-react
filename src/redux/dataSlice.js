@@ -2,14 +2,13 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import navLinkAPi from "../api/NavLink.json";
 import axios from "axios";
 
-export const myData = createAsyncThunk("getCountry", async () => {
+export const myData = createAsyncThunk("getData", async () => {
     try {
         const { data } = await axios.get(
             "https://udmey-388f9-default-rtdb.firebaseio.com/udemyProducts.json",
         );
         return data;
     } catch (err) {
-        console.error(err);
         throw err;
     }
 });
@@ -20,18 +19,14 @@ export const counterSlice = createSlice({
         navLinks: navLinkAPi,
         product: [],
         isLoading: false,
-        isError: null,
     },
     reducers: {
         getProducts: (state = initialState.product, action) => {
             state.product = action.payload;
         },
         changeLoading: (state) => {
-            state.isLoading = !state.isLoading;
-        },
-        changeError: (state, action) => {
-            state.isError = action.payload;
-            console.log(state.isError);
+            state.isLoading = true;
+            console.log(state.isLoading);
         },
     },
     extraReducers: (builder) => {
@@ -42,6 +37,6 @@ export const counterSlice = createSlice({
     },
 });
 
-export const { increment, getProducts, changeLoading, changeError } = counterSlice.actions;
+export const { getProducts, changeLoading } = counterSlice.actions;
 
 export default counterSlice.reducer;
