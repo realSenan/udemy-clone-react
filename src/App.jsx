@@ -3,7 +3,7 @@ import store from "./redux/store";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Header from "./layout/Header/Header";
 import Home from "./pages/Home/Home";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { changeLoading, myData } from "./redux/dataSlice";
 import { useURL } from "./hooks/useURL";
 import Loading from "./components/Loading";
@@ -16,7 +16,8 @@ function App() {
         useURL(dispatch);
     }, []);
 
-    const loading = store.getState().data.isLoading;
+    const [loading, setLoading] = useState(store.getState().data.isLoading);
+
     const data = store.getState().data.product;
 
     data && dispatch(changeLoading());

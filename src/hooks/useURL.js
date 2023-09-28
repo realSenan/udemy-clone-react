@@ -5,7 +5,7 @@ export const useURL = (dispatch) => {
     filter = filter.replace("%20", " ");
     filter = filter.slice(1);
 
-    dispatch(setButtonContext(filter));
-    dispatch(changeActive(filter));
+    dispatch(setButtonContext(filter || "python"));
+    dispatch(changeActive(filter || "python"));
     // console.log("DISPATCH", e);
 };
