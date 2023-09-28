@@ -1,15 +1,17 @@
-import { useDispatch } from "react-redux";
-import { changeActive } from "../../../../redux/buttonSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { useURL } from "../../../../hooks/useURL";
 
 const Button = ({ btn, sliderWrapper }) => {
-    const dispatch = useDispatch();
-
     const { id, text, status } = btn;
 
+    const dispatch = useDispatch();
+
     const clickHandler = (e) => {
-        dispatch(changeActive(e.currentTarget.id));
+        window.history.pushState(null, "", `?${e.currentTarget.id}`);
         sliderWrapper?.current.swiper.slideTo(0);
+        useURL(dispatch);
     };
+    // const dispatch = useDispatch()
 
     return (
         <button

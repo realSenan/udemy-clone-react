@@ -1,5 +1,4 @@
 import Button from "./Button";
-import useFetch from "/src/hooks/useFetch";
 import { useDispatch, useSelector } from "react-redux";
 import { nanoid } from "nanoid";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -10,6 +9,7 @@ import { IoIosArrowBack, IoIosArrowForward, IoMdVolumeHigh } from "react-icons/i
 import { myData } from "../../../../redux/dataSlice";
 import { useEffect, useRef, useState } from "react";
 import Cards from "../../../../components/Cards";
+import { useURL } from "../../../../hooks/useURL";
 
 const Product = () => {
     // useFetch(import.meta.env.VITE_DATA_API);
@@ -18,6 +18,7 @@ const Product = () => {
 
     useEffect(() => {
         dispatch(myData());
+        useURL(dispatch);
     }, []);
 
     const productDatas = useSelector((state) => state.data.product);
@@ -28,12 +29,8 @@ const Product = () => {
 
     const sliderWrapper = useRef();
 
-    const [styles, setStyles] = useState(false);
+    const buttonContext = useSelector(state => state.button.buttonContext)
 
-    useEffect(() => {
-        
-    }, []);
-    
     return (
         <section className="container  max-w-[1340px] mt-20 px-5">
             <section className="text-softBlack">
@@ -86,7 +83,7 @@ const Product = () => {
                     ref={sliderWrapper}
                     slidesPerView={"auto"}
                     spaceBetween={15}
-                    className="mt-10 !overflow-y-visible"
+                    className="mt-10 !overflow-y-visible "
                     navigation={{
                         nextEl: ".image-swiper-button-next",
                         prevEl: ".image-swiper-button-prev",
@@ -94,22 +91,19 @@ const Product = () => {
                     }}
                     modules={[Navigation]}
                 >
-                    {productDatas
-                        .filter((product) =>
-                            filterButtonForProduct.some(
-                                (btnConText) => product.category == btnConText.id,
-                            ),
-                        )
-                        .map((product) => (
+                    {productDatas.map((product) => {
+                        return (
                             <SwiperSlide
                                 key={nanoid()}
                                 id={product.id}
-                                className={`w-fit`}
-                                style={{ zIndex: -product.id - 1 }}
+                                className={`w-fit ${
+                                    product.category == buttonContext ? "block" : "hidden"
+                                }`}
                             >
                                 <Cards product={product} />
                             </SwiperSlide>
-                        ))}
+                        );
+                    })}
 
                     <button className="image-swiper-button-next absolute right-0 top-[20%] z-10 w-12 h-12 bg-[#393c3ee8] hover:bg-[#393c3ef3] rounded-full flex items-center justify-center cursor-pointer">
                         <IoIosArrowForward size={28} color="#fff" />

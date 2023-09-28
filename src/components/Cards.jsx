@@ -49,7 +49,14 @@ const Cards = ({ product }) => {
                     )}
                 </section>
             </div>
-            {ToolTip && <ToolTips product={product} left={left} />}
+            <div
+                className={`${
+                    ToolTip ? "block" : "hidden"
+                } absolute -top-28 z-[9999999999999] px-4`}
+                style={{ left: left }}
+            >
+                <ToolTips product={product} />
+            </div>
         </div>
     );
 };

@@ -61,14 +61,21 @@ export const counterSlice = createSlice({
                     "Want to start drawing for fun or take your craft to the next level? Explore our online drawing classes and learn pencil drawing, figure drawing, cartoon drawing, character drawing for cartoons and anime, illustration, sketching, shading and more. Take an overview course on the fundamentals of drawing or zero in on an area you’d like to improve with a specialized course. We’ve got tons of options to get — and keep — you going.",
             },
         ],
+        buttonContext: "python",
     },
     reducers: {
         changeActive: (state, action) => {
-            state.value = state.value.map((btn) => ({ ...btn, status: btn.id == action.payload ? true : false }));
+            state.value = state.value.map((btn) => ({
+                ...btn,
+                status: btn.id == action.payload ? true : false,
+            }));
+        },
+        setButtonContext: (state, action) => {
+            state.buttonContext = action.payload;
         },
     },
 });
 
-export const { changeActive } = counterSlice.actions;
+export const { changeActive ,setButtonContext} = counterSlice.actions;
 
 export default counterSlice.reducer;
