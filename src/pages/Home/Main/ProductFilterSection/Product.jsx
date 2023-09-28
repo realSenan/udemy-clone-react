@@ -8,7 +8,7 @@ import "swiper/css/navigation";
 import "swiper/css";
 import { IoIosArrowBack, IoIosArrowForward, IoMdVolumeHigh } from "react-icons/io";
 import { myData } from "../../../../redux/dataSlice";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Cards from "../../../../components/Cards";
 
 const Product = () => {
@@ -28,6 +28,12 @@ const Product = () => {
 
     const sliderWrapper = useRef();
 
+    const [styles, setStyles] = useState(false);
+
+    useEffect(() => {
+        
+    }, []);
+    
     return (
         <section className="container  max-w-[1340px] mt-20 px-5">
             <section className="text-softBlack">

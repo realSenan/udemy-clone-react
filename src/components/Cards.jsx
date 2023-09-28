@@ -14,7 +14,7 @@ const Cards = ({ product }) => {
 
         console.log(offset - item);
 
-        if (offset - item < 475) {
+        if (offset - item < 515) {
             setLeft("-23.75rem");
         } else {
             setLeft("13.75rem");
