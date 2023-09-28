@@ -21,8 +21,12 @@ const Cards = ({ product }) => {
         }
     };
 
+    const leaveMouseHandler = (e) => {
+        setToolTip(false);
+    };
+
     return (
-        <div onMouseEnter={enterMouseHandler} onMouseLeave={(e) => setToolTip(false)}>
+        <div onMouseEnter={enterMouseHandler} onMouseLeave={leaveMouseHandler}>
             <div className={`!w-[14.375rem] h-[17.5rem]  bg-white `}>
                 <picture className="block h-[130px] border border-border bg-liColor">
                     <img
