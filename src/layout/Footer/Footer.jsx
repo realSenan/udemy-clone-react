@@ -31,7 +31,7 @@ const Footer = () => {
                     </div>
 
                     <div
-                        className="px-9 py-2 mt-5 md:mt-0  gap-1 items-center justify-start border inline-flex border-white"
+                        className="px-9 py-2 mt-5 md:mt-0 cursor-pointer  gap-1 items-center justify-start border inline-flex border-white"
                         id="langugage"
                     >
                         <BsGlobe /> <span>English</span>
