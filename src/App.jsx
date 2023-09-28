@@ -1,10 +1,10 @@
-import { Provider, useSelector } from "react-redux";
+import { Provider } from "react-redux";
 import store from "./redux/store";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Header from "./layout/Header/Header";
 import Home from "./pages/Home/Home";
 import { useEffect, useState } from "react";
-import { changeLoading, myData } from "./redux/dataSlice";
+import { myData } from "./redux/dataSlice";
 import { useURL } from "./hooks/useURL";
 import Loading from "./components/Loading";
 
@@ -16,11 +16,11 @@ function App() {
         useURL(dispatch);
     }, []);
 
-    const [loading, setLoading] = useState(store.getState().data.isLoading);
+    const [loading, setLoading] = useState(false);
 
-    const data = store.getState().data.product;
-
-    data && dispatch(changeLoading());
+    setTimeout(() => {
+        setLoading(true);
+    }, 300);
 
     return loading ? (
         <Provider store={store}>
