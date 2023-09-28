@@ -19,9 +19,7 @@ function App() {
     const loading = store.getState().data.isLoading;
     const data = store.getState().data.product;
 
-    setTimeout(() => {
-        dispatch(changeLoading());
-    }, 400);
+    data && dispatch(changeLoading());
 
     return loading ? (
         <Provider store={store}>
