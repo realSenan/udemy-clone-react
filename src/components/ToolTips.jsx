@@ -1,6 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
 import { FiHeart } from "react-icons/fi";
+import { useDispatch, useSelector } from "react-redux";
+import { addProduct } from "../redux/shopSlice";
+import { Link } from "react-router-dom";
+import { CgSpinnerTwo } from "react-icons/cg";
+
 const ToolTips = ({ product }) => {
+    const dispatch = useDispatch();
+
+    const [clicked, setClicked] = useState(false);
+    const shopItem = useSelector((state) => state.shop.shopData);
+
+    const addCart = (e) => {
+        dispatch(addProduct(product));
+
+        shopItem.some((shopProduct) => shopProduct.id == product.id) && setClicked(true);
+    };
+
     return (
         <div className={` w-[22.5rem] min-h-[28.5rem] shadow-dropDownBox p-4 bg-white PopDown `}>
             <h2 className="text-xl font-semibold">{product["headTexts:"]}</h2>
@@ -33,9 +49,18 @@ const ToolTips = ({ product }) => {
             </h2>
 
             <div className="flex items-center gap-5 mt-4">
-                <button className="py-3 bg-[#a435f0] w-64 text-white hover:bg-opacity-90 transition-all duration-300">
-                    Add To Cart
-                </button>
+                {
+                    <button
+                        className="py-3 bg-[#a435f0] w-64 text-white hover:bg-opacity-90 transition-all duration-300 "
+                        onClick={addCart}
+                    >
+                        <div className="animate-spin w-min mx-auto">
+                            <CgSpinnerTwo />
+                        </div>
+                        {clicked ? "Go to cart" : "Add To Cart"}
+                    </button>
+                }
+
                 <div className="border rounded-full !w-12 h-12 flex items-center justify-center bg-white hover:bg-[#e3e7ea] duration-300 transition-all cursor-pointer">
                     <FiHeart size={24} />
                 </div>
