@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import ShopCartItem from "../../../../components/ShopCartItem";
 import { useSelector } from "react-redux";
+import { nanoid } from "nanoid";
 
 const ShopCart = ({ GiShoppingCart, className }) => {
     const [showButton, setshowButton] = useState(false);
@@ -46,7 +47,7 @@ const ShopCart = ({ GiShoppingCart, className }) => {
                         {shopItems.length != 0 && (
                             <div className="flex flex-col gap-5 max-h-[30.625rem] overflow-y-auto ps-4">
                                 {shopItems.map((product) => (
-                                    <ShopCartItem product={product} />
+                                    <ShopCartItem key={nanoid()} product={product} />
                                 ))}
                             </div>
                         )}
