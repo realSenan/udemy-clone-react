@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import FooterCom from "../../components/FooterComp";
 import { BsGlobe } from "react-icons/bs";
 
@@ -39,10 +40,12 @@ const Footer = () => {
                 </div>
 
                 <div className="md:flex justify-between items-center mt-14">
-                    <img
-                        src="https://www.udemy.com/staticx/udemy/images/v7/logo-udemy-inverted.svg"
-                        className="w-24"
-                    />
+                    <Link to={"/"}>
+                        <img
+                            src="https://www.udemy.com/staticx/udemy/images/v7/logo-udemy-inverted.svg"
+                            className="w-24"
+                        />
+                    </Link>
                     <div className="text-[.75rem] mt-2 md:mt-0">© 2023 Udemy, Inc.</div>
                 </div>
             </div>

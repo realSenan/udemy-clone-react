@@ -22,7 +22,7 @@ export default {
         colors: {
             white: "#fff",
             disableColor: "#6a6f73",
-            "gray-secondary": "#f5f5f5",
+            "gray-secondary": "#f7f9fa",
             mainTextClr: "#1c1d1f",
             activeClr: "#6b3fd6",
             border: "#d1d7dc",
