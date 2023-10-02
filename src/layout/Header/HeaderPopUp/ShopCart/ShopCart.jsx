@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import ShopCartItem from "../../../../components/ShopCartItem";
 import { useSelector } from "react-redux";
 import { nanoid } from "nanoid";
+import { Link } from "react-router-dom";
 
 const ShopCart = ({ GiShoppingCart, className }) => {
     const [showButton, setshowButton] = useState(false);
@@ -23,7 +24,7 @@ const ShopCart = ({ GiShoppingCart, className }) => {
             )}
 
             {showButton != 0 && (
-                <div className={`absolute right-0 pt-7 PopDown `}>
+                <div className={`absolute right-0 pt-7 PopDown cursor-default`}>
                     <div
                         className={`bg-white w-72 min-h-28 ${
                             shopItems.length ? "px-0 pt-4 pb-0" : " p-4"
@@ -34,13 +35,12 @@ const ShopCart = ({ GiShoppingCart, className }) => {
                                 <h3 className="text-mainTextClr text-[16px] text-center  ">
                                     Your cart is empty.
                                 </h3>
-                                <a
-                                    href="#"
+                                <Link
                                     className="flex items-center justify-center
                             text-activeClr font-extrabold mt-5 "
                                 >
                                     Keep Shoopping
-                                </a>
+                                </Link>
                             </>
                         )}
 
@@ -58,7 +58,7 @@ const ShopCart = ({ GiShoppingCart, className }) => {
                                     Total: $
                                     {shopItems.reduce((acc, current) => acc + +current.price, 0)}
                                 </div>
-                                <button className="py-3.5 w-full bg-liColor text-white mt-2">
+                                <button className="py-3.5 w-full bg-liColor hover:opacity-95 text-white mt-2">
                                     Go to cart
                                 </button>
                             </div>

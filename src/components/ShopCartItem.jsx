@@ -1,7 +1,7 @@
 import React from "react";
 const ShopCartItem = ({ product }) => {
     return (
-        <div className="flex items-start gap-2">
+        <div className="flex items-start gap-2 cursor-pointer">
             <img src={product.img} className="w-16 h-16 object-cover" />
             <div className="">
                 <div className="line-clamp-2 font-bold text-liColor leading-4">
