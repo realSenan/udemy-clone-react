@@ -1,8 +1,4 @@
 import React from "react";
-import { FcGoogle } from "react-icons/fc";
-import { FaFacebook } from "react-icons/fa";
-import { AiFillApple } from "react-icons/ai";
-import { Link } from "react-router-dom";
 
 const Login = () => {
     return (
