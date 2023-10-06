@@ -1,8 +1,12 @@
 import { initializeApp } from "firebase/app";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+import {
+    getAuth,
+    createUserWithEmailAndPassword,
+    signInWithEmailAndPassword,
+    signOut,
+    updateProfile,
+} from "firebase/auth";
 
-// Your web app's Firebase configuration
 const firebaseConfig = {
     apiKey: "AIzaSyArNPpbkAZLptFlbPr8CbwnPC8M3voEBWg",
     authDomain: "udmey-388f9.firebaseapp.com",
@@ -13,5 +17,24 @@ const firebaseConfig = {
     appId: "1:222108021498:web:69d3cf56a2c6a5f7118f43",
 };
 
-// Initialize Firebase
 const app = initializeApp(firebaseConfig);
+const auth = getAuth();
+
+export const register = async (email, password, display_name) => {
+    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+
+    await updateProfile(userCredential.user, { displayName: display_name });
+    return userCredential.user;
+};
+
+export const loginFireBase = async (email, password, display_name) => {
+    const userCredential = await signInWithEmailAndPassword(auth, email, password);
+
+    await updateProfile(userCredential.user, { displayName: display_name });
+    return userCredential.user;
+};
+
+export const LogOut = async () => {
+    await signOut(auth);
+    return true;
+};
