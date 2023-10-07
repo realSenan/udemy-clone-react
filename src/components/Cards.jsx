@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import defaultPng from "/src/assets/img/loading.jpg";
 import Star from "../pages/Home/Main/ProductFilterSection/Star";
 import ToolTips from "./ToolTips";
+import { Link } from "react-router-dom";
 
 const Cards = ({ product }) => {
     const [ToolTip, setToolTip] = useState(false);
@@ -27,7 +28,10 @@ const Cards = ({ product }) => {
 
     return (
         <div onMouseEnter={enterMouseHandler} onMouseLeave={leaveMouseHandler}>
-            <div className={`!w-[14.375rem] h-[17.5rem]  bg-white `}>
+            <Link
+                to={`course?id=${product.id}`}
+                className={`!w-[14.375rem] h-[17.5rem]  bg-white block`}
+            >
                 <picture className="block h-[130px] border border-border bg-liColor">
                     <img
                         className={`w-full ${ToolTip && "opacity-95"} transition-all duration-200`}
@@ -41,6 +45,7 @@ const Cards = ({ product }) => {
                     </h3>
                     <h4 className="text-sm mt-1 font-medium text-softBlack">{product["user:"]}</h4>
                     <Star product={product} />
+                    
                     <h3 className="font-extrabold text-md text-softBlack mt-1">${product.price}</h3>
                     {product.bestseller && (
                         <div className="text-[#3c3b0a] bg-[#e6e592] w-min text-[12px] px-2 mt-2 ">
@@ -48,7 +53,7 @@ const Cards = ({ product }) => {
                         </div>
                     )}
                 </section>
-            </div>
+            </Link>
             <div
                 className={`${
                     ToolTip ? "block" : "hidden"

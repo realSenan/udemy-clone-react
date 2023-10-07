@@ -17,7 +17,7 @@ function Category({ linkData, activeMbMenu, setActiveMbMenu }) {
                 <div
                     className={`${
                         status ? "block" : "hidden"
-                    } absolute top-[50px] left-0  cursor-default flex  shadow-dropDownBox tracking-[-.2px] PopDown`}
+                    } absolute top-[50px] left-0  cursor-default flex  shadow-dropDownBox tracking-[-.2px] PopDown `}
                 >
                     <div className="absolute  h-14 w-1/3 -top-14"></div>
                     {/* First List */}

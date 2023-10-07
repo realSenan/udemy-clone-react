@@ -11,6 +11,8 @@ import Footer from "./layout/Footer/Footer";
 import Login from "./pages/Login/LoginPage";
 import Sign from "./pages/Sign/SignPage";
 import ForgetPassw from "./pages/ForgotPass/ForgotPassw";
+import Course from "./pages/Course/Course";
+import ShopCart from "./pages/ShopCart/ShopCart";
 
 function App() {
     const [loading, setLoading] = useState(false);
@@ -34,6 +36,10 @@ function App() {
                     <Route path="login" element={<Login />} />
                     <Route path="sign" element={<Sign />} />
                     <Route path="forgot-password" element={<ForgetPassw />} />
+                    <Route path="course" element={<Course />}>
+                        {/* Video Play section */}
+                    </Route>
+                    <Route path="cart-shop" element={<ShopCart />} />
                 </Routes>
                 <Footer />
             </Router>

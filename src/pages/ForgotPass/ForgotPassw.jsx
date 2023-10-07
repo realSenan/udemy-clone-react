@@ -12,11 +12,10 @@ const ForgetPassw = () => {
     const submitHandle = (e) => {
         e.preventDefault();
         resetPassw(email);
-        console.log(email);
     };
 
     return (
-        <div className="h-[37.7rem] flex justify-center flex-col">
+        <div className="h-[37.7rem] flex justify-center flex-col px-3">
             <div className=" h-full pt-20 max-w-[23.75rem] mx-auto">
                 <form action="" className="" onSubmit={submitHandle}>
                     <h3 className="text-liColor font-bold mb-2">Forgot Password</h3>

@@ -13,20 +13,22 @@ const ShopCart = ({ GiShoppingCart, className }) => {
         <div
             onMouseEnter={() => setshowButton(true)}
             onMouseLeave={() => setshowButton(false)}
-            className={`text-mainTextClr hover:text-activeClr cursor-pointer relative ${className}`}
+            className={`text-mainTextClr hover:text-activeClr cursor-pointer relative ${className} ps-1`}
         >
-            <GiShoppingCart size={27} />
+            <Link to={"/cart-shop"}>
+                <GiShoppingCart size={27} />
 
-            {shopItems.length != 0 && (
-                <div className="w-6 h-5 rounded-full bg-activeClr absolute -top-2 -right-2 flex items-center justify-center text-white text-sm">
-                    {shopItems.length}
-                </div>
-            )}
+                {shopItems.length != 0 && (
+                    <div className="w-6 h-5 rounded-full bg-activeClr absolute -top-2 -right-2 flex items-center justify-center text-white text-sm">
+                        {shopItems.length}
+                    </div>
+                )}
+            </Link>
 
             {showButton != 0 && (
                 <div className={`absolute right-0 pt-7 PopDown cursor-default`}>
                     <div
-                        className={`bg-white w-72 min-h-28 ${
+                        className={`bg-white w-[18.75rem] min-h-28 ${
                             shopItems.length ? "px-0 pt-4 pb-0" : " p-4"
                         }  flex flex-col  shadow-md`}
                     >
@@ -58,9 +60,12 @@ const ShopCart = ({ GiShoppingCart, className }) => {
                                     Total: $
                                     {shopItems.reduce((acc, current) => acc + +current.price, 0)}
                                 </div>
-                                <button className="py-3.5 w-full bg-liColor hover:opacity-95 text-white mt-2">
+                                <Link
+                                    to={`cart-shop`}
+                                    className=" flex justify-center items-center py-3.5 w-full bg-liColor hover:opacity-95 text-white mt-2"
+                                >
                                     Go to cart
-                                </button>
+                                </Link>
                             </div>
                         )}
                     </div>

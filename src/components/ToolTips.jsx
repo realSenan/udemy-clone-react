@@ -59,7 +59,7 @@ const ToolTips = ({ product }) => {
             <div className="flex items-center gap-5 mt-4  ">
                 {/* Clicked after */}
                 <Link
-                    to={"sdogjdnjg"}
+                    to={`cart-shop`}
                     className={`${
                         cartLastLoad ? "flex" : "hidden"
                     } py-3 bg-[#a435f0] w-64 h-12  items-center justify-center text-white hover:bg-opacity-90 transition-all duration-300 `}
