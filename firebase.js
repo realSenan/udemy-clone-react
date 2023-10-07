@@ -5,6 +5,10 @@ import {
     signInWithEmailAndPassword,
     signOut,
     updateProfile,
+    GoogleAuthProvider,
+    signInWithPopup,
+    FacebookAuthProvider,
+    sendPasswordResetEmail,
 } from "firebase/auth";
 
 const firebaseConfig = {
@@ -18,7 +22,7 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
-const auth = getAuth();
+const auth = getAuth(app);
 
 export const register = async (email, password, display_name) => {
     const userCredential = await createUserWithEmailAndPassword(auth, email, password);
@@ -37,4 +41,21 @@ export const loginFireBase = async (email, password, display_name) => {
 export const LogOut = async () => {
     await signOut(auth);
     return true;
+};
+
+export const GoogleSign = async () => {
+    const Googleprovider = new GoogleAuthProvider();
+    signInWithPopup(auth, Googleprovider).then((data) => console.log(data.user));
+};
+export const FaceSign = async () => {
+    const FaceBookprovider = new FacebookAuthProvider();
+    signInWithPopup(auth, FaceBookprovider).then((data) => console.log(data));
+};
+
+export const resetPassw = async (email) => {
+    try {
+        await sendPasswordResetEmail(auth, email).then((data) => console.log(data));
+    } catch (error) {
+        throw error;
+    }
 };

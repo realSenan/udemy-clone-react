@@ -10,6 +10,7 @@ import Loading from "./components/Loading";
 import Footer from "./layout/Footer/Footer";
 import Login from "./pages/Login/LoginPage";
 import Sign from "./pages/Sign/SignPage";
+import ForgetPassw from "./pages/ForgotPass/ForgotPassw";
 
 function App() {
     const [loading, setLoading] = useState(false);
@@ -32,6 +33,7 @@ function App() {
                     <Route path="/" element={<Home />} />
                     <Route path="login" element={<Login />} />
                     <Route path="sign" element={<Sign />} />
+                    <Route path="forgot-password" element={<ForgetPassw />} />
                 </Routes>
                 <Footer />
             </Router>

@@ -3,10 +3,6 @@ import { register } from "../../../firebase";
 import { Link } from "react-router-dom";
 
 const Login = () => {
-    // const [Name, setName] = useState();
-    // const [email, setEmail] = useState();
-    // const [password, setPassword] = useState();
-
     const [FormRegister, setFormRegister] = useState({
         Name: "",
         Email: "",
@@ -28,7 +24,7 @@ const Login = () => {
 
     return (
         <div className="flex items-center justify-center text-liColor">
-            <div className="w-full max-w-[25rem] h-[38.5rem] py-10 px-4">
+            <div className="w-full max-w-[25rem] h-[37.7rem] py-10 px-4">
                 <h3 className="text-liColor font-bold mb-4">Sign up and start learning</h3>
 
                 <form className="" onSubmit={submitHandle}>
@@ -86,7 +82,7 @@ const Login = () => {
                 </div>
                 <div className="text-sm mt-3 text-center">
                     Already have an account?{" "}
-                    <Link to={"login"} className=" border-b ">
+                    <Link to={"/login"} className=" border-b ">
                         Log in
                     </Link>
                 </div>
