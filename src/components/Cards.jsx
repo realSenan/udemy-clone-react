@@ -45,7 +45,7 @@ const Cards = ({ product }) => {
                     </h3>
                     <h4 className="text-sm mt-1 font-medium text-softBlack">{product["user:"]}</h4>
                     <Star product={product} />
-                    
+
                     <h3 className="font-extrabold text-md text-softBlack mt-1">${product.price}</h3>
                     {product.bestseller && (
                         <div className="text-[#3c3b0a] bg-[#e6e592] w-min text-[12px] px-2 mt-2 ">
@@ -60,7 +60,7 @@ const Cards = ({ product }) => {
                 } absolute -top-28 z-[9999999999999] px-4`}
                 style={{ left: left }}
             >
-                <ToolTips product={product} />
+                <ToolTips product={product} tp={ToolTip} />
             </div>
         </div>
     );

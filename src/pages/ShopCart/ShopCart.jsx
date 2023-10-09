@@ -2,6 +2,7 @@ import { useSelector } from "react-redux";
 import Photo from "/src/assets/img/TopCategory/empty-shopping-cart-v2.jpg";
 import { Link } from "react-router-dom";
 import PageShopItem from "../../components/PageShopItem";
+import { nanoid } from "nanoid";
 
 const ShopCart = () => {
     const shopCart = useSelector((state) => state.shop.shopData);
@@ -18,7 +19,7 @@ const ShopCart = () => {
                 <div className="">
                     <div className="">
                         {shopCart.map((product) => (
-                            <PageShopItem product={product} />
+                            <PageShopItem key={nanoid()} product={product} />
                         ))}
                     </div>
                 </div>

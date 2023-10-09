@@ -1,26 +1,44 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FiHeart } from "react-icons/fi";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addProduct } from "../redux/shopSlice";
 import { CgSpinnerTwo } from "react-icons/cg";
 import { Link } from "react-router-dom";
+import { useScroll } from "../hooks/useScroll";
 
-const ToolTips = ({ product }) => {
+const ToolTips = ({ product ,tp}) => {
     const dispatch = useDispatch();
+    const shopData = useSelector((state) => state.shop.shopData);
 
     const [clicked, setClicked] = useState(false);
+    //  Cart loading
     const [cartLoading, setCartLoading] = useState(false);
+    // Change block with loading
     const [cartLastLoad, setCartLastLoad] = useState(false);
 
-    const addCart = (e) => {
-        setCartLoading(true);
-        setClicked(true);
-        dispatch(addProduct(product));
+    const isValid = shopData.some((productD) => productD.id == product.id);
 
-        setTimeout(() => {
-            setCartLastLoad(true);
-            setCartLoading(false);
-        }, 2000);
+    useEffect(() => {
+        if (isValid) {
+            setClicked(true);
+            setTimeout(() => {
+                setCartLastLoad(true);
+                setCartLoading(false);
+            }, 2000);
+        }
+    }, [clicked,tp]);
+
+    const addCart = (e) => {
+        if (!isValid) {
+            setClicked(true);
+            setCartLoading(true);
+            dispatch(addProduct(product));
+
+            setTimeout(() => {
+                setCartLastLoad(true);
+                setCartLoading(false);
+            }, 2000);
+        }
     };
 
     return (
@@ -59,6 +77,7 @@ const ToolTips = ({ product }) => {
             <div className="flex items-center gap-5 mt-4  ">
                 {/* Clicked after */}
                 <Link
+                    onClick={useScroll}
                     to={`cart-shop`}
                     className={`${
                         cartLastLoad ? "flex" : "hidden"

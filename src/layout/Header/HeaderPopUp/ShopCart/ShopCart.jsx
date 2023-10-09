@@ -47,7 +47,7 @@ const ShopCart = ({ GiShoppingCart, className }) => {
                         )}
 
                         {shopItems.length != 0 && (
-                            <div className="flex flex-col gap-5 max-h-[30.625rem] overflow-y-auto ps-4">
+                            <div className="flex flex-col gap-5 max-h-[30.625rem] overflow-y-auto ps-4 pb-3">
                                 {shopItems.map((product) => (
                                     <ShopCartItem key={nanoid()} product={product} />
                                 ))}
@@ -55,7 +55,11 @@ const ShopCart = ({ GiShoppingCart, className }) => {
                         )}
 
                         {shopItems.length != 0 && (
-                            <div className={`border-t border-border py-3 mt-4 px-4`}>
+                            <div
+                                className={`border-t border-border py-3 mt-4 px-4 ${
+                                    window.location.pathname == "/cart-shop" && "!hidden"
+                                }`}
+                            >
                                 <div className="font-semibold text-liColor text-xl">
                                     Total: $
                                     {shopItems.reduce((acc, current) => acc + +current.price, 0)}
