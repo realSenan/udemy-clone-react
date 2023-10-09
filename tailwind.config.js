@@ -35,6 +35,7 @@ export default {
             boxShadow: {
                 custom: "  0px 9px 15px -3px rgba(0,0,0,0.1)",
                 dropDownBox: "0 0 0 1px #d1d7dc,0 2px 4px #00000014,0 4px 12px #00000014",
+                dropDown2: "box-shadow: rgba(0, 0, 0, 0.04) 0px 3px 5px",
             },
         },
     },
