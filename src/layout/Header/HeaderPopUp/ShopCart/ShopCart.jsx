@@ -62,7 +62,9 @@ const ShopCart = ({ GiShoppingCart, className }) => {
                             >
                                 <div className="font-semibold text-liColor text-xl">
                                     Total: $
-                                    {shopItems.reduce((acc, current) => acc + +current.price, 0)}
+                                    {shopItems
+                                        .reduce((acc, current) => acc + +current.price, 0)
+                                        .toFixed(2)}
                                 </div>
                                 <Link
                                     to={`cart-shop`}

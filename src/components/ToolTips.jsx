@@ -6,7 +6,7 @@ import { CgSpinnerTwo } from "react-icons/cg";
 import { Link } from "react-router-dom";
 import { useScroll } from "../hooks/useScroll";
 
-const ToolTips = ({ product ,tp}) => {
+const ToolTips = ({ product, tp }) => {
     const dispatch = useDispatch();
     const shopData = useSelector((state) => state.shop.shopData);
 
@@ -26,7 +26,7 @@ const ToolTips = ({ product ,tp}) => {
                 setCartLoading(false);
             }, 2000);
         }
-    }, [clicked,tp]);
+    }, [clicked, tp]);
 
     const addCart = (e) => {
         if (!isValid) {

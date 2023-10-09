@@ -7,13 +7,13 @@ import { RandomLevel, RandomNumber } from "../hooks/useRandom";
 
 const PageShopItem = ({ product }) => {
     return (
-        <div className="border-t border-border py-5 flex items-start gap-5 justify-between">
-            <div className="flex items-start gap-5 w-[90%]">
-                <img src={product.img} className="w-32 h-16" />
+        <div className="border-t border-border py-5 sm:flex items-start gap-5  justify-between">
+            <div className="flex items-start sm:gap-5 gap-2 w-[90%]">
+                <img src={product.img} className="w-12 h-12 object-cover sm:w-32 sm:h-16" />
 
                 <div className="lg:flex items-start justify-between w-full">
                     <div>
-                        <h2 className="text-liColor font-bold line-clamp-2">
+                        <h2 className="text-liColor font-bold line-clamp-2 ">
                             {product["headTexts:"]}
                         </h2>
                         <h3 className="text-[.8125rem]">{product["user:"]}</h3>
@@ -35,10 +35,10 @@ const PageShopItem = ({ product }) => {
                             </ul>
                         </div>
                     </div>
-                    <div className="text-sm text-[#5624d0] lg:text-right lg:block flex items-start gap-5 lg:mt-0 mt-2">
-                        <div className="mb-2.5">Remove</div>
-                        <div className="mb-2.5">Save For Later</div>
-                        <div className="mb-2.5">Move To Washlist</div>
+                    <div className="text-sm text-[#5624d0] lg:text-right lg:block flex items-start gap-2 sm:gap-5 lg:mt-0 mt-2">
+                        <div className="mb-2.5 min-w-max">Remove</div>
+                        <div className="mb-2.5 min-w-max">Save For Later</div>
+                        <div className="mb-2.5 min-w-max">Move To Washlist</div>
                     </div>
                 </div>
             </div>
@@ -46,7 +46,7 @@ const PageShopItem = ({ product }) => {
             {/* Buttons */}
 
             {/* Product Price Detalist */}
-            <div className="text-[#a435f0] text-lg flex items-center font-bold gap-1">
+            <div className="text-[#a435f0] text-lg flex items-center font-bold gap-1 bg-white sm:ms-0 ms-14">
                 ${product.price}
                 <IoTicket className="rotate-[270deg]" />
             </div>

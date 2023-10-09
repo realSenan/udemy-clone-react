@@ -7,7 +7,7 @@ const Footer = () => {
         <footer className="py-6 px-6 bg-[#1c1d1f] text-white min-[22.5rem]">
             <div className="container max-w-[1340px]   ">
                 <div className="md:flex justify-between items-baseline gap-4">
-                    <div className=" grid  gap-5 md:grid-cols-3 w-[48rem]">
+                    <div className=" grid  gap-5 md:grid-cols-3 w-full max-w-[48rem]">
                         <FooterCom
                             text1={"Udemy Buisness"}
                             text2={"Teach on udemy"}
