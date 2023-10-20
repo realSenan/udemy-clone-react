@@ -43,7 +43,7 @@ const ToolTips = ({ product, tp }) => {
 
     return (
         <div className={`w-[22.5rem] min-h-[29.75rem] shadow-dropDownBox p-4 bg-white PopDown`}>
-            <>
+            <div>
                 <h2 className="text-xl font-semibold">{product["headTexts:"]}</h2>
                 <h2 className="text-[#5d8d85] text-sm mt-2">
                     Category : <span className="font-semibold capitalize">{product.category}</span>
@@ -72,13 +72,13 @@ const ToolTips = ({ product, tp }) => {
                 <h2 className="mt-4">
                     <span className="font-semibold">Price :</span> <span>${product.price}</span>
                 </h2>
-            </>
+            </div>
 
             <div className="flex items-center gap-5 mt-4  ">
                 {/* Clicked after */}
                 <Link
                     onClick={useScroll}
-                    to={`cart-shop`}
+                    to={`/cart-shop`}
                     className={`${
                         cartLastLoad ? "flex" : "hidden"
                     } py-3 bg-[#a435f0] w-64 h-12  items-center justify-center text-white hover:bg-opacity-90 transition-all duration-300 `}

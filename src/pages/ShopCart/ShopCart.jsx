@@ -1,15 +1,41 @@
 import { useSelector } from "react-redux";
+import PageShopItem from "../../components/PageShopItem";
 import Photo from "/src/assets/img/TopCategory/empty-shopping-cart-v2.jpg";
 import { Link } from "react-router-dom";
-import PageShopItem from "../../components/PageShopItem";
 import { nanoid } from "nanoid";
 import { MdClose } from "react-icons/md";
 import { RandomNumber } from "../../hooks/useRandom";
+import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
+
+import { SwiperSlide, Swiper } from "swiper/react";
+import { Navigation } from "swiper/modules";
+import Cards from "../../components/Cards";
 
 const ShopCart = () => {
     const shopCart = useSelector((state) => state.shop.shopData);
 
+    const MainProduct = useSelector((state) => state.data.product);
+
     const totalPrice = shopCart.reduce((a, b) => a + +b.price, 0).toFixed(2);
+
+    const ShowFilteredProduct = (e) => {
+        const FilteredProduct = MainProduct.map((mProduct) => {
+            let matchedProduct = shopCart.some((fProduct) => {
+                return mProduct.id !== fProduct.id && mProduct["user:"] === fProduct["user:"];
+            });
+
+            return (
+                <SwiperSlide
+                    className={`w-fit ${matchedProduct ? "block" : "hidden"}`}
+                    key={nanoid()}
+                >
+                    <Cards product={mProduct} />
+                </SwiperSlide>
+            );
+        });
+
+        return FilteredProduct;
+    };
 
     return (
         <div className="max-w-[77.75rem] w-full mx-auto py-10 px-3">
@@ -79,8 +105,51 @@ const ShopCart = () => {
                     </div>
                 </div>
             </div>
+
+            {/* Slider */}
+
+            <h3 className="font-bold text-liColor text-2xl">You might also like</h3>
+
+            <Swiper
+                navigation={{
+                    nextEl: ".image-swiper-button-next",
+                    prevEl: ".image-swiper-button-prev",
+                    disabledClass: "swiper-button-disabled",
+                }}
+                spaceBetween={15}
+                modules={[Navigation]}
+                slidesPerView={"auto"}
+                className=" mySwiper my-5 !mx-0 overflow-y-visible"
+            >
+                {ShowFilteredProduct()}
+                <button className="image-swiper-button-next absolute right-0 top-[20%] z-10 w-12 h-12 bg-[#393c3ee8] hover:bg-[#393c3ef3] rounded-full flex items-center justify-center cursor-pointer">
+                    <IoIosArrowForward size={28} color="#fff" />
+                </button>
+                <button className="image-swiper-button-prev absolute left-0 top-[20%] z-10 w-12 h-12 bg-[#393c3ee8] hover:bg-[#393c3ef3] rounded-full flex items-center justify-center cursor-pointer">
+                    <IoIosArrowBack size={28} color="#fff" />
+                </button>
+            </Swiper>
         </div>
     );
 };
 
 export default ShopCart;
+// {
+/* <SwiperSlide className={`w-fit`} key={nanoid()}>
+<Cards product={item} />
+</SwiperSlide> */
+// }
+
+// {
+//     MainProduct.map((mProduct) => {
+//         const matchedProduct = shopCart.some((fProduct) => {
+//             return fProduct.id != mProduct.id && mProduct["user:"] == fProduct["user:"];
+//         });
+
+//         return (
+//             <SwiperSlide className={`w-fit ${matchedProduct ? "block" : "!hidden"}`} key={nanoid()}>
+//                 <Cards product={mProduct} />
+//             </SwiperSlide>
+//         );
+//     });
+// }

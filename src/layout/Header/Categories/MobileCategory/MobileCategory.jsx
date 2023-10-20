@@ -69,7 +69,7 @@ const MobileCategory = ({ linkData, BiChevronRight, activeMbMenu, setActiveMbMen
                             <Link
                                 onClick={(e) => setActiveMbMenu(false)}
                                 to={"login"}
-                                className="px-4 py-2"
+                                className="px-4 py-2 block"
                             >
                                 Log in
                             </Link>
@@ -78,7 +78,7 @@ const MobileCategory = ({ linkData, BiChevronRight, activeMbMenu, setActiveMbMen
                             <Link
                                 to={"sign"}
                                 onClick={(e) => setActiveMbMenu(false)}
-                                className="px-4 py-2"
+                                className="px-4 py-2 block"
                             >
                                 Sign up
                             </Link>

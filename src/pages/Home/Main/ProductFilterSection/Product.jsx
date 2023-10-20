@@ -1,5 +1,5 @@
 import Button from "./Button";
-import { useDispatch, useSelector } from "react-redux";
+import {  useSelector } from "react-redux";
 import { nanoid } from "nanoid";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
@@ -10,9 +10,6 @@ import Cards from "../../../../components/Cards";
 import { useRef } from "react";
 
 const Product = () => {
-
-    const dispatch = useDispatch();
-
 
 
     const productDatas = useSelector((state) => state.data.product);

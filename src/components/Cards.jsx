@@ -27,7 +27,7 @@ const Cards = ({ product }) => {
     };
 
     return (
-        <div onMouseEnter={enterMouseHandler} onMouseLeave={leaveMouseHandler}>
+        <div onMouseEnter={enterMouseHandler} onMouseLeave={leaveMouseHandler} id={product.id}>
             <Link
                 to={`course?id=${product.id}`}
                 className={`!w-[14.375rem] h-[17.5rem]  bg-white block`}
