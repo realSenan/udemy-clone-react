@@ -10,6 +10,7 @@ import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import { SwiperSlide, Swiper } from "swiper/react";
 import { Navigation } from "swiper/modules";
 import Cards from "../../components/Cards";
+import { useEffect, useState } from "react";
 
 const ShopCart = () => {
     const shopCart = useSelector((state) => state.shop.shopData);
@@ -18,22 +19,22 @@ const ShopCart = () => {
 
     const totalPrice = shopCart.reduce((a, b) => a + +b.price, 0).toFixed(2);
 
-    const ShowFilteredProduct = (e) => {
-        return MainProduct.map((mProduct) => {
-            const matchedProduct = shopCart.some((fProduct) => {
-                return fProduct.id != mProduct.id && mProduct["user:"] == fProduct["user:"];
+    const [filteredCards, setfilteredCards] = useState([]);
+
+    useEffect(() => {
+        const cleaningFilter = MainProduct.filter((mProduct) => {
+            const isNotInCart = shopCart.every((fProduct) => {
+                return fProduct.id != mProduct.id;
+            });
+            const isSameUser = shopCart.some((fProduct) => {
+                return fProduct["user:"] == mProduct["user:"];
             });
 
-            return (
-                <SwiperSlide
-                    className={`w-fit ${matchedProduct ? "block" : "!hidden"}`}
-                    key={nanoid()}
-                >
-                    <Cards product={mProduct} />
-                </SwiperSlide>
-            );
+            if (isNotInCart && isSameUser) return true;
         });
-    };
+        setfilteredCards(cleaningFilter);
+    }, [shopCart]);
+
 
     return (
         <div className="max-w-[77.75rem] w-full mx-auto py-10 px-3">
@@ -44,7 +45,7 @@ const ShopCart = () => {
                     {shopCart.length} Courses in Cart
                 </h5>
 
-                <div className="flex flex-col-reverse md:flex-row justify-between items-start gap-10">
+                <div className="flex flex-col-reverse md:flex-row justify-between items-start gap-10 max-h-[25rem] overflow-y-auto">
                     <div className="flex-grow">
                         {shopCart.map((product) => (
                             <PageShopItem key={nanoid()} product={product} />
@@ -119,7 +120,13 @@ const ShopCart = () => {
                 slidesPerView={"auto"}
                 className=" mySwiper my-5 !mx-0 overflow-y-visible"
             >
-                {ShowFilteredProduct()}
+                {filteredCards.map((mProduct) => (
+                    <SwiperSlide className={`w-fit `} key={nanoid()}>
+                        <Cards product={mProduct} />
+                    </SwiperSlide>
+                ))}
+
+                {/* {ShowFilteredProduct()} */}
                 <button className="image-swiper-button-next absolute right-0 top-[20%] z-10 w-12 h-12 bg-[#393c3ee8] hover:bg-[#393c3ef3] rounded-full flex items-center justify-center cursor-pointer">
                     <IoIosArrowForward size={28} color="#fff" />
                 </button>
@@ -132,22 +139,3 @@ const ShopCart = () => {
 };
 
 export default ShopCart;
-// {
-/* <SwiperSlide className={`w-fit`} key={nanoid()}>
-<Cards product={item} />
-</SwiperSlide> */
-// }
-
-// {
-//     MainProduct.map((mProduct) => {
-//         const matchedProduct = shopCart.some((fProduct) => {
-//             return fProduct.id != mProduct.id && mProduct["user:"] == fProduct["user:"];
-//         });
-
-//         return (
-//             <SwiperSlide className={`w-fit ${matchedProduct ? "block" : "!hidden"}`} key={nanoid()}>
-//                 <Cards product={mProduct} />
-//             </SwiperSlide>
-//         );
-//     });
-// }
