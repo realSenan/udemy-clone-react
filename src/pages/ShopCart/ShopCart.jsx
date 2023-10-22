@@ -19,22 +19,20 @@ const ShopCart = () => {
     const totalPrice = shopCart.reduce((a, b) => a + +b.price, 0).toFixed(2);
 
     const ShowFilteredProduct = (e) => {
-        const FilteredProduct = MainProduct.map((mProduct) => {
-            let matchedProduct = shopCart.some((fProduct) => {
-                return mProduct.id !== fProduct.id && mProduct["user:"] === fProduct["user:"];
+        return MainProduct.map((mProduct) => {
+            const matchedProduct = shopCart.some((fProduct) => {
+                return fProduct.id != mProduct.id && mProduct["user:"] == fProduct["user:"];
             });
 
             return (
                 <SwiperSlide
-                    className={`w-fit ${matchedProduct ? "block" : "hidden"}`}
+                    className={`w-fit ${matchedProduct ? "block" : "!hidden"}`}
                     key={nanoid()}
                 >
                     <Cards product={mProduct} />
                 </SwiperSlide>
             );
         });
-
-        return FilteredProduct;
     };
 
     return (
