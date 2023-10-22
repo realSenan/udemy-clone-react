@@ -29,7 +29,7 @@ const ShopCart = ({ GiShoppingCart, className }) => {
                 <div className={`absolute right-0 pt-7 PopDown cursor-default`}>
                     <div
                         className={`bg-white w-[18.75rem] min-h-28 ${
-                            shopItems.length ? "px-0 pt-4 pb-0" : " p-4"
+                            shopItems.length ? "px-0 pe-1 pt-4 pb-0" : " p-4"
                         }  flex flex-col  shadow-md`}
                     >
                         {shopItems.length == 0 && (

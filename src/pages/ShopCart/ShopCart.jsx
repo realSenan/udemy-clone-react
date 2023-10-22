@@ -36,6 +36,7 @@ const ShopCart = () => {
     }, [shopCart]);
 
 
+    
     return (
         <div className="max-w-[77.75rem] w-full mx-auto py-10 px-3">
             <h3 className="text-4xl font-bold text-liColor">Shopping Cart</h3>
@@ -44,15 +45,16 @@ const ShopCart = () => {
                 <h5 className="text- font-bold text-liColor mb-1">
                     {shopCart.length} Courses in Cart
                 </h5>
-
-                <div className="flex flex-col-reverse md:flex-row justify-between items-start gap-10 max-h-[25rem] overflow-y-auto">
-                    <div className="flex-grow">
-                        {shopCart.map((product) => (
-                            <PageShopItem key={nanoid()} product={product} />
-                        ))}
+                <div className="flex flex-col-reverse os:flex-row gap-3 justify-between">
+                    <div className=" max-h-[25rem] overflow-y-auto overflow-x-hidden">
+                        <div className="flex-grow">
+                            {shopCart.map((product) => (
+                                <PageShopItem key={nanoid()} product={product} />
+                            ))}
+                        </div>
                     </div>
 
-                    <div className={`w-full md:w-[18.75rem] ${shopCart.length == 0 && "hidden"}`}>
+                    <div className={`w-full os:w-[18.75rem] ${shopCart.length == 0 && "hidden"}`}>
                         <div className="text-[#6a6f73] font-bold text-lg">Total:</div>
                         <div className="text-3xl mt-1 font-bold text-liColor flex  items-center">
                             ${totalPrice}
@@ -87,6 +89,7 @@ const ShopCart = () => {
                     </div>
                 </div>
 
+                {/*IF 0 ITEM THEN SHOW THIS SECTION */}
                 <div
                     className={`border border-[#f1f3f4] min-h-[21.875rem] ${
                         shopCart.length && "hidden"
@@ -105,35 +108,38 @@ const ShopCart = () => {
                 </div>
             </div>
 
-            {/* Slider */}
+            {/* Slider user == user id != id */}
+            {filteredCards.length != 0 && (
+                <>
+                    <h3 className="font-bold text-liColor text-2xl">You might also like</h3>
 
-            <h3 className="font-bold text-liColor text-2xl">You might also like</h3>
+                    <Swiper
+                        navigation={{
+                            nextEl: ".image-swiper-button-next",
+                            prevEl: ".image-swiper-button-prev",
+                            disabledClass: "swiper-button-disabled",
+                        }}
+                        spaceBetween={15}
+                        modules={[Navigation]}
+                        slidesPerView={"auto"}
+                        className=" mySwiper my-5 !mx-0 overflow-y-visible"
+                    >
+                        {filteredCards.map((mProduct) => (
+                            <SwiperSlide className={`w-fit `} key={nanoid()}>
+                                <Cards product={mProduct} />
+                            </SwiperSlide>
+                        ))}
 
-            <Swiper
-                navigation={{
-                    nextEl: ".image-swiper-button-next",
-                    prevEl: ".image-swiper-button-prev",
-                    disabledClass: "swiper-button-disabled",
-                }}
-                spaceBetween={15}
-                modules={[Navigation]}
-                slidesPerView={"auto"}
-                className=" mySwiper my-5 !mx-0 overflow-y-visible"
-            >
-                {filteredCards.map((mProduct) => (
-                    <SwiperSlide className={`w-fit `} key={nanoid()}>
-                        <Cards product={mProduct} />
-                    </SwiperSlide>
-                ))}
-
-                {/* {ShowFilteredProduct()} */}
-                <button className="image-swiper-button-next absolute right-0 top-[20%] z-10 w-12 h-12 bg-[#393c3ee8] hover:bg-[#393c3ef3] rounded-full flex items-center justify-center cursor-pointer">
-                    <IoIosArrowForward size={28} color="#fff" />
-                </button>
-                <button className="image-swiper-button-prev absolute left-0 top-[20%] z-10 w-12 h-12 bg-[#393c3ee8] hover:bg-[#393c3ef3] rounded-full flex items-center justify-center cursor-pointer">
-                    <IoIosArrowBack size={28} color="#fff" />
-                </button>
-            </Swiper>
+                        {/* {ShowFilteredProduct()} */}
+                        <button className="image-swiper-button-next absolute right-0 top-[20%] z-10 w-12 h-12 bg-[#393c3ee8] hover:bg-[#393c3ef3] rounded-full flex items-center justify-center cursor-pointer">
+                            <IoIosArrowForward size={28} color="#fff" />
+                        </button>
+                        <button className="image-swiper-button-prev absolute left-0 top-[20%] z-10 w-12 h-12 bg-[#393c3ee8] hover:bg-[#393c3ef3] rounded-full flex items-center justify-center cursor-pointer">
+                            <IoIosArrowBack size={28} color="#fff" />
+                        </button>
+                    </Swiper>
+                </>
+            )}
         </div>
     );
 };

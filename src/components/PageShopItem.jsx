@@ -5,8 +5,16 @@ import { BiSolidCircle } from "react-icons/bi";
 import { IoTicket } from "react-icons/io5";
 import { RandomLevel, RandomNumber } from "../hooks/useRandom";
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { removeProduct } from "../redux/shopSlice";
 
 const PageShopItem = ({ product }) => {
+    const dispatch = useDispatch();
+
+    const removeHandle = (e) => {
+        dispatch(removeProduct(product.id));
+    };
+
     return (
         <div className="border-t border-border py-5 sm:flex items-start gap-5  justify-between">
             <div className="flex items-start sm:gap-5 gap-2 w-[90%]">
@@ -40,7 +48,9 @@ const PageShopItem = ({ product }) => {
                         </Link>
                     </div>
                     <div className="text-sm text-[#5624d0] lg:text-right lg:block flex items-start gap-2 sm:gap-5 lg:mt-0 mt-2">
-                        <div className="mb-2.5 min-w-max">Remove</div>
+                        <div className="mb-2.5 min-w-max" onClick={removeHandle}>
+                            Remove
+                        </div>
                         <div className="mb-2.5 min-w-max">Save For Later</div>
                         <div className="mb-2.5 min-w-max">Move To Washlist</div>
                     </div>
