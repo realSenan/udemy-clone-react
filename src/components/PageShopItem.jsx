@@ -48,11 +48,15 @@ const PageShopItem = ({ product }) => {
                         </Link>
                     </div>
                     <div className="text-sm text-[#5624d0] lg:text-right lg:block flex items-start gap-2 sm:gap-5 lg:mt-0 mt-2">
-                        <div className="mb-2.5 min-w-max" onClick={removeHandle}>
+                        <div className="mb-2.5 min-w-max cursor-pointer" onClick={removeHandle}>
                             Remove
                         </div>
-                        <div className="mb-2.5 min-w-max">Save For Later</div>
-                        <div className="mb-2.5 min-w-max">Move To Washlist</div>
+                        <div className="mb-2.5 min-w-max opacity-80 cursor-not-allowed">
+                            Save For Later
+                        </div>
+                        <div className="mb-2.5 min-w-max opacity-80 cursor-not-allowed">
+                            Move To Washlist
+                        </div>
                     </div>
                 </div>
             </div>

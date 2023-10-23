@@ -35,8 +35,6 @@ const ShopCart = () => {
         setfilteredCards(cleaningFilter);
     }, [shopCart]);
 
-
-    
     return (
         <div className="max-w-[77.75rem] w-full mx-auto py-10 px-3">
             <h3 className="text-4xl font-bold text-liColor">Shopping Cart</h3>

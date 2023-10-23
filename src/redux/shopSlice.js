@@ -10,7 +10,6 @@ export const shopSlice = createSlice({
             state.shopData = [...state.shopData, action.payload];
         },
         removeProduct: (state, action) => {
-            console.log(action.payload)
             state.shopData = state.shopData.filter(fProduct => fProduct.id !== action.payload);
         }
         

@@ -1,4 +1,6 @@
 import { initializeApp } from "firebase/app";
+import { setUser } from "./src/redux/auth/authSlice";
+
 import {
     getAuth,
     createUserWithEmailAndPassword,
@@ -25,17 +27,24 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
 export const register = async (email, password, display_name) => {
-    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-
-    await updateProfile(userCredential.user, { displayName: display_name });
-    return userCredential.user;
+    try {
+        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+        await updateProfile(userCredential.user, { displayName: display_name });
+        return userCredential.user;
+    } catch (error) {
+        console.log(error);
+    }
 };
 
 export const loginFireBase = async (email, password, display_name) => {
-    const userCredential = await signInWithEmailAndPassword(auth, email, password);
+    try {
+        const userCredential = await signInWithEmailAndPassword(auth, email, password);
+        await updateProfile(userCredential.user, { displayName: display_name });
 
-    await updateProfile(userCredential.user, { displayName: display_name });
-    return userCredential.user;
+        return userCredential.user;
+    } catch (error) {
+        console.log(error);
+    }
 };
 
 export const LogOut = async () => {
@@ -45,11 +54,23 @@ export const LogOut = async () => {
 
 export const GoogleSign = async () => {
     const Googleprovider = new GoogleAuthProvider();
-    signInWithPopup(auth, Googleprovider).then((data) => console.log(data.user));
+    try {
+        signInWithPopup(auth, Googleprovider).then((data) => {
+            console.log(data.user);
+        });
+    } catch (error) {
+        console.log(error);
+    }
 };
 export const FaceSign = async () => {
     const FaceBookprovider = new FacebookAuthProvider();
-    signInWithPopup(auth, FaceBookprovider).then((data) => console.log(data));
+    try {
+        signInWithPopup(auth, FaceBookprovider).then((data) => {
+            console.log(data);
+        });
+    } catch (error) {
+        console.log(error);
+    }
 };
 
 export const resetPassw = async (email) => {
