@@ -1,8 +1,21 @@
 import React, { useState } from "react";
 import { register } from "../../../firebase";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { LoginUser } from "../../redux/auth/authSlice";
+import toast from "react-hot-toast";
 
 const Login = () => {
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const isLogin = useSelector((state) => state.auth.isLogin);
+
+    isLogin && navigate("/", { replace: true });
+
+    if (isLogin) {
+        toast.success("Login succesfly");
+    }
+
     const [FormRegister, setFormRegister] = useState({
         Name: "",
         Email: "",
@@ -19,6 +32,7 @@ const Login = () => {
     const submitHandle = async (e) => {
         e.preventDefault();
         const user = await register(FormRegister.Email, FormRegister.Password, FormRegister.Name);
+        dispatch(LoginUser(user));
         console.log(user);
     };
 

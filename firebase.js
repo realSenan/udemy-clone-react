@@ -1,6 +1,4 @@
 import { initializeApp } from "firebase/app";
-import { setUser } from "./src/redux/auth/authSlice";
-
 import {
     getAuth,
     createUserWithEmailAndPassword,
@@ -12,6 +10,7 @@ import {
     FacebookAuthProvider,
     sendPasswordResetEmail,
 } from "firebase/auth";
+import toast from "react-hot-toast";
 
 const firebaseConfig = {
     apiKey: "AIzaSyArNPpbkAZLptFlbPr8CbwnPC8M3voEBWg",
@@ -24,59 +23,43 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
+export const auth = getAuth(app);
 
 export const register = async (email, password, display_name) => {
     try {
         const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-        await updateProfile(userCredential.user, { displayName: display_name });
+        await updateProfile(userCredential.user, { displayName: display_name }).then(
+            toast.success("Succesfuled login"),
+        );
         return userCredential.user;
     } catch (error) {
-        console.log(error);
+       toast.error(error.message);
     }
 };
 
 export const loginFireBase = async (email, password, display_name) => {
     try {
-        const userCredential = await signInWithEmailAndPassword(auth, email, password);
+        const userCredential = await signInWithEmailAndPassword(auth, email, password)
         await updateProfile(userCredential.user, { displayName: display_name });
 
         return userCredential.user;
     } catch (error) {
-        console.log(error);
+       toast.error(error.message);
+    }
+};
+
+
+
+export const resetPassw = async (email) => {
+    try {
+        await sendPasswordResetEmail(auth, email)
+            .then((data) => console.log(data))
+    } catch (error) {
+       toast.error(error.message);
     }
 };
 
 export const LogOut = async () => {
-    await signOut(auth);
+    await signOut(auth).then(toast.success("Succesfuled Log Out"));
     return true;
-};
-
-export const GoogleSign = async () => {
-    const Googleprovider = new GoogleAuthProvider();
-    try {
-        signInWithPopup(auth, Googleprovider).then((data) => {
-            console.log(data.user);
-        });
-    } catch (error) {
-        console.log(error);
-    }
-};
-export const FaceSign = async () => {
-    const FaceBookprovider = new FacebookAuthProvider();
-    try {
-        signInWithPopup(auth, FaceBookprovider).then((data) => {
-            console.log(data);
-        });
-    } catch (error) {
-        console.log(error);
-    }
-};
-
-export const resetPassw = async (email) => {
-    try {
-        await sendPasswordResetEmail(auth, email).then((data) => console.log(data));
-    } catch (error) {
-        throw error;
-    }
 };

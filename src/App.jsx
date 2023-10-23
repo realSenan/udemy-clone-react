@@ -13,6 +13,7 @@ import Sign from "./pages/Sign/SignPage";
 import ForgetPassw from "./pages/ForgotPass/ForgotPassw";
 import Course from "./pages/Course/Course";
 import ShopCart from "./pages/ShopCart/ShopCart";
+import { Toaster } from "react-hot-toast";
 
 function App() {
     const [loading, setLoading] = useState(false);
@@ -29,6 +30,16 @@ function App() {
 
     return loading ? (
         <Provider store={store}>
+            <Toaster
+                position="top-right"
+                toastOptions={{
+                    style: {
+                        background: "#363636",
+                        color: "#fff",
+                    },
+                }}
+            />
+
             <Router>
                 <Header />
                 <Routes>

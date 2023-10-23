@@ -2,10 +2,23 @@ import React, { useState } from "react";
 import { FcGoogle } from "react-icons/fc";
 import { FaFacebook } from "react-icons/fa";
 import { AiFillApple } from "react-icons/ai";
-import { Link } from "react-router-dom";
-import { FaceSign, GoogleSign, loginFireBase } from "../../../firebase";
+import { Link, useNavigate } from "react-router-dom";
+import { auth, loginFireBase } from "../../../firebase";
+import { useDispatch, useSelector } from "react-redux";
+import { LoginUser } from "../../redux/auth/authSlice";
+import { FacebookAuthProvider, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import toast from "react-hot-toast";
 
 const Login = () => {
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const isLogin = useSelector((state) => state.auth.isLogin);
+
+    if (isLogin) {
+        navigate("/", { replace: true });
+        toast.success("Login succesfly!");
+    }
+
     const [loginForm, setLoginForm] = useState({
         Email: "",
         Password: "",
@@ -20,17 +33,31 @@ const Login = () => {
 
     const submitHandle = async (e) => {
         e.preventDefault();
-        console.log(loginForm);
         const user = await loginFireBase(loginForm.Email, loginForm.Password);
-        console.log(user);
+        dispatch(LoginUser(user));
     };
 
-    const googleHanlde = (e) => {
-        GoogleSign();
+    const GoogleSign = async () => {
+        const Googleprovider = new GoogleAuthProvider();
+        try {
+            signInWithPopup(auth, Googleprovider).then((data) => {
+                dispatch(LoginUser(data.user));
+                console.log(data.user);
+            });
+        } catch (error) {
+            toast.error(error.message);
+        }
     };
-
-    const faceHandle = (e) => {
-        FaceSign();
+    const FaceSign = async () => {
+        const FaceBookprovider = new FacebookAuthProvider();
+        try {
+            signInWithPopup(auth, FaceBookprovider).then((data) => {
+                dispatch(LoginUser(data.user));
+                console.log(data);
+            });
+        } catch (error) {
+            toast.error(error.message);
+        }
     };
 
     return (
@@ -41,7 +68,7 @@ const Login = () => {
                 <div className="">
                     <button
                         className="flex items-center px-2 py-1 gap-2 mt-2 hover:bg-[#e3e7ea] font-bold border border-liColor w-full"
-                        onClick={googleHanlde}
+                        onClick={GoogleSign}
                     >
                         <FcGoogle size={40} />
                         Continue with Google{" "}
@@ -49,7 +76,7 @@ const Login = () => {
 
                     <button
                         className="flex items-center px-3 py-2 gap-2 mt-2 hover:bg-[#e3e7ea] font-bold border border-liColor w-full"
-                        onClick={faceHandle}
+                        onClick={FaceSign}
                     >
                         <FaFacebook size={30} color="#4267b2" />
                         Continue with Facebook{" "}
@@ -99,7 +126,10 @@ const Login = () => {
                     <div className="mt-4 text-sm">
                         <div className="text-center">
                             Don't have an account?{" "}
-                            <Link to={'/sign'} className="border-b border-b-liColor text-[#5624d0] hover:text-[#401b9c] font-bold">
+                            <Link
+                                to={"/sign"}
+                                className="border-b border-b-liColor text-[#5624d0] hover:text-[#401b9c] font-bold"
+                            >
                                 Sign up
                             </Link>
                         </div>

@@ -8,7 +8,7 @@ function PopUp({ text, className, text2, text3 }) {
             onMouseLeave={() => setOpenWindow(false)}
             className={`text-mainTextClr hover:text-activeClr cursor-pointer relative ${className}`}
         >
-            {text}
+            <span className="text-sm tracking-tight">{text}</span>
 
             {openWindow && (
                 <div className={`absolute right-0 pt-9 PopDown `}>

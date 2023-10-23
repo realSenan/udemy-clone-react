@@ -3,6 +3,7 @@ import dataSlice from "./dataSlice";
 import searchSlice from "./searchSlice";
 import buttonSlice from "./buttonSlice";
 import shopSlice from "./shopSlice";
+import authSlice from "./auth/authSlice";
 
 export default configureStore({
     reducer: {
@@ -10,5 +11,6 @@ export default configureStore({
         search: searchSlice,
         button: buttonSlice,
         shop: shopSlice,
+        auth: authSlice
     },
 });

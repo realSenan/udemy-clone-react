@@ -5,6 +5,7 @@ import { addProduct } from "../redux/shopSlice";
 import { CgSpinnerTwo } from "react-icons/cg";
 import { Link } from "react-router-dom";
 import { useScroll } from "../hooks/useScroll";
+import toast from "react-hot-toast";
 
 const ToolTips = ({ product, tp }) => {
     const dispatch = useDispatch();
@@ -37,6 +38,11 @@ const ToolTips = ({ product, tp }) => {
             setTimeout(() => {
                 setCartLastLoad(true);
                 setCartLoading(false);
+                toast.success(
+                    `Succesfly added  ${
+                        product.category[0].toUpperCase() + product.category.slice(1)
+                    } course`,
+                );
             }, 2000);
         }
     };
