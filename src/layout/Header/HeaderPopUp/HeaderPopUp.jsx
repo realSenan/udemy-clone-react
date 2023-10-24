@@ -6,6 +6,7 @@ import { useSelector } from "react-redux";
 import Faworite from "./Faworite/Faworite";
 import RingTone from "./RingTone/RingTone";
 import Profile from "./Profile/Profile";
+import MyLearning from "./myLearning/MyLearning";
 
 function HeaderPopUp({ GiShoppingCart }) {
     const isLogin = useSelector((state) => state.auth.isLogin);
@@ -25,9 +26,7 @@ function HeaderPopUp({ GiShoppingCart }) {
                     <div className="text-sm tracking-tight hover:text-activeClr cursor-pointer hidden lg:block">
                         Instructor
                     </div>
-                    <div className="text-sm tracking-tight hover:text-activeClr cursor-pointer hidden md:block">
-                        My Learning
-                    </div>
+                    <MyLearning/>
 
                     <div className="hidden os:block">
                         <Faworite />
@@ -52,7 +51,9 @@ function HeaderPopUp({ GiShoppingCart }) {
                     <div className="hidden os:block">
                         <RingTone />
                     </div>
-                    <div className="md:block hidden"><Profile /></div>
+                    <div className="md:block hidden">
+                        <Profile />
+                    </div>
                 </>
             )}
         </div>

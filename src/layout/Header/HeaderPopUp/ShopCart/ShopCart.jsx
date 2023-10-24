@@ -25,21 +25,21 @@ const ShopCart = ({ GiShoppingCart, className }) => {
                 )}
             </Link>
 
-            {showButton != 0 && (
+            {showButton  && (
                 <div className={`absolute right-0 pt-7 PopDown cursor-default`}>
                     <div
-                        className={`bg-white w-[18.75rem] min-h-28 ${
+                        className={`bg-white w-[18.75rem] min-h-[6rem] ${
                             shopItems.length ? "px-0 pe-1 pt-4 pb-0" : " p-4"
-                        }  flex flex-col  shadow-md`}
+                        }  flex flex-col justify-center shadow-md`}
                     >
                         {shopItems.length == 0 && (
                             <>
-                                <h3 className="text-mainTextClr text-[16px] text-center  ">
+                                <h3 className="text-mainTextClr text-[1rem] text-center  ">
                                     Your cart is empty.
                                 </h3>
                                 <Link
                                     className="flex items-center justify-center
-                            text-activeClr font-extrabold mt-5 "
+                            text-activeClr font-bold mt-3 "
                                 >
                                     Keep Shoopping
                                 </Link>

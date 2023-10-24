@@ -3,6 +3,7 @@ import React, { useRef, useState } from "react";
 import { GrClose } from "react-icons/gr";
 import { BsGlobe } from "react-icons/bs";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const MobileCategory = ({ linkData, BiChevronRight, activeMbMenu, setActiveMbMenu }) => {
     const [firstCategory, setFirstCategory] = useState("Web Development");
@@ -34,6 +35,7 @@ const MobileCategory = ({ linkData, BiChevronRight, activeMbMenu, setActiveMbMen
             behavior: "smooth",
         });
     };
+    const isLogin = useSelector((state) => state.auth.isLogin);
 
     return (
         <React.Fragment>
@@ -64,26 +66,28 @@ const MobileCategory = ({ linkData, BiChevronRight, activeMbMenu, setActiveMbMen
             >
                 <div className="">
                     {/* Login section */}
-                    <ul className="py-2 text-activeClr border-b border-border">
-                        <li>
-                            <Link
-                                onClick={(e) => setActiveMbMenu(false)}
-                                to={"login"}
-                                className="px-4 py-2 block"
-                            >
-                                Log in
-                            </Link>
-                        </li>
-                        <li>
-                            <Link
-                                to={"sign"}
-                                onClick={(e) => setActiveMbMenu(false)}
-                                className="px-4 py-2 block"
-                            >
-                                Sign up
-                            </Link>
-                        </li>
-                    </ul>
+                    {isLogin == false && (
+                        <ul className="py-2 text-activeClr border-b border-border">
+                            <li>
+                                <Link
+                                    onClick={(e) => setActiveMbMenu(false)}
+                                    to={"login"}
+                                    className="px-4 py-2 block"
+                                >
+                                    Log in
+                                </Link>
+                            </li>
+                            <li>
+                                <Link
+                                    to={"sign"}
+                                    onClick={(e) => setActiveMbMenu(false)}
+                                    className="px-4 py-2 block"
+                                >
+                                    Sign up
+                                </Link>
+                            </li>
+                        </ul>
+                    )}
 
                     <h3 className="px-4 pt-2 text-[15px] font-bold text-[#6a6f73]">Most popular</h3>
 

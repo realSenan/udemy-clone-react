@@ -7,12 +7,18 @@ import { RandomLevel, RandomNumber } from "../hooks/useRandom";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { removeProduct } from "../redux/shopSlice";
+import toast from "react-hot-toast";
 
 const PageShopItem = ({ product }) => {
     const dispatch = useDispatch();
 
     const removeHandle = (e) => {
         dispatch(removeProduct(product.id));
+        toast.success(
+            `Succesfly Remove  ${
+                product.category[0].toUpperCase() + product.category.slice(1)
+            } Course`,
+        );
     };
 
     return (

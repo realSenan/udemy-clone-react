@@ -7,6 +7,10 @@
     src: url(../public/Fonts/SuisseWorks-Bold-v1.woff2);
 }
 
+.ringtoneActive{
+    @apply border-b-liColor text-activeButton
+}
+
 body {
     @apply overflow-x-hidden;
 }
