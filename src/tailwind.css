@@ -7,8 +7,8 @@
     src: url(../public/Fonts/SuisseWorks-Bold-v1.woff2);
 }
 
-.ringtoneActive{
-    @apply border-b-liColor text-activeButton
+.ringtoneActive {
+    @apply border-b-liColor text-activeButton;
 }
 
 body {
@@ -25,6 +25,10 @@ body {
 
 .showlimiddle:hover .showlastli {
     display: block !important;
+}
+
+.customUl li a.active {
+    @apply !text-white border-b border-b-8;
 }
 
 .PopDown {

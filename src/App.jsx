@@ -14,6 +14,12 @@ import ForgetPassw from "./pages/ForgotPass/ForgotPassw";
 import Course from "./pages/Course/Course";
 import ShopCart from "./pages/ShopCart/ShopCart";
 import { Toaster } from "react-hot-toast";
+import WashListPage from "./pages/LearningPageComp/LearningPage";
+import AllCourse from "./pages/LearningPageComp/Lists/AllCourse";
+import MyList from "./pages/LearningPageComp/Lists/MyList";
+import WishlistP from "./pages/LearningPageComp/Lists/WishlistP";
+import Archived from "./pages/LearningPageComp/Lists/Archived";
+import LearningTools from "./pages/LearningPageComp/Lists/LearningTools";
 
 function App() {
     const [loading, setLoading] = useState(false);
@@ -47,6 +53,14 @@ function App() {
                     <Route path="login" element={<Login />} />
                     <Route path="sign" element={<Sign />} />
                     <Route path="forgot-password" element={<ForgetPassw />} />
+                    <Route path="my-courses" element={<WashListPage />}>
+                        <Route index path="allCourses" element={<AllCourse />} />
+                        <Route path="myList" element={<MyList />} />
+                        <Route path="wishlist" element={<WishlistP />} />
+                        <Route path="archived" element={<Archived />} />
+                        <Route path="learningTools" element={<LearningTools />} />
+                    </Route>
+
                     <Route path="course" element={<Course />}>
                         {/* Video Play section */}
                     </Route>

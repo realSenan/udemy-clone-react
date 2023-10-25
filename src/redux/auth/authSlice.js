@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-
 export const auth = createSlice({
     name: "auth",
     initialState: {
@@ -9,7 +8,7 @@ export const auth = createSlice({
         LoginUser: (state, action) => {
             console.log("payload", action.payload);
             state.isLogin = action.payload != undefined && true;
-        
+
             state.isLogin && localStorage.setItem("user", JSON.stringify(action.payload));
         },
         logOutUser: (state) => {

@@ -41,7 +41,7 @@ const Login = () => {
         const Googleprovider = new GoogleAuthProvider();
         try {
             signInWithPopup(auth, Googleprovider).then((data) => {
-                dispatch(LoginUser(data.user));
+                dispatch(LoginUser(data));
                 console.log(data.user);
             });
         } catch (error) {
@@ -52,7 +52,7 @@ const Login = () => {
         const FaceBookprovider = new FacebookAuthProvider();
         try {
             signInWithPopup(auth, FaceBookprovider).then((data) => {
-                dispatch(LoginUser(data.user));
+                dispatch(LoginUser(data));
                 console.log(data);
             });
         } catch (error) {

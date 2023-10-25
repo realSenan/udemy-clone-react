@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { AiOutlineHeart } from "react-icons/ai";
+import { Link } from "react-router-dom";
 
 const Faworite = () => {
     const [mouseEnter, setMouseEnter] = useState(false);
@@ -18,7 +19,9 @@ const Faworite = () => {
             className="relative hover:text-activeClr"
         >
             <div className="cursor-pointer ">
-                <AiOutlineHeart size={24} />
+                <Link to={"/my-courses/wishlist"}>
+                    <AiOutlineHeart size={24} />
+                </Link>
             </div>
 
             {mouseEnter && (

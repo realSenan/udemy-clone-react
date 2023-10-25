@@ -19,7 +19,7 @@ const MyLearning = () => {
             onMouseLeave={LeaveMouseHandler}
             className="text-sm tracking-tight hover:text-activeClr cursor-pointer hidden md:block relative"
         >
-            My learning
+            <Link to={"/my-courses/allCourses"}>My learning</Link>
             {mouseEnter && (
                 <div className={`absolute right-0 pt-7 PopDown cursor-default`}>
                     <div

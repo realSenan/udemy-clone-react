@@ -31,7 +31,7 @@ export const register = async (email, password, display_name) => {
         await updateProfile(userCredential.user, { displayName: display_name }).then(
             toast.success("Succesfuled login"),
         );
-        return userCredential.user;
+        return userCredential;
     } catch (error) {
        toast.error(error.message);
     }
@@ -42,7 +42,7 @@ export const loginFireBase = async (email, password, display_name) => {
         const userCredential = await signInWithEmailAndPassword(auth, email, password)
         await updateProfile(userCredential.user, { displayName: display_name });
 
-        return userCredential.user;
+        return userCredential;
     } catch (error) {
        toast.error(error.message);
     }
