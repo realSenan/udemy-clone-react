@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import PopUp from "./PopUp/PopUp";
 import { AiOutlineSearch } from "react-icons/ai";
 import ShopCart from "./ShopCart/ShopCart";
@@ -26,7 +26,7 @@ function HeaderPopUp({ GiShoppingCart }) {
                     <div className="text-sm tracking-tight hover:text-activeClr cursor-pointer hidden lg:block">
                         Instructor
                     </div>
-                    <MyLearning/>
+                    <MyLearning />
 
                     <div className="hidden os:block">
                         <Faworite />

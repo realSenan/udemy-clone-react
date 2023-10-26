@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { auth } from "../../../../../firebase";
 import noImg from "/src/assets/img/no-user-image.jpg";
 import { useState } from "react";
@@ -16,9 +15,10 @@ const Profile = () => {
     const navigate = useNavigate();
 
     const logOut = (e) => {
+        localStorage.removeItem("user");
         dispatch(logOutUser());
         navigate("/");
-        toast.success("Log out succesfly")
+        toast.success("Log out succesfly");
     };
 
     const mouseHandler = (e) => {
@@ -30,6 +30,7 @@ const Profile = () => {
     };
 
     const user = JSON.parse(localStorage.getItem("user"));
+
     const [profile, setProfile] = useState(
         user?._tokenResponse?.photoUrl === undefined || user?._tokenResponse?.photoUrl === null
             ? noImg
@@ -67,7 +68,7 @@ const Profile = () => {
                                 <Link to={"my-courses/allCourses"}>My learning</Link>
                             </li>
                             <li className="hover:text-activeClr">
-                                <Link to={"my-courses/myList"}>My cart</Link>
+                                <Link to={"/cart-shop"}>My cart</Link>
                             </li>
                             <li className="hover:text-activeClr">
                                 <Link to={"my-courses/wishlist"}>Wishlist</Link>

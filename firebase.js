@@ -1,16 +1,14 @@
 import { initializeApp } from "firebase/app";
+import toast from "react-hot-toast";
+
 import {
     getAuth,
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword,
     signOut,
     updateProfile,
-    GoogleAuthProvider,
-    signInWithPopup,
-    FacebookAuthProvider,
     sendPasswordResetEmail,
 } from "firebase/auth";
-import toast from "react-hot-toast";
 
 const firebaseConfig = {
     apiKey: "AIzaSyArNPpbkAZLptFlbPr8CbwnPC8M3voEBWg",
@@ -20,9 +18,11 @@ const firebaseConfig = {
     storageBucket: "udmey-388f9.appspot.com",
     messagingSenderId: "222108021498",
     appId: "1:222108021498:web:69d3cf56a2c6a5f7118f43",
+    storageBucket: "gs://udmey-388f9.appspot.com",
 };
 
 const app = initializeApp(firebaseConfig);
+
 export const auth = getAuth(app);
 
 export const register = async (email, password, display_name) => {
@@ -33,29 +33,28 @@ export const register = async (email, password, display_name) => {
         );
         return userCredential;
     } catch (error) {
-       toast.error(error.message);
+        toast.error(error.message);
     }
 };
 
 export const loginFireBase = async (email, password, display_name) => {
     try {
-        const userCredential = await signInWithEmailAndPassword(auth, email, password)
+        const userCredential = await signInWithEmailAndPassword(auth, email, password);
         await updateProfile(userCredential.user, { displayName: display_name });
 
+        toast.success("Login succesfly!");
         return userCredential;
     } catch (error) {
-       toast.error(error.message);
+        toast.error(error.message);
     }
 };
 
-
-
 export const resetPassw = async (email) => {
     try {
-        await sendPasswordResetEmail(auth, email)
-            .then((data) => console.log(data))
+        await sendPasswordResetEmail(auth, email).then((data) => console.log(data));
+        toast.success("Check your e-mail!");
     } catch (error) {
-       toast.error(error.message);
+        toast.error(error.message);
     }
 };
 

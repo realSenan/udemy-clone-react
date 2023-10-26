@@ -3,13 +3,19 @@ import { FiHeart } from "react-icons/fi";
 import { useDispatch, useSelector } from "react-redux";
 import { addProduct } from "../redux/shopSlice";
 import { CgSpinnerTwo } from "react-icons/cg";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useScroll } from "../hooks/useScroll";
 import toast from "react-hot-toast";
+import { addWashList, removeWashList } from "../redux/wishList";
+import { AiFillHeart } from "react-icons/ai";
 
 const ToolTips = ({ product, tp }) => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
+
+    const isLogin = useSelector((state) => state.auth.isLogin);
     const shopData = useSelector((state) => state.shop.shopData);
+    const washData = useSelector((state) => state.wish.data);
 
     const [clicked, setClicked] = useState(false);
     //  Cart loading
@@ -19,7 +25,11 @@ const ToolTips = ({ product, tp }) => {
 
     const isValid = shopData.some((productD) => productD.id == product.id);
 
+    const [isWashListAdded, setIsWashListAdded] = useState(false);
+
     useEffect(() => {
+        washData.find((wProduct) => product.id == wProduct.id && setIsWashListAdded(true));
+
         if (isValid) {
             setClicked(true);
             setTimeout(() => {
@@ -45,6 +55,26 @@ const ToolTips = ({ product, tp }) => {
                 );
             }, 2000);
         }
+    };
+
+    const wishList = (e) => {
+        if (!isLogin) {
+            navigate("/login");
+        } else {
+            if (isWashListAdded) {
+                washData.find((wProduct) => product.id == wProduct.id && setIsWashListAdded(true));
+            } else {
+                setIsWashListAdded(true);
+                toast.success("WishList Added!");
+                dispatch(addWashList(product));
+            }
+        }
+    };
+
+    const RemoveWishList = (e) => {
+        setIsWashListAdded(false);
+        toast.success("WishList Removed!");
+        dispatch(removeWashList(product.id));
     };
 
     return (
@@ -115,8 +145,11 @@ const ToolTips = ({ product, tp }) => {
                     Add To Cart
                 </button>
 
-                <div className="border rounded-full !w-12 h-12 flex items-center justify-center bg-white hover:bg-[#e3e7ea] duration-300 transition-all cursor-pointer">
-                    <FiHeart size={24} />
+                <div
+                    onClick={isWashListAdded ? RemoveWishList : wishList}
+                    className="border rounded-full !w-12 h-12 flex items-center justify-center bg-white hover:bg-[#e3e7ea] duration-300 transition-all cursor-pointer"
+                >
+                    {isWashListAdded ? <AiFillHeart size={24} /> : <FiHeart size={24} />}
                 </div>
             </div>
         </div>

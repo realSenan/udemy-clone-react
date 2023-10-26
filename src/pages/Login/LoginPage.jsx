@@ -16,7 +16,6 @@ const Login = () => {
 
     if (isLogin) {
         navigate("/", { replace: true });
-        toast.success("Login succesfly!");
     }
 
     const [loginForm, setLoginForm] = useState({
@@ -42,7 +41,8 @@ const Login = () => {
         try {
             signInWithPopup(auth, Googleprovider).then((data) => {
                 dispatch(LoginUser(data));
-                console.log(data.user);
+        toast.success("Login succesfly!");
+        console.log(data);
             });
         } catch (error) {
             toast.error(error.message);
@@ -53,7 +53,8 @@ const Login = () => {
         try {
             signInWithPopup(auth, FaceBookprovider).then((data) => {
                 dispatch(LoginUser(data));
-                console.log(data);
+        toast.success("Login succesfly!");
+        console.log(data);
             });
         } catch (error) {
             toast.error(error.message);

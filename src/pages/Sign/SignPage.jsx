@@ -12,9 +12,7 @@ const Login = () => {
 
     isLogin && navigate("/", { replace: true });
 
-    if (isLogin) {
-        toast.success("Login succesfly");
-    }
+  
 
     const [FormRegister, setFormRegister] = useState({
         Name: "",

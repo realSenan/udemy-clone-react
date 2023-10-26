@@ -5,12 +5,19 @@ import { BiSolidCircle } from "react-icons/bi";
 import { IoTicket } from "react-icons/io5";
 import { RandomLevel, RandomNumber } from "../hooks/useRandom";
 import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { removeProduct } from "../redux/shopSlice";
 import toast from "react-hot-toast";
+import { addWashList } from "../redux/wishList";
+import { useEffect } from "react";
+import { useState } from "react";
 
 const PageShopItem = ({ product }) => {
     const dispatch = useDispatch();
+    const [isWashListAdded, setIsWashListAdded] = useState(false);
+    const isLogin = useSelector((state) => state.auth.isLogin);
+
+    const washData = useSelector((state) => state.wish.data);
 
     const removeHandle = (e) => {
         dispatch(removeProduct(product.id));
@@ -19,6 +26,24 @@ const PageShopItem = ({ product }) => {
                 product.category[0].toUpperCase() + product.category.slice(1)
             } Course`,
         );
+    };
+
+    useEffect(() => {
+        washData.find((wProduct) => product.id == wProduct.id && setIsWashListAdded(true));
+    }, []);
+
+    const wishList = (e) => {
+        if (!isLogin) {
+            navigate("/login");
+        } else {
+            if (isWashListAdded) {
+                washData.find((wProduct) => product.id == wProduct.id && setIsWashListAdded(true));
+            } else {
+                setIsWashListAdded(true);
+                toast.success("WishList Added!");
+                dispatch(addWashList(product));
+            }
+        }
     };
 
     return (
@@ -60,7 +85,12 @@ const PageShopItem = ({ product }) => {
                         <div className="mb-2.5 min-w-max opacity-80 cursor-not-allowed">
                             Save For Later
                         </div>
-                        <div className="mb-2.5 min-w-max opacity-80 cursor-not-allowed">
+                        <div
+                            onClick={wishList}
+                            className={`mb-2.5 min-w-max cursor-pointer ${
+                                isWashListAdded && "hidden"
+                            }`}
+                        >
                             Move To Washlist
                         </div>
                     </div>
