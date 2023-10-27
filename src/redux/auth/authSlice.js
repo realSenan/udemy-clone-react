@@ -13,6 +13,7 @@ export const auth = createSlice({
         },
         logOutUser: (state) => {
             localStorage.removeItem("user");
+            localStorage.removeItem("wishList");
             state.isLogin = false;
         },
     },

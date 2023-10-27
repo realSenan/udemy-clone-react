@@ -9,11 +9,9 @@ const Cards = ({ product }) => {
     const [left, setLeft] = useState("220px");
 
     const enterMouseHandler = (e) => {
-        setToolTip(true);
+        (window.location.pathname == "/my-courses/wishlist") == false && setToolTip(true);
         const offset = e.nativeEvent.fromElement.offsetWidth;
         const item = e.currentTarget.getBoundingClientRect().left;
-
-        console.log(offset - item);
 
         if (offset - item < 530) {
             setLeft("-23.75rem");

@@ -6,9 +6,9 @@ import { IoTicket } from "react-icons/io5";
 import { RandomLevel, RandomNumber } from "../hooks/useRandom";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { removeProduct } from "../redux/shopSlice";
+import { addProduct, removeProduct } from "../redux/shopSlice";
 import toast from "react-hot-toast";
-import { addWashList } from "../redux/wishList";
+import { addWashList, removeWashList } from "../redux/wishList";
 import { useEffect } from "react";
 import { useState } from "react";
 
@@ -21,6 +21,7 @@ const PageShopItem = ({ product }) => {
 
     const removeHandle = (e) => {
         dispatch(removeProduct(product.id));
+        dispatch(removeWashList(product.id));
         toast.success(
             `Succesfly Remove  ${
                 product.category[0].toUpperCase() + product.category.slice(1)
@@ -42,8 +43,14 @@ const PageShopItem = ({ product }) => {
                 setIsWashListAdded(true);
                 toast.success("WishList Added!");
                 dispatch(addWashList(product));
+                dispatch(removeProduct(product.id));
             }
         }
+    };
+
+    const addCart = (e) => {
+        dispatch(addProduct(product));
+        dispatch(removeWashList(product.id))
     };
 
     return (
@@ -82,17 +89,22 @@ const PageShopItem = ({ product }) => {
                         <div className="mb-2.5 min-w-max cursor-pointer" onClick={removeHandle}>
                             Remove
                         </div>
-                        <div className="mb-2.5 min-w-max opacity-80 cursor-not-allowed">
-                            Save For Later
-                        </div>
-                        <div
-                            onClick={wishList}
-                            className={`mb-2.5 min-w-max cursor-pointer ${
-                                isWashListAdded && "hidden"
-                            }`}
-                        >
-                            Move To Washlist
-                        </div>
+
+                        {!isWashListAdded && (
+                            <div className="mb-2.5 min-w-max opacity-80 cursor-not-allowed">
+                                Save For Later
+                            </div>
+                        )}
+
+                        {isWashListAdded ? (
+                            <div onClick={addCart} className={`mb-2.5 min-w-max cursor-pointer `}>
+                                Move To Cart
+                            </div>
+                        ) : (
+                            <div onClick={wishList} className={`mb-2.5 min-w-max cursor-pointer `}>
+                                Move To Washlist
+                            </div>
+                        )}
                     </div>
                 </div>
             </div>

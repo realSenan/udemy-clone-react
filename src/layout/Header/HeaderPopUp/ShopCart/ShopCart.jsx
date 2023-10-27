@@ -25,7 +25,7 @@ const ShopCart = ({ GiShoppingCart, className }) => {
                 )}
             </Link>
 
-            {showButton  && (
+            {showButton && (
                 <div className={`absolute right-0 pt-7 PopDown cursor-default`}>
                     <div
                         className={`bg-white w-[18.75rem] min-h-[6rem] ${
@@ -47,16 +47,21 @@ const ShopCart = ({ GiShoppingCart, className }) => {
                         )}
 
                         {shopItems.length != 0 && (
-                            <div className="flex flex-col gap-5 max-h-[30.625rem] overflow-y-auto ps-4 pb-3">
+                            <ul className="flex flex-col gap-5 max-h-[30.625rem] overflow-y-auto ">
                                 {shopItems.map((product) => (
-                                    <ShopCartItem key={nanoid()} product={product} />
+                                    <li
+                                        key={nanoid()}
+                                        className="ps-4  pb-4 border-b border-border"
+                                    >
+                                        {<ShopCartItem key={nanoid()} product={product} />}
+                                    </li>
                                 ))}
-                            </div>
+                            </ul>
                         )}
 
                         {shopItems.length != 0 && (
                             <div
-                                className={`border-t border-border py-3 mt-4 px-4 ${
+                                className={` py-3  px-4 ${
                                     window.location.pathname == "/cart-shop" && "!hidden"
                                 }`}
                             >
@@ -67,6 +72,7 @@ const ShopCart = ({ GiShoppingCart, className }) => {
                                         .toFixed(2)}
                                 </div>
                                 <Link
+                                    onClick={(e) => setshowButton(false)}
                                     to={`cart-shop`}
                                     className=" flex justify-center items-center py-3.5 w-full bg-liColor hover:opacity-95 text-white mt-2"
                                 >

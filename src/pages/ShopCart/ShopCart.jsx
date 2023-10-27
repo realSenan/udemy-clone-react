@@ -15,6 +15,8 @@ import { useEffect, useState } from "react";
 const ShopCart = () => {
     const shopCart = useSelector((state) => state.shop.shopData);
 
+    const washData = useSelector((state) => state.wish.data);
+
     const MainProduct = useSelector((state) => state.data.product);
 
     const totalPrice = shopCart.reduce((a, b) => a + +b.price, 0).toFixed(2);
@@ -105,6 +107,19 @@ const ShopCart = () => {
                     </div>
                 </div>
             </div>
+
+            {washData.length != 0 && (
+                <>
+                    <h2 className="font-bold text-liColor mb-3">Recently wishlisted</h2>
+                    <div className=" max-h-[25rem] overflow-y-auto overflow-x-hidden mb-10">
+                        <div className="flex-grow">
+                            {washData.map((product) => (
+                                <PageShopItem key={nanoid()} product={product} />
+                            ))}
+                        </div>
+                    </div>
+                </>
+            )}
 
             {/* Slider user == user id != id */}
             {filteredCards.length != 0 && (
