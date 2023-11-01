@@ -20,6 +20,7 @@ import MyList from "./pages/LearningPageComp/Lists/MyList";
 import WishlistP from "./pages/LearningPageComp/Lists/WishlistP";
 import Archived from "./pages/LearningPageComp/Lists/Archived";
 import LearningTools from "./pages/LearningPageComp/Lists/LearningTools";
+import SearchP from "./pages/SearchP/SearchP";
 
 function App() {
     const [loading, setLoading] = useState(false);
@@ -61,9 +62,12 @@ function App() {
                         <Route path="learningTools" element={<LearningTools />} />
                     </Route>
 
+                    <Route path="search" element={<SearchP />} />
+
                     <Route path="course" element={<Course />}>
                         {/* Video Play section */}
                     </Route>
+
                     <Route path="cart-shop" element={<ShopCart />} />
                 </Routes>
                 <Footer />

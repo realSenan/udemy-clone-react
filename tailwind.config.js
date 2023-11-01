@@ -10,7 +10,7 @@ export default {
             lg: "1024px",
             xl: "1280px",
             "2xl": "1536px",
-            os:'830px'
+            os: "830px",
         },
         container: {
             center: true,
@@ -36,7 +36,8 @@ export default {
             boxShadow: {
                 custom: "  0px 9px 15px -3px rgba(0,0,0,0.1)",
                 dropDownBox: "0 0 0 1px #d1d7dc,0 2px 4px #00000014,0 4px 12px #00000014",
-                dropDown2: "box-shadow: rgba(0, 0, 0, 0.04) 0px 3px 5px",
+                dropDown2: "rgba(0, 0, 0, 0.04) 0px 3px 5px",
+                closedShadow: "3px -16px 39px 20px rgba(255,255,255,255.63)",
             },
         },
     },

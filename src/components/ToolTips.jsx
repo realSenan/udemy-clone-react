@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { FiHeart } from "react-icons/fi";
 import { useDispatch, useSelector } from "react-redux";
-import { addProduct } from "../redux/shopSlice";
+import { addProduct, removeProduct } from "../redux/shopSlice";
 import { CgSpinnerTwo } from "react-icons/cg";
 import { Link, useNavigate } from "react-router-dom";
 import { useScroll } from "../hooks/useScroll";
@@ -61,6 +61,8 @@ const ToolTips = ({ product, tp }) => {
         if (!isLogin) {
             navigate("/login");
         } else {
+            clicked && (setIsWashListAdded(true), dispatch(removeProduct(product.id)));
+
             if (isWashListAdded) {
                 washData.find((wProduct) => product.id == wProduct.id && setIsWashListAdded(true));
             } else {
