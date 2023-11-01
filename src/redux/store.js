@@ -5,6 +5,7 @@ import buttonSlice from "./buttonSlice";
 import shopSlice from "./shopSlice";
 import authSlice from "./auth/authSlice";
 import wishList from "./wishList";
+import filterSlice from "./filterSlice";
 
 export default configureStore({
     reducer: {
@@ -14,5 +15,6 @@ export default configureStore({
         shop: shopSlice,
         auth: authSlice,
         wish: wishList,
+        filter : filterSlice
     },
 });

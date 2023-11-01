@@ -3,16 +3,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { ImEqualizer2 } from "react-icons/im";
 import Filter from "../../components/Filter";
 import { useLocation } from "react-router-dom";
-import Cards from "../../components/Cards";
-import ShopCartItem from "../../components/ShopCartItem";
-import PageShopItem from "../../components/PageShopItem";
 import SearchCart from "../../components/SearchCart";
+import { useState } from "react";
+import { nanoid } from "nanoid";
 
 const SearchP = () => {
-    const dispatch = useDispatch();
-    const location = useLocation();
-    const Maindata = useSelector((state) => state.data.product);
-
     const ratingsArr = [
         {
             img: ["fullStar", "fullStar", "fullStar", "fullStar", "halfStar"],
@@ -232,6 +227,19 @@ const SearchP = () => {
         },
     ];
 
+    const dispatch = useDispatch();
+    const location = useLocation();
+    const MainData = useSelector((state) => state.data.product);
+    const mFilter = useSelector((state) => state.filter.filter);
+    const [clearFilterStatus, setClearFilterStatus] = useState(false);
+
+    const clearFilter = (e) => {
+        setClearFilterStatus(!clearFilterStatus);
+    };
+
+    const newData = MainData.filter((mProduct) => mProduct.rating <= mFilter);
+    console.log(mFilter);
+
     return (
         <div className="container  max-w-[1340px] mt-10 px-5 mb-10">
             <h1 className="font-bold text-2xl ">
@@ -250,56 +258,97 @@ const SearchP = () => {
                     <ImEqualizer2 /> Filter
                 </div>
                 <div className="w-[11.125rem] h-[3.75rem] border ps-3 pt-2 text-liColor cursor-pointer hover:bg-[#e3e7ea]">
-                    <label htmlFor="opts" className="text-xs block font-bold">
+                    <label htmlFor="tse1" className="text-xs block font-bold cursor-pointer">
                         Sort by
                     </label>
 
-                    <select id="opts" className="outline-none w-[90%] bg-[transparent]">
+                    <select
+                        id="tse1"
+                        className="outline-none w-[90%] bg-[transparent] cursor-pointer"
+                    >
                         <option>Most Popular</option>
                         <option>Highest Rated</option>
                         <option>Newest</option>
                     </select>
                 </div>
 
-                <span className="font-bold cursor-pointer">Clear filters</span>
+                <span className="font-bold cursor-pointer" onClick={clearFilter}>
+                    Clear filters
+                </span>
             </div>
 
-            <div className="flex gap-x-12 justify-between mt-5  overflow-hidden">
-                <div className="sticky top-0 w-[14.5rem] bg-white">
-                    <Filter type={"radio"} arr={ratingsArr} name={"Ratings"} hText={"Ratings"} />
-                    <Filter
-                        type={"checkbox"}
-                        arr={videoHours}
-                        name={"Video"}
-                        hText={"Video Duration"}
-                    />
-                    <Filter type={"checkbox"} arr={topic} name={"Topic"} hText={"Topic"} />
-                    <Filter
-                        type={"checkbox"}
-                        arr={SubCategory}
-                        name={"Subcategory"}
-                        hText={"Subcategory"}
-                    />
-                    <Filter type={"checkbox"} arr={Level} name={"Level"} hText={"Level"} />
-                    <Filter
-                        type={"checkbox"}
-                        arr={Languages}
-                        name={"Language"}
-                        hText={"Language"}
-                    />
-                    <Filter type={"checkbox"} arr={Price} name={"Price"} hText={"Price"} />
-                    <Filter type={"checkbox"} arr={Features} name={"Features"} hText={"Features"} />
-                    <Filter
-                        type={"checkbox"}
-                        arr={Languages}
-                        name={"Subtitles"}
-                        hText={"Subtitles"}
-                    />
+            <div className="flex gap-x-12 justify-between mt-5">
+                <div className="">
+                    <div className="sticky h-screen overflow-y-auto top-0 w-[14.5rem] bg-white min-w-max">
+                        <Filter
+                            type={"radio"}
+                            arr={ratingsArr}
+                            name={"Ratings"}
+                            hText={"Ratings"}
+                            clear={clearFilterStatus}
+                        />
+                        <Filter
+                            type={"checkbox"}
+                            arr={videoHours}
+                            name={"Video"}
+                            hText={"Video Duration"}
+                            clear={clearFilterStatus}
+                        />
+                        <Filter
+                            type={"checkbox"}
+                            arr={topic}
+                            name={"Topic"}
+                            hText={"Topic"}
+                            clear={clearFilterStatus}
+                        />
+                        <Filter
+                            type={"checkbox"}
+                            arr={SubCategory}
+                            name={"Subcategory"}
+                            hText={"Subcategory"}
+                            clear={clearFilterStatus}
+                        />
+                        <Filter
+                            type={"checkbox"}
+                            arr={Level}
+                            name={"Level"}
+                            hText={"Level"}
+                            clear={clearFilterStatus}
+                        />
+                        <Filter
+                            type={"checkbox"}
+                            arr={Languages}
+                            name={"Language"}
+                            hText={"Language"}
+                            clear={clearFilterStatus}
+                        />
+                        <Filter
+                            type={"checkbox"}
+                            arr={Price}
+                            name={"Price"}
+                            hText={"Price"}
+                            clear={clearFilterStatus}
+                        />
+                        <Filter
+                            type={"checkbox"}
+                            arr={Features}
+                            name={"Features"}
+                            hText={"Features"}
+                            clear={clearFilterStatus}
+                        />
+                        <Filter
+                            type={"checkbox"}
+                            arr={Languages}
+                            name={"Subtitles"}
+                            hText={"Subtitles"}
+                            clear={clearFilterStatus}
+                        />
+                    </div>
                 </div>
 
                 <div className="w-full">
-                    {Maindata?.map((item) => (
-                        <SearchCart product={item} />
+                    {newData?.map((item) => (
+                        <SearchCart key={nanoid()} product={item} />
                     ))}
                 </div>
             </div>

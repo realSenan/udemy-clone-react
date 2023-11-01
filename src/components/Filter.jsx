@@ -3,8 +3,10 @@ import { useEffect, useState } from "react";
 import { AiFillStar, AiOutlineStar } from "react-icons/ai";
 import { BsStarHalf } from "react-icons/bs";
 import { FiChevronDown, FiChevronUp } from "react-icons/fi";
+import { useDispatch } from "react-redux";
+import { findFilter } from "../redux/filterSlice";
 
-const Filter = ({ type, arr, name, hText }) => {
+const Filter = ({ type, arr, name, hText, clear }) => {
     const [height, setHeight] = useState(false);
     const [showBtn, setShowBtn] = useState(false);
 
@@ -12,7 +14,9 @@ const Filter = ({ type, arr, name, hText }) => {
 
     useEffect(() => {
         arr.length > 5 && setShowBtn(true);
-    }, []);
+        clear && setCheckedValues(Array(arr.length).fill(false));
+        clear && dispatch(findFilter(5));
+    }, [clear]);
 
     const openBlock = (e) => {
         setHeaderHeight(!HeaderHeight);
@@ -24,10 +28,14 @@ const Filter = ({ type, arr, name, hText }) => {
 
     const [checkedValues, setCheckedValues] = useState(Array(arr.length).fill(false));
 
-    const handleCheckboxChange = (index) => {
-        const newCheckedValues = [...checkedValues];
-        newCheckedValues[index] = !newCheckedValues[index];
+    const dispatch = useDispatch();
+
+    const handleCheckboxChange = (item, index) => {
+        const newCheckedValues = Array(arr.length).fill(false);
+        newCheckedValues[index] = true;
+
         setCheckedValues(newCheckedValues);
+        item?.img && dispatch(findFilter(item.text.slice(0, 4)));
     };
 
     return (
@@ -55,7 +63,7 @@ const Filter = ({ type, arr, name, hText }) => {
                                 id={name + i}
                                 name={name}
                                 checked={checkedValues[i]}
-                                onChange={() => handleCheckboxChange(i)}
+                                onChange={() => handleCheckboxChange(item, i)}
                                 className="cursor-pointer"
                             />
 

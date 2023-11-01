@@ -46,7 +46,7 @@ const ShopCart = () => {
                     {shopCart.length} Courses in Cart
                 </h5>
                 <div className="flex flex-col-reverse os:flex-row gap-3 justify-between">
-                    <div className=" max-h-[25rem] overflow-y-auto overflow-x-hidden">
+                    <div className=" overflow-x-hidden">
                         <div className="flex-grow">
                             {shopCart.map((product) => (
                                 <PageShopItem key={nanoid()} product={product} />
@@ -111,7 +111,7 @@ const ShopCart = () => {
             {washData.length != 0 && (
                 <>
                     <h2 className="font-bold text-liColor mb-3">Recently wishlisted</h2>
-                    <div className=" max-h-[25rem] overflow-y-auto overflow-x-hidden mb-10">
+                    <div className="  overflow-x-hidden mb-10">
                         <div className="flex-grow">
                             {washData.map((product) => (
                                 <PageShopItem key={nanoid()} product={product} />

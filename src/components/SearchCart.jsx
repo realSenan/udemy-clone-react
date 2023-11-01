@@ -7,7 +7,7 @@ import { BiSolidCircle } from "react-icons/bi";
 const SearchCart = ({ product }) => {
     return (
         <div className="border-t border-border py-5 sm:flex items-start gap-5  justify-between">
-            <div className="flex items-start sm:gap-5 gap-2 w-[90%]">
+            <div className="flex items-start justify-between sm:gap-5 gap-2 ">
                 <Link to={`/course?id=${product.id}`} className="block w-80 h-36 ">
                     <img src={product.img} className="object-cover w-full h-full" />
                 </Link>
@@ -46,6 +46,8 @@ const SearchCart = ({ product }) => {
                         </Link>
                     </div>
                 </div>
+
+                <div className="font-bold">${product.price}</div>
             </div>
         </div>
     );
