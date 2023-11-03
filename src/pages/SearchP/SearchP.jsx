@@ -229,6 +229,7 @@ const SearchP = () => {
 
     const dispatch = useDispatch();
     const location = useLocation();
+    const userSearchContent = location.search.replace(/%20/g, " ").slice(1);
     const MainData = useSelector((state) => state.data.product);
     const mFilter = useSelector((state) => state.filter.filter);
     const [clearFilterStatus, setClearFilterStatus] = useState(false);
@@ -237,13 +238,25 @@ const SearchP = () => {
         setClearFilterStatus(!clearFilterStatus);
     };
 
-    const newData = MainData.filter((mProduct) => mProduct.rating <= mFilter);
-    console.log(mFilter);
+    const searchContent = useSelector((state) => state.search.value);
+
+    const newData = MainData.filter((mProduct) => {
+        return (
+            mProduct.rating <= mFilter &&
+            mProduct["headTexts:"]
+                .toLowerCase()
+                .includes(
+                    searchContent ? searchContent.toLowerCase() : userSearchContent.toLowerCase(),
+                )
+        );
+    });
+
+    const [filterSlide, setFilterSlide] = useState(true);
 
     return (
-        <div className="container  max-w-[1340px] mt-10 px-5 mb-10">
+        <div className="container  max-w-[1340px] mt-10 px-5 mb-10 overflow-x-hidden">
             <h1 className="font-bold text-2xl ">
-                All {location.search.replace("%20", " ").slice(1)} courses
+                All {searchContent ? searchContent : userSearchContent} courses
             </h1>
 
             <div className="border border-border py-4 px-5 mt-4">
@@ -254,7 +267,10 @@ const SearchP = () => {
             </div>
 
             <div className="mt-6 flex gap-2 items-center">
-                <div className="flex items-center justify-center w-[5.5rem] h-[3.75rem] border gap-2 font-bold cursor-pointer hover:bg-[#e3e7ea]">
+                <div
+                    onClick={(e) => setFilterSlide(!filterSlide)}
+                    className="flex items-center justify-center w-[5.5rem] h-[3.75rem] border gap-2 font-bold cursor-pointer hover:bg-[#e3e7ea]"
+                >
                     <ImEqualizer2 /> Filter
                 </div>
                 <div className="w-[11.125rem] h-[3.75rem] border ps-3 pt-2 text-liColor cursor-pointer hover:bg-[#e3e7ea]">
@@ -277,9 +293,17 @@ const SearchP = () => {
                 </span>
             </div>
 
-            <div className="flex gap-x-12 justify-between mt-5">
-                <div className="">
-                    <div className="sticky h-screen overflow-y-auto top-0 w-[14.5rem] bg-white min-w-max">
+            <div
+                className={`flex ${
+                    filterSlide ? "gap-x-0" : "gap-x-6"
+                } transition-all duration-300 justify-between mt-5 relative`}
+            >
+                <div
+                    className={`${
+                        filterSlide ? "w-0" : "w-[20.5rem]"
+                    } transition-all duration-300 h-screen   overflow-x-hidden`}
+                >
+                    <div className="sticky  top-0 w-[14.5rem] bg-white min-w-max">
                         <Filter
                             type={"radio"}
                             arr={ratingsArr}
@@ -346,7 +370,7 @@ const SearchP = () => {
                     </div>
                 </div>
 
-                <div className="w-full">
+                <div className={`w-full  transition-all duration-300`}>
                     {newData?.map((item) => (
                         <SearchCart key={nanoid()} product={item} />
                     ))}

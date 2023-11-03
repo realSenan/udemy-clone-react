@@ -1,26 +1,23 @@
 import Button from "./Button";
-import {  useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { nanoid } from "nanoid";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
 import "swiper/css/navigation";
 import "swiper/css";
-import { IoIosArrowBack, IoIosArrowForward, IoMdVolumeHigh } from "react-icons/io";
+import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import Cards from "../../../../components/Cards";
 import { useRef } from "react";
 
 const Product = () => {
-
-
     const productDatas = useSelector((state) => state.data.product);
 
     const buttons = useSelector((state) => state.button.value);
 
     const filterButtonForProduct = buttons?.filter((btn) => btn.status == true);
+    const buttonContext = useSelector((state) => state.button.buttonContext);
 
     const sliderWrapper = useRef();
-
-    const buttonContext = useSelector(state => state.button.buttonContext)
 
     return (
         <section className="container  max-w-[1340px] mt-20 px-5">

@@ -38,6 +38,8 @@ export default {
                 dropDownBox: "0 0 0 1px #d1d7dc,0 2px 4px #00000014,0 4px 12px #00000014",
                 dropDown2: "rgba(0, 0, 0, 0.04) 0px 3px 5px",
                 closedShadow: "3px -16px 39px 20px rgba(255,255,255,255.63)",
+                closedShadow2: "3px -10px 52px 42px #2d2f31",
+                shadowCart : "rgba(0, 0, 0, 0.15) 0px 5px 10px 4px"
             },
         },
     },

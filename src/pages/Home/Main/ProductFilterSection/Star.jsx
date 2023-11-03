@@ -2,7 +2,7 @@ import { nanoid } from "nanoid";
 import fullStar from "/src/assets/img/star/FullStar.png";
 import halfStar from "/src/assets/img/star/halfStar.png";
 
-const Star = ({ product }) => {
+const Star = ({ product, clr, clr2 }) => {
     const ratingCalculator = product.rating;
     const full_Star = Math.floor(ratingCalculator);
     const half_Star = ratingCalculator - full_Star >= 0.5;
@@ -17,9 +17,13 @@ const Star = ({ product }) => {
 
     return (
         <section className="flex  items-center mt-1  ">
-            <span className="text-sm font-extrabold text-[#3d3c0a]">{ratingCalculator}</span>
+            <span className={`text-sm font-extrabold text-[#3d3c0a] ${clr}`}>
+                {ratingCalculator}
+            </span>
             <figure className="flex ms-2 gap-1">{stars}</figure>
-            <span className="text-[12px] ms-1 text-disableColor">{product.peopleNumber}</span>
+            <span className={`text-[12px] ms-1 text-disableColor ${clr2} `}>
+                {product.peopleNumber}
+            </span>
         </section>
     );
 };

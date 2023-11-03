@@ -7,7 +7,7 @@ export const counterSlice = createSlice({
     },
     reducers: {
         changeValue: (state, action) => {
-            state.value += action.payload;
+            state.value = action.payload;
         },
     },
 });

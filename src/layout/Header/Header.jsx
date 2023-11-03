@@ -24,7 +24,7 @@ function Header() {
     });
 
     return (
-        <header className="h-[72px] bg-white flex items-center shadow-xl z-10 relative ">
+        <header className="h-[72px] bg-white flex items-center shadow-xl z-50 relative ">
             <div className="container mx-auto text-sm px-5 ">
                 <nav className="flex items-center gap-5 justify-between md:justify-normal scroll-smooth">
                     <TfiAlignJustify

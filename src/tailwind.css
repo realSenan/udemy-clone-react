@@ -31,6 +31,9 @@ body {
     @apply !text-white border-b border-b-8;
 }
 
+.linear {
+    background: linear-gradient(180deg, rgba(45, 47, 49, 0) 0%, rgba(45, 47, 49, 0.9) 100%);
+}
 .PopDown {
     animation: PopDown 1s;
 }
