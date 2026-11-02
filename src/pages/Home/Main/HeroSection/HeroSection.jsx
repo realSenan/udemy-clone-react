@@ -5,8 +5,30 @@ import "slick-carousel/slick/slick-theme.css";
 import slideImg1 from "/src/assets/img/slider/slider5.jpg";
 import slideImg2 from "/src/assets/img/slider/slider4.jpg";
 import { AiOutlineSearch } from "react-icons/ai";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { changeValue } from "../../../../redux/searchSlice";
+import { useLocation, useNavigate } from "react-router-dom";
 
 function HeroSection() {
+    const location = useLocation();
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const searchValue = useSelector((state) => state.search.value);
+
+    const submitSearch = (event) => {
+        event.preventDefault();
+        navigate("/search");
+    };
+
+    useEffect(() => {
+        if (!location.state?.focusHomeSearch) return;
+
+        const searchInput = document.getElementById("home-search-input");
+        searchInput?.scrollIntoView({ behavior: "smooth", block: "center" });
+        window.setTimeout(() => searchInput?.focus({ preventScroll: true }), 250);
+    }, [location.state]);
+
     const settings = {
         speed: 800,
         slidesToShow: 1,
@@ -72,16 +94,19 @@ function HeroSection() {
                     Courses start at $9.99 through Aug 31. Opportunities like this only come once in
                     a season.
                 </p>
-                <div className="mt-12 border flex items-center justify-between">
+                <form onSubmit={submitSearch} className="mt-12 flex items-center justify-between border">
                     <input
-                        className="p-3 w-full outline-none"
+                        id="home-search-input"
+                        className="w-full p-3 outline-none"
                         type="text"
+                        value={searchValue}
+                        onChange={(event) => dispatch(changeValue(event.target.value))}
                         placeholder="What do you want to learn?"
                     />{" "}
-                    <span className="me-4">
+                    <button type="submit" aria-label="Search courses" className="me-4 shrink-0">
                         <AiOutlineSearch size={24} />
-                    </span>
-                </div>
+                    </button>
+                </form>
             </div>
         </React.Fragment>
     );

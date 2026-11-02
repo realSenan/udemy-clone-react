@@ -21,16 +21,21 @@ function Search() {
     
     return (
         <React.Fragment>
-            <form onSubmit={submitHandle} className="w-3/4  hidden md:flex items-center rounded-3xl border bg-gray-secondary">
-                <AiOutlineSearch size={24} className="text-disableColor mx-3 hover:cursor-not-allowed" />
+            <form
+                onSubmit={submitHandle}
+                className="group hidden w-3/4 items-center rounded-full border border-[#b7bdc2] bg-white transition-all duration-200 focus-within:border-liColor focus-within:bg-white focus-within:ring-2 focus-within:ring-[#c0c4fc] md:flex"
+            >
+                <span className="ml-2 flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-transparent">
+                    <AiOutlineSearch size={21} className="text-liColor" />
+                </span>
                 <input
                     type="text"
                     name=""
                     value={seacrhValue}
                     onChange={changeHandler}
                     id="search"
-                    className="w-full h-12  rounded-3xl  outline-none bg-gray-secondary placeholder:text-[#6a6f73] tracking-[-.2px]"
-                    placeholder="Search for anyhing "
+                    className="h-12 w-full rounded-full bg-transparent px-3 outline-none placeholder:text-[#6a6f73] tracking-[-.1px]"
+                    placeholder="Search for anything"
                 />
             </form>
         </React.Fragment>

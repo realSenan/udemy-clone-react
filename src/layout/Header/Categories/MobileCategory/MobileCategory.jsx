@@ -1,33 +1,29 @@
-import { nanoid } from "nanoid";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { GrClose } from "react-icons/gr";
 import { BsGlobe } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { isCatalogAvailable } from "../../../../utils/catalogAvailability";
 
 const MobileCategory = ({ linkData, BiChevronRight, activeMbMenu, setActiveMbMenu }) => {
-    const [firstCategory, setFirstCategory] = useState("Web Development");
-    const [secondaryCategory, setSecondaryCategory] = useState(false);
-    const [lastLinksCategory, setlastLinksCategory] = useState(false);
-    const [lastLinksCategoryLast, setlastLinksCategoryLast] = useState(false);
-    const [lastCategoryInner, setLastCategoryInner] = useState("Development");
+    const [menuLevel, setMenuLevel] = useState("root");
+    const [selectedCategory, setSelectedCategory] = useState(null);
+    const [selectedSubcategory, setSelectedSubcategory] = useState(null);
 
     const linkWrap = useRef();
 
-    const cliclkHandler = (e) => {
-        setFirstCategory(e.currentTarget.textContent.trim());
-        setSecondaryCategory(true);
+    const openCategory = (category) => {
+        setSelectedCategory(category);
+        setSelectedSubcategory(null);
+        setMenuLevel("subcategories");
         setTopFunction();
     };
 
-    const secondaryClickHandler = (e) => {
-        setLastCategoryInner(e.currentTarget.textContent.trim());
+    const openSubcategory = (subcategory) => {
+        setSelectedSubcategory(subcategory);
+        setMenuLevel("topics");
         setTopFunction();
     };
-
-    const FilterLastSecondaryLink = linkData.filter(
-        (link) => link.CategoryName == lastCategoryInner,
-    );
 
     const setTopFunction = () => {
         linkWrap.current.scrollTo({
@@ -36,6 +32,10 @@ const MobileCategory = ({ linkData, BiChevronRight, activeMbMenu, setActiveMbMen
         });
     };
     const isLogin = useSelector((state) => state.auth.isLogin);
+
+    useEffect(() => {
+        if (!activeMbMenu) setMenuLevel("root");
+    }, [activeMbMenu]);
 
     return (
         <React.Fragment>
@@ -70,7 +70,7 @@ const MobileCategory = ({ linkData, BiChevronRight, activeMbMenu, setActiveMbMen
                         <ul className="py-2 text-activeClr border-b border-border">
                             <li>
                                 <Link
-                                    onClick={(e) => setActiveMbMenu(false)}
+                                    onClick={() => setActiveMbMenu(false)}
                                     to={"login"}
                                     className="px-4 py-2 block"
                                 >
@@ -80,7 +80,7 @@ const MobileCategory = ({ linkData, BiChevronRight, activeMbMenu, setActiveMbMen
                             <li>
                                 <Link
                                     to={"sign"}
-                                    onClick={(e) => setActiveMbMenu(false)}
+                                    onClick={() => setActiveMbMenu(false)}
                                     className="px-4 py-2 block"
                                 >
                                     Sign up
@@ -93,24 +93,36 @@ const MobileCategory = ({ linkData, BiChevronRight, activeMbMenu, setActiveMbMen
 
                     {/* Category First Menu */}
                     <ul className="px-4  border-b border-border">
-                        {linkData.slice(0, 10).map((link) => (
-                            <li
-                                onClick={cliclkHandler}
-                                key={nanoid()}
-                                className="py-2 flex items-center justify-between"
-                            >
-                                {Object.keys(link.Subcategories)[0]}
-                                <BiChevronRight />
+                        {linkData.slice(0, 6).map((link) => {
+                            const available = isCatalogAvailable(link.CategoryName);
+                            return (
+                            <li key={link.CategoryID}>
+                                <button
+                                    type="button"
+                                    title={available ? undefined : "Courses for this category are coming soon"}
+                                    onClick={() => openCategory(link)}
+                                    className={`w-full py-2 flex items-center justify-between text-left ${
+                                        available ? "hover:text-activeClr" : "cursor-pointer text-[#9aa1a7] opacity-55"
+                                    }`}
+                                >
+                                    <span>{link.CategoryName}</span>
+                                    {available ? <BiChevronRight /> : <span className="text-[10px] font-bold uppercase">Soon</span>}
+                                </button>
                             </li>
-                        ))}
+                            );
+                        })}
                         {/*//! All Category */}
-                        <li
-                            className="py-2 flex items-center justify-between"
-                            onClick={() => {
-                                setlastLinksCategory(true), setTopFunction();
-                            }}
-                        >
-                            All Categories <BiChevronRight />
+                        <li>
+                            <button
+                                type="button"
+                                className="w-full py-2 flex items-center justify-between text-left hover:text-activeClr"
+                                onClick={() => {
+                                    setMenuLevel("categories");
+                                    setTopFunction();
+                                }}
+                            >
+                                All Categories <BiChevronRight />
+                            </button>
                         </li>
                     </ul>
 
@@ -127,88 +139,132 @@ const MobileCategory = ({ linkData, BiChevronRight, activeMbMenu, setActiveMbMen
                     </ul>
                 </div>
 
-                {/* Secondary Category */}
+                {/* All categories */}
                 <div
                     className={`${
-                        secondaryCategory ? "left-0" : "left-72"
-                    } absolute  top-0 w-72 bg-white h-full z-30  shadow-xl transition-all duration-300 ease-in-out`}
+                        menuLevel === "categories" ? "left-0" : "left-72"
+                    } absolute top-0 w-72 bg-white h-full z-30 shadow-xl transition-all duration-300 ease-in-out`}
                 >
                     <div className="p-4 flex items-center gap-4">
-                        <span className="rotate-180" onClick={() => setSecondaryCategory(false)}>
+                        <button
+                            type="button"
+                            aria-label="Back"
+                            className="rotate-180"
+                            onClick={() => setMenuLevel("root")}
+                        >
                             <BiChevronRight />
-                        </span>
-                        Menu
+                        </button>
+                        All categories
                     </div>
 
                     <ul className="py-2 px-4">
-                        {linkData.map((link) =>
-                            link.Subcategories[firstCategory]?.map((item) => (
-                                <li
-                                    key={nanoid()}
-                                    className="py-2 flex items-center justify-between"
+                        {linkData.map((link) => {
+                            const available = isCatalogAvailable(link.CategoryName);
+                            return (
+                            <li key={link.CategoryID}>
+                                <button
+                                    type="button"
+                                    title={available ? undefined : "Courses for this category are coming soon"}
+                                    onClick={() => openCategory(link)}
+                                    className={`w-full py-2 flex items-center justify-between text-left ${
+                                        available ? "hover:text-activeClr" : "cursor-pointer text-[#9aa1a7] opacity-55"
+                                    }`}
                                 >
-                                    {item}
-                                </li>
-                            )),
-                        )}
-                    </ul>
-                </div>
-
-                {/* Tree Category */}
-                <div
-                    className={`${
-                        lastLinksCategory ? "left-0" : "left-72"
-                    } absolute  top-0 w-72 bg-white h-full z-10  shadow-xl transition-all duration-300 ease-in-out `}
-                >
-                    <div className="p-4 flex items-center gap-4">
-                        <span className="rotate-180" onClick={() => setlastLinksCategory(false)}>
-                            <BiChevronRight />
-                        </span>
-                        Menu
-                    </div>
-
-                    <ul className="py-2 px-6">
-                        {linkData.map((link) => (
-                            <li
-                                onClick={(e) => {
-                                    secondaryClickHandler(e), setlastLinksCategoryLast(true);
-                                }}
-                                key={nanoid()}
-                                className="py-2 flex items-center justify-between"
-                            >
-                                {link.CategoryName} <BiChevronRight />
+                                    <span>{link.CategoryName}</span>
+                                    {available ? <BiChevronRight /> : <span className="text-[10px] font-bold uppercase">Soon</span>}
+                                </button>
                             </li>
-                        ))}
+                            );
+                        })}
                     </ul>
                 </div>
 
-                {/* Four Category */}
+                {/* Subcategories */}
                 <div
                     className={`${
-                        lastLinksCategoryLast ? "left-0" : "left-72"
-                    } absolute  top-0 w-72 bg-white h-full z-50 shadow-xl transition-all duration-300 ease-in-out`}
+                        menuLevel === "subcategories" ? "left-0" : "left-72"
+                    } absolute top-0 w-72 bg-white h-full z-40 shadow-xl transition-all duration-300 ease-in-out`}
                 >
                     <div className="p-4 flex items-center gap-4">
-                        <span
+                        <button
+                            type="button"
+                            aria-label="Back"
                             className="rotate-180"
-                            onClick={() => setlastLinksCategoryLast(false)}
+                            onClick={() => setMenuLevel("categories")}
                         >
                             <BiChevronRight />
-                        </span>
-                        Menu
+                        </button>
+                        {selectedCategory?.CategoryName || "Categories"}
                     </div>
 
                     <ul className="py-2 px-6">
-                        {Object.keys(FilterLastSecondaryLink[0].Subcategories).map((item) => (
-                            <li key={nanoid()} className="py-2">
-                                {item}
-                            </li>
-                        ))}
+                        {selectedCategory &&
+                            Object.keys(selectedCategory.Subcategories).map((subcategory) => {
+                                const available = isCatalogAvailable(subcategory);
+                                return (
+                                <li key={subcategory}>
+                                    <button
+                                        type="button"
+                                        title={available ? undefined : "Courses for this category are coming soon"}
+                                        onClick={() => openSubcategory(subcategory)}
+                                        className={`w-full py-2 flex items-center justify-between text-left ${
+                                            available ? "hover:text-activeClr" : "cursor-pointer text-[#9aa1a7] opacity-55"
+                                        }`}
+                                    >
+                                        <span>{subcategory}</span>
+                                        {available ? <BiChevronRight /> : <span className="text-[10px] font-bold uppercase">Soon</span>}
+                                    </button>
+                                </li>
+                                );
+                            })}
+                    </ul>
+                </div>
+
+                {/* Topics */}
+                <div
+                    className={`${
+                        menuLevel === "topics" ? "left-0" : "left-72"
+                    } absolute top-0 w-72 bg-white h-full z-50 shadow-xl transition-all duration-300 ease-in-out`}
+                >
+                    <div className="p-4 flex items-center gap-4">
+                        <button
+                            type="button"
+                            aria-label="Back"
+                            className="rotate-180"
+                            onClick={() => setMenuLevel("subcategories")}
+                        >
+                            <BiChevronRight />
+                        </button>
+                        {selectedSubcategory || "Topics"}
+                    </div>
+
+                    <ul className="py-2 px-6">
+                        {selectedCategory &&
+                            selectedSubcategory &&
+                            selectedCategory.Subcategories[selectedSubcategory].map((topic) => {
+                                const available = isCatalogAvailable(topic);
+                                return (
+                                <li key={topic}>
+                                    <button
+                                        type="button"
+                                        disabled={!available}
+                                        aria-disabled={!available}
+                                        title={available ? undefined : "Courses for this topic are coming soon"}
+                                        className={`w-full py-2 text-left ${
+                                            available ? "hover:text-activeClr" : "cursor-not-allowed text-[#9aa1a7] opacity-55"
+                                        }`}
+                                    >
+                                        <span>{topic}</span>
+                                        {!available && <span className="float-right text-[10px] font-bold uppercase">Soon</span>}
+                                    </button>
+                                </li>
+                                );
+                            })}
                     </ul>
                 </div>
 
                 {/* Globe Icon */}
-                <div className="mx-4 w-44 py-2 flex items-center justify-center gap-3 border ">
+                <div className="mx-4 w-[calc(100%-2rem)] py-2 flex items-center justify-center gap-3 border">
                     <BsGlobe /> English
                 </div>
             </div>
@@ -216,22 +272,4 @@ const MobileCategory = ({ linkData, BiChevronRight, activeMbMenu, setActiveMbMen
     );
 };
 
-{
-}
 export default MobileCategory;
-{
-    /* <div
-                    className={`${
-                        lastLinksCategory ? "left-0" : "left-72"
-                    } absolute  top-0 w-72 bg-white h-full z-50 shadow-xl transition-all duration-300 ease-in-out`}
-                >
-                    <div className="p-4 flex items-center gap-4">
-                        <span className="rotate-180" onClick={() => setlastLinksCategory(false)}>
-                            <BiChevronRight />
-                        </span>
-                        Menu
-                    </div>
-
-                    <ul className="py-2 px-6">{console.log(FilterLastSecondaryLink)}</ul>
-                </div> */
-}

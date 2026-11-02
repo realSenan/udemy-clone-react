@@ -1,4 +1,3 @@
-import React from "react";
 import PopUp from "./PopUp/PopUp";
 import { AiOutlineSearch } from "react-icons/ai";
 import ShopCart from "./ShopCart/ShopCart";
@@ -7,13 +6,29 @@ import Faworite from "./Faworite/Faworite";
 import RingTone from "./RingTone/RingTone";
 import Profile from "./Profile/Profile";
 import MyLearning from "./myLearning/MyLearning";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 function HeaderPopUp({ GiShoppingCart }) {
     const isLogin = useSelector((state) => state.auth.isLogin);
+    const navigate = useNavigate();
+    const location = useLocation();
+
+    const focusHomeSearch = () => {
+        if (location.pathname !== "/") {
+            navigate("/", { state: { focusHomeSearch: true } });
+            return;
+        }
+
+        const searchInput = document.getElementById("home-search-input");
+        searchInput?.scrollIntoView({ behavior: "smooth", block: "center" });
+        window.setTimeout(() => searchInput?.focus({ preventScroll: true }), 250);
+    };
 
     return (
         <div className="flex gap-4  md:gap-6 items-center text-[15px] min-w-max ">
-            <AiOutlineSearch size={28} className=" block md:hidden" />
+            <button type="button" onClick={focusHomeSearch} aria-label="Search courses" className="block rounded-full p-1 hover:bg-gray-secondary md:hidden">
+                <AiOutlineSearch size={24} />
+            </button>
             <PopUp
                 text={"Udmey Buisness"}
                 className=" hidden xl:block "
@@ -54,7 +69,18 @@ function HeaderPopUp({ GiShoppingCart }) {
                     <div className="md:block hidden">
                         <Profile />
                     </div>
+                    <div className="md:hidden">
+                        <Profile />
+                    </div>
                 </>
+            )}
+            {!isLogin && (
+                <Link
+                    to="/login"
+                    className="whitespace-nowrap text-xs font-bold text-activeClr hover:underline md:hidden"
+                >
+                    Log in
+                </Link>
             )}
         </div>
     );

@@ -1,29 +1,69 @@
-import React, { useState } from "react";
+import { useEffect, useState } from "react";
 import defaultPng from "/src/assets/img/loading.jpg";
 import Star from "../pages/Home/Main/ProductFilterSection/Star";
 import ToolTips from "./ToolTips";
 import { Link } from "react-router-dom";
+import { createPortal } from "react-dom";
 
 const Cards = ({ product }) => {
+  const portalTooltip = window.location.pathname === "/search";
   const [ToolTip, setToolTip] = useState(false);
   const [left, setLeft] = useState("220px");
+  const [tooltipPosition, setTooltipPosition] = useState({ top: 0, left: 0 });
 
   const enterMouseHandler = (e) => {
-    (window.location.pathname == "/my-courses/wishlist") == false &&
+    if (window.location.pathname !== "/my-courses/wishlist") {
       setToolTip(true);
-    const offset = e.nativeEvent.fromElement.offsetWidth;
-    const item = e.currentTarget.getBoundingClientRect().left;
+    }
 
-    if (offset - item < 530) {
+    const bounds = e.currentTarget.getBoundingClientRect();
+    if (window.innerWidth - bounds.right < 380) {
       setLeft("-23.75rem");
     } else {
       setLeft("13.75rem");
+    }
+    if (portalTooltip) {
+      const tooltipHeight = 476;
+      const tooltipWidth = Math.min(368, window.innerWidth - 16);
+      const top = Math.min(
+        Math.max(8, bounds.top - 112),
+        Math.max(8, window.innerHeight - tooltipHeight - 8),
+      );
+      const left = Math.min(
+        Math.max(
+          8,
+          bounds.right + tooltipWidth + 8 > window.innerWidth
+            ? bounds.left - tooltipWidth - 8
+            : bounds.right + 8,
+        ),
+        window.innerWidth - tooltipWidth - 8,
+      );
+      setTooltipPosition({ top, left });
     }
   };
 
   const leaveMouseHandler = () => {
     setToolTip(false);
   };
+
+  useEffect(() => {
+    if (!portalTooltip || !ToolTip) return undefined;
+    window.addEventListener("scroll", leaveMouseHandler, true);
+    return () => window.removeEventListener("scroll", leaveMouseHandler, true);
+  }, [portalTooltip, ToolTip]);
+
+  const tooltip = ToolTip && (
+    <div
+      className="z-[9999999999999] px-4"
+      style={
+        portalTooltip
+          ? { position: "fixed", top: tooltipPosition.top, left: tooltipPosition.left }
+          : { position: "absolute", top: "-7rem", left }
+      }
+    >
+      <ToolTips product={product} tp={ToolTip} />
+    </div>
+  );
 
   return (
     <div
@@ -64,14 +104,8 @@ const Cards = ({ product }) => {
           )}
         </section>
       </Link>
-      <div
-        className={`${
-          ToolTip ? "block" : "hidden"
-        } absolute -top-28 z-[9999999999999] px-4`}
-        style={{ left: left }}
-      >
-        <ToolTips product={product} tp={ToolTip} />
-      </div>
+      {!portalTooltip && tooltip}
+      {portalTooltip && tooltip && createPortal(tooltip, document.body)}
     </div>
   );
 };

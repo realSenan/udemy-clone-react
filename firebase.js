@@ -37,10 +37,9 @@ export const register = async (email, password, display_name) => {
     }
 };
 
-export const loginFireBase = async (email, password, display_name) => {
+export const loginFireBase = async (email, password) => {
     try {
         const userCredential = await signInWithEmailAndPassword(auth, email, password);
-        await updateProfile(userCredential.user, { displayName: display_name });
 
         toast.success("Login succesfly!");
         return userCredential;

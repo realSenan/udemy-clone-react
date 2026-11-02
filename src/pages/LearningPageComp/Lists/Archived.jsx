@@ -12,7 +12,7 @@ const Archived = () => {
                     className="text-activeClr border-b border-b-activeClr font-bold "
                 >
                     Go to the All Courses tab
-                </Link>{" "}
+                </Link>{"/search"}
                 to create a list.
             </div>
         </div>

@@ -23,12 +23,20 @@ const WishlistP = () => {
       } `}
     >
       {wishData.length == 0 ? (
-        <Link
-          className="inline-block py-3 px-5 bg-liColor text-white font-bold"
-          to={"/"}
-        >
-          Browse courses now
-        </Link>
+        <div className="px-4 text-center">
+          <h2 className="mb-2 text-xl font-bold text-liColor">
+            Your wishlist is empty
+          </h2>
+          <p className="mb-5 text-sm text-gray-600">
+            Save courses you are interested in and find them here later.
+          </p>
+          <Link
+            className="inline-block py-3 px-5 bg-liColor text-white font-bold"
+            to={"/search"}
+          >
+            Browse courses now
+          </Link>
+        </div>
       ) : (
         <Swiper
           slidesPerView={"auto"}

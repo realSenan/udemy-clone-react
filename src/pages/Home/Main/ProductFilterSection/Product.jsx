@@ -1,5 +1,5 @@
 import Button from "./Button";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { nanoid } from "nanoid";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
@@ -8,16 +8,34 @@ import "swiper/css";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import Cards from "../../../../components/Cards";
 import { useRef } from "react";
+import { useNavigate } from "react-router-dom";
+import { changeValue } from "../../../../redux/searchSlice";
 
 const Product = () => {
   const productDatas = useSelector((state) => state.data.product);
-  console.log(productDatas);
   const buttons = useSelector((state) => state.button.value);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  const filterButtonForProduct = buttons?.filter((btn) => btn.status == true);
+  const isAvailable = (buttonId) => productDatas.some((product) => product.category === buttonId);
+  const activeButton = buttons?.find((btn) => btn.status && isAvailable(btn.id)) || buttons?.find((btn) => isAvailable(btn.id));
   const buttonContext = useSelector((state) => state.button.buttonContext);
 
   const sliderWrapper = useRef();
+
+  const exploreActiveTopic = () => {
+    if (!activeButton) return;
+    const searchTerm = {
+      python: "Python",
+      excel: "Excel",
+      webdev: "Web Development",
+      js: "JavaScript",
+    }[activeButton.id];
+
+    dispatch(changeValue(""));
+    navigate(`/search?${encodeURIComponent(searchTerm)}`);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
 
   return (
     <section className="container  max-w-[1340px] mt-20 px-5">
@@ -46,7 +64,7 @@ const Product = () => {
             key={nanoid()}
             className="whitespace-nowrap me-5 !w-fit "
           >
-            <Button btn={btn} sliderWrapper={sliderWrapper} />
+            <Button btn={btn} sliderWrapper={sliderWrapper} isAvailable={isAvailable(btn.id)} />
           </SwiperSlide>
         ))}
 
@@ -61,19 +79,23 @@ const Product = () => {
 
       {/* Product filter section */}
       <section className="border p-8 border-border ">
-        {filterButtonForProduct?.map((bt) => (
-          <section key={nanoid()}>
+        {activeButton && (
+          <section>
             <h2 className="font-bold text-softBlack text-2xl ">
-              {bt["head text"]}
+              {activeButton["head text"]}
             </h2>
             <p className="mt-3 max-w-[800px] line-clamp-3">
-              {bt["paragraph text"]}
+              {activeButton["paragraph text"]}
             </p>
-            <button className="border py-2 px-3 text-sm mt-5 font-extrabold text-softBlack hover:bg-[#6a6f7348]">
-              Explore {bt.text}
+            <button
+              type="button"
+              onClick={exploreActiveTopic}
+              className="mt-5 border border-liColor px-3 py-2 text-sm font-extrabold text-softBlack transition-colors hover:bg-gray-secondary"
+            >
+              Explore {activeButton.text}
             </button>
           </section>
-        ))}
+        )}
 
         {/* Swipper Section */}
         <Swiper
@@ -95,7 +117,7 @@ const Product = () => {
                 onClick={() => window.scrollTo(0, 0)}
                 id={product.id}
                 className={`w-fit ${
-                  product.category == buttonContext ? "block" : "hidden"
+                  product.category == (activeButton?.id || buttonContext) ? "block" : "hidden"
                 }`}
               >
                 <Cards product={product} />

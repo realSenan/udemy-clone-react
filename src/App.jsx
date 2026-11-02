@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Header from "./layout/Header/Header";
 import Home from "./pages/Home/Home";
 import { useEffect, useState } from "react";
-import { useURL } from "./hooks/useURL";
+import { syncProductFilterFromUrl } from "./hooks/useURL";
 import Loading from "./components/Loading";
 import Footer from "./layout/Footer/Footer";
 import Login from "./pages/Login/LoginPage";
@@ -26,13 +26,13 @@ function App() {
   const dispatch = store.dispatch;
 
   useEffect(() => {
-    // dispatch(myData());
-    useURL(dispatch);
-  }, []);
+    syncProductFilterFromUrl(dispatch);
+  }, [dispatch]);
 
-  setTimeout(() => {
-    setLoading(true);
-  }, 300);
+  useEffect(() => {
+    const loadingTimer = window.setTimeout(() => setLoading(true), 300);
+    return () => window.clearTimeout(loadingTimer);
+  }, []);
 
   return loading ? (
     <Provider store={store}>
@@ -47,29 +47,33 @@ function App() {
       />
 
       <Router>
-        <Header />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="login" element={<Login />} />
-          <Route path="sign" element={<Sign />} />
-          <Route path="forgot-password" element={<ForgetPassw />} />
-          <Route path="my-courses" element={<WashListPage />}>
-            <Route index path="allCourses" element={<AllCourse />} />
-            <Route path="myList" element={<MyList />} />
-            <Route path="wishlist" element={<WishlistP />} />
-            <Route path="archived" element={<Archived />} />
-            <Route path="learningTools" element={<LearningTools />} />
-          </Route>
+        <div className="flex min-h-screen flex-col">
+          <Header />
+          <div className="flex flex-1 flex-col">
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="login" element={<Login />} />
+              <Route path="sign" element={<Sign />} />
+              <Route path="forgot-password" element={<ForgetPassw />} />
+              <Route path="my-courses" element={<WashListPage />}>
+                <Route index path="allCourses" element={<AllCourse />} />
+                <Route path="myList" element={<MyList />} />
+                <Route path="wishlist" element={<WishlistP />} />
+                <Route path="archived" element={<Archived />} />
+                <Route path="learningTools" element={<LearningTools />} />
+              </Route>
 
-          <Route path="search" element={<SearchP />} />
+              <Route path="search" element={<SearchP />} />
 
-          <Route path="course" element={<Course />}>
-            {/* Video Play section */}
-          </Route>
+              <Route path="course" element={<Course />}>
+                {/* Video Play section */}
+              </Route>
 
-          <Route path="cart-shop" element={<ShopCart />} />
-        </Routes>
-        <Footer />
+              <Route path="cart-shop" element={<ShopCart />} />
+            </Routes>
+          </div>
+          <Footer />
+        </div>
       </Router>
     </Provider>
   ) : (

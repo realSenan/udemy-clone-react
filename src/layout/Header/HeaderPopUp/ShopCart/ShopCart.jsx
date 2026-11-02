@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import ShopCartItem from "../../../../components/ShopCartItem";
 import { useSelector } from "react-redux";
 import { nanoid } from "nanoid";
@@ -19,7 +19,7 @@ const ShopCart = ({ GiShoppingCart, className }) => {
                 <GiShoppingCart size={27} />
 
                 {shopItems.length != 0 && (
-                    <div className="w-6 h-5 rounded-full bg-activeClr absolute -top-2 -right-2 flex items-center justify-center text-white text-sm">
+                    <div className="w-6 h-5 rounded-full bg-activeClr absolute -top-2 -right-2 -z-10 flex items-center justify-center text-white text-sm">
                         {shopItems.length}
                     </div>
                 )}
@@ -72,7 +72,7 @@ const ShopCart = ({ GiShoppingCart, className }) => {
                                         .toFixed(2)}
                                 </div>
                                 <Link
-                                    onClick={(e) => setshowButton(false)}
+                                    onClick={() => setshowButton(false)}
                                     to={`cart-shop`}
                                     className=" flex justify-center items-center py-3.5 w-full bg-liColor hover:opacity-95 text-white mt-2"
                                 >

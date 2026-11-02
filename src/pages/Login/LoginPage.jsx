@@ -39,11 +39,9 @@ const Login = () => {
     const GoogleSign = async () => {
         const Googleprovider = new GoogleAuthProvider();
         try {
-            signInWithPopup(auth, Googleprovider).then((data) => {
-                dispatch(LoginUser(data));
-        toast.success("Login succesfly!");
-        console.log(data);
-            });
+            const data = await signInWithPopup(auth, Googleprovider);
+            dispatch(LoginUser(data));
+            toast.success("Login succesfly!");
         } catch (error) {
             toast.error(error.message);
         }
@@ -51,19 +49,17 @@ const Login = () => {
     const FaceSign = async () => {
         const FaceBookprovider = new FacebookAuthProvider();
         try {
-            signInWithPopup(auth, FaceBookprovider).then((data) => {
-                dispatch(LoginUser(data));
-        toast.success("Login succesfly!");
-        console.log(data);
-            });
+            const data = await signInWithPopup(auth, FaceBookprovider);
+            dispatch(LoginUser(data));
+            toast.success("Login succesfly!");
         } catch (error) {
             toast.error(error.message);
         }
     };
 
     return (
-        <div className="flex items-center justify-center text-liColor">
-            <div className="w-full max-w-[25rem] h-[37.7rem] py-10 px-4">
+        <div className="flex flex-1 items-center justify-center text-liColor">
+            <div className="w-full max-w-[25rem] min-h-[37.7rem] py-10 px-4">
                 <h3 className="text-liColor font-bold mb-4">Log in to your Udemy account</h3>
 
                 <div className="">

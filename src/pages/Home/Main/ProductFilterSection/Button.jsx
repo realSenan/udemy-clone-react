@@ -1,15 +1,16 @@
-import { useDispatch, useSelector } from "react-redux";
-import { useURL } from "../../../../hooks/useURL";
+import { useDispatch } from "react-redux";
+import { syncProductFilterFromUrl } from "../../../../hooks/useURL";
 
-const Button = ({ btn, sliderWrapper }) => {
+const Button = ({ btn, sliderWrapper, isAvailable }) => {
     const { id, text, status } = btn;
 
     const dispatch = useDispatch();
 
     const clickHandler = (e) => {
+        if (!isAvailable) return;
         window.history.pushState(null, "", `?${e.currentTarget.id}`);
         sliderWrapper?.current.swiper.slideTo(0);
-        useURL(dispatch);
+        syncProductFilterFromUrl(dispatch);
     };
     // const dispatch = useDispatch()
 
@@ -17,8 +18,13 @@ const Button = ({ btn, sliderWrapper }) => {
         <button
             onClick={clickHandler}
             id={id}
-            className={`btns border-none bg-none font-bold hover:text-activeButton transition-all duration-300  ${
-                status ? "text-activeButton" : "text-deactiveButton "
+            disabled={!isAvailable}
+            aria-disabled={!isAvailable}
+            title={isAvailable ? undefined : "No courses are currently available in this topic"}
+            className={`btns border-none bg-none font-bold transition-all duration-300 ${
+                !isAvailable
+                    ? "cursor-not-allowed text-[#b7bdc2]"
+                    : `hover:text-activeButton ${status ? "text-activeButton" : "text-deactiveButton"}`
             }`}
         >
             {text}

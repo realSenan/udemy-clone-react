@@ -8,10 +8,10 @@ const AllCourse = () => {
       </div>
       <div>
         <Link
-          to={"/my-courses/allCourses"}
+          to={"/search"}
           className="text-activeClr border-b border-b-activeClr font-bold "
         >
-          Go to the All Courses tab
+          Go to search 
         </Link>{" "}
         to create a list.
       </div>

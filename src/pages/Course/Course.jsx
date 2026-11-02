@@ -1,441 +1,382 @@
-import React, { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import Star from "../Home/Main/ProductFilterSection/Star";
+import toast from "react-hot-toast";
 import {
-  BsPatchExclamationFill,
-  BsGlobe,
-  BsCreditCard2FrontFill,
-  BsFillPlayFill,
+  BsCheck2,
   BsChevronDown,
   BsChevronUp,
+  BsClock,
+  BsCollectionPlay,
+  BsDownload,
+  BsFileEarmarkText,
+  BsGlobe2,
+  BsInfinity,
+  BsPatchCheck,
+  BsPlayFill,
+  BsPhone,
+  BsPlayCircleFill,
+  BsTrophy,
+  BsX,
 } from "react-icons/bs";
-import {
-  AiFillHeart,
-  AiOutlineHeart,
-  AiOutlinePlayCircle,
-} from "react-icons/ai";
-import toast from "react-hot-toast";
-import { addProduct, removeProduct } from "../../redux/shopSlice";
-import { CgSpinnerTwo } from "react-icons/cg";
-import { FiHeart } from "react-icons/fi";
-import { useScroll } from "../../hooks/useScroll";
+import { AiOutlinePlayCircle } from "react-icons/ai";
+import { FiGift, FiHeart, FiShare2 } from "react-icons/fi";
+import Star from "../Home/Main/ProductFilterSection/Star";
+import { addProduct } from "../../redux/shopSlice";
 import { addWashList, removeWashList } from "../../redux/wishList";
+
+const learningObjectives = [
+  "Build practical, job-ready projects step by step",
+  "Understand the core concepts without getting lost in jargon",
+  "Apply modern development workflows and best practices",
+  "Confidently use the tools used by professional developers",
+  "Keep learning with reusable resources and clear next steps",
+  "Turn your new skills into a portfolio you can share",
+];
+
+const curriculumData = [
+  {
+    id: "welcome",
+    title: "Course introduction and setup",
+    lectures: 4,
+    duration: "28min",
+    items: [
+      { title: "Welcome to the course", duration: "04:32", preview: true },
+      { title: "How to get the most from this course", duration: "06:18" },
+      { title: "Your workspace and course files", duration: "08:41" },
+      { title: "Quick start challenge", duration: "09:02" },
+    ],
+  },
+  {
+    id: "foundations",
+    title: "Foundations you need to know",
+    lectures: 7,
+    duration: "1hr 18min",
+    items: [
+      { title: "The essential concepts", duration: "11:20", preview: true },
+      { title: "Working through a real example", duration: "14:05" },
+      { title: "Common mistakes and how to avoid them", duration: "12:14" },
+    ],
+  },
+  {
+    id: "projects",
+    title: "Build projects from scratch",
+    lectures: 9,
+    duration: "2hr 06min",
+    items: [
+      { title: "Planning your first project", duration: "10:22" },
+      { title: "Build it together", duration: "18:45" },
+      { title: "Improve and publish your work", duration: "15:08" },
+    ],
+  },
+  {
+    id: "next-steps",
+    title: "Next steps and continued learning",
+    lectures: 5,
+    duration: "42min",
+    items: [
+      { title: "Putting your skills into practice", duration: "09:50" },
+      { title: "Where to go from here", duration: "07:24" },
+    ],
+  },
+];
 
 const Course = () => {
   const location = useLocation();
-  const id = location.search.slice(4);
-  const [wishlist, setWishlist] = useState(false);
-  const [expandedSections, setExpandedSections] = useState({});
-
-  const MainData = useSelector((state) => state.data.product);
-  const Cart = MainData.find((mProduct) => mProduct.id == id);
-
-  // Örnek müfredat verisi
-  const curriculumData = [
-    {
-      id: 1,
-      title: "Giriş",
-      duration: "10:00",
-      lectures: 2,
-      items: [
-        { title: "Kursa Genel Bakış", duration: "05:00", type: "video" },
-        { title: "Kurulum ve Gereksinimler", duration: "05:00", type: "video" },
-      ],
-    },
-    {
-      id: 2,
-      title: "HTML Temelleri",
-      duration: "45:30",
-      lectures: 5,
-      items: [
-        { title: "HTML Nedir?", duration: "10:00", type: "video" },
-        { title: "Temel Etiketler", duration: "15:30", type: "video" },
-        { title: "Formlar ve Inputlar", duration: "20:00", type: "video" },
-      ],
-    },
-  ];
-
-  const toggleSection = (sectionId) => {
-    setExpandedSections((prev) => ({
-      ...prev,
-      [sectionId]: !prev[sectionId],
-    }));
-  };
-
-  const learningObjectives = [
-    "Modern HTML5 ve CSS3 teknikleri",
-    "Responsive web tasarım prensipleri",
-    "JavaScript ES6+ özellikleri",
-    "React.js temel kavramları",
-    "Web uygulaması deployment süreçleri",
-  ];
-
-  const isLogin = useSelector((state) => state.auth.isLogin);
-  const shopData = useSelector((state) => state.shop.shopData);
-  const washData = useSelector((state) => state.wish.data);
-
-  const [clicked, setClicked] = useState(false);
-  //  Cart loading
-  const [cartLoading, setCartLoading] = useState(false);
-  // Change block with loading
-  const [cartLastLoad, setCartLastLoad] = useState(false);
-
-  const isValid = shopData.some((productD) => productD.id == Cart.id);
-
-  const [isWashListAdded, setIsWashListAdded] = useState(false);
-
-  const dispatch = useDispatch();
-
-  const addCart = () => {
-    if (!isValid) {
-      setClicked(true);
-      setCartLoading(true);
-      dispatch(addProduct(Cart));
-
-      setTimeout(() => {
-        setCartLastLoad(true);
-        setCartLoading(false);
-        toast.success(
-          `Succesfly added  ${
-            Cart.category[0].toUpperCase() + Cart.category.slice(1)
-          } course`
-        );
-      }, 2000);
-    }
-  };
-
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const courseId = new URLSearchParams(location.search).get("id");
+  const courses = useSelector((state) => state.data.product);
+  const shopData = useSelector((state) => state.shop.shopData);
+  const wishlistData = useSelector((state) => state.wish.data);
+  const isLogin = useSelector((state) => state.auth.isLogin);
+  const course = courses.find((item) => String(item.id) === String(courseId));
+  const [expandedSections, setExpandedSections] = useState({ welcome: true });
+  const [previewState, setPreviewState] = useState("closed");
 
-  const wishList = () => {
-    if (!isLogin) {
-      navigate("/login");
-    } else {
-      clicked && (setIsWashListAdded(true), dispatch(removeProduct(Cart.id)));
+  const isInCart = Boolean(course && shopData.some((item) => item.id === course.id));
+  const isWishlisted = Boolean(course && wishlistData.some((item) => item.id === course.id));
 
-      if (isWashListAdded) {
-        washData.find(
-          (wProduct) => Cart.id == wProduct.id && setIsWashListAdded(true)
-        );
-      } else {
-        setIsWashListAdded(true);
-        toast.success("WishList Added!");
-        dispatch(addWashList(Cart));
-      }
-    }
-  };
-
-  const RemoveWishList = () => {
-    setIsWashListAdded(false);
-    toast.success("WishList Removed!");
-    dispatch(removeWashList(Cart.id));
-  };
+  const closePreview = useCallback(() => {
+    setPreviewState((current) => (current === "open" ? "closing" : current));
+    window.setTimeout(() => setPreviewState("closed"), 180);
+  }, []);
 
   useEffect(() => {
-    washData.find(
-      (wProduct) => Cart.id == wProduct.id && setIsWashListAdded(true)
+    if (previewState === "closed") return undefined;
+
+    const closeOnEscape = (event) => {
+      if (event.key === "Escape") closePreview();
+    };
+    document.body.classList.add("overflow-hidden");
+    window.addEventListener("keydown", closeOnEscape);
+
+    return () => {
+      document.body.classList.remove("overflow-hidden");
+      window.removeEventListener("keydown", closeOnEscape);
+    };
+  }, [closePreview, previewState]);
+
+  if (!course) {
+    return (
+      <main className="container max-w-[760px] px-5 py-20 text-center">
+        <h1 className="font-SusseWorks text-3xl text-liColor">Course not found</h1>
+        <p className="mt-3 text-disableColor">The course you requested is no longer available in this catalog.</p>
+        <Link to="/search" className="inline-flex mt-6 bg-[#a435f0] px-5 py-3 font-bold text-white">
+          Explore available courses
+        </Link>
+      </main>
     );
+  }
 
-    if (isValid) {
-      setClicked(true);
-      setTimeout(() => {
-        setCartLastLoad(true);
-        setCartLoading(false);
-      }, 2000);
+  const toggleSection = (sectionId) => {
+    setExpandedSections((current) => ({ ...current, [sectionId]: !current[sectionId] }));
+  };
+
+  const openPreview = () => setPreviewState("open");
+
+  const addToCart = () => {
+    if (isInCart) {
+      navigate("/cart-shop");
+      return;
     }
-  }, [clicked]);
+    dispatch(addProduct(course));
+    toast.success("Course added to cart");
+  };
 
-  return (
-    <div className="mb-20">
-      <div className="fixed w-full z-20 top-0 h-16 bg-activeButton text-white p-2 shadow-lg">
-        <h1 className="font-bold">{Cart["headTexts:"]}</h1>
-        <Star
-          product={Cart}
-          clr={"!text-[#f69c08]"}
-          clr2={"!text-[#c0c4fc] ms-2"}
-        />
-      </div>
+  const buyNow = () => {
+    if (!isInCart) dispatch(addProduct(course));
+    navigate("/cart-shop");
+  };
 
-      <div className="h-[20rem] bg-activeButton pb-10 absolute z-10 top-0 w-full"></div>
-      <div className="flex max-lg:flex-col-reverse items-center lg:items-start  lg:justify-between gap-10 px-10">
-        <div className="container max-w-[1340px] overflow-hidden pt-5  gap-12 justify-around relative z-10">
-          <div className="max-w-[43.75rem] text-softBlack lg:text-white">
-            <h1 className="font-bold text-3xl">{Cart["headTexts:"]}</h1>
-            <p className="mt-4 text-xl">
-              Learn: HTML | CSS | JavaScript | Web programming | Web development
-              | Front-end | Responsive | JQuery
-            </p>
-            <h3 className="mt-4">
-              <Star
-                product={Cart}
-                clr={"!text-[#f69c08]"}
-                clr2={"!text-[#c0c4fc] ms-2"}
-              />
-            </h3>
-            <h4 className="mt-2">
-              Created by{" "}
-              <span className="!text-[#c0c4fc]">{Cart["user:"]}</span>
-            </h4>
-            <div className="flex items-center gap-4">
-              <div className="flex items-center gap-2 text-sm">
-                <BsPatchExclamationFill />
-                Last updated 8/2023
-              </div>
-              <div className="flex items-center gap-2 text-sm">
-                <BsGlobe />
-                English
-              </div>
-              <div className="flex items-center gap-2 text-sm m-3">
-                <BsCreditCard2FrontFill />
-                English [Auto]
-              </div>
-            </div>
-          </div>
+  const toggleWishlist = () => {
+    if (!isLogin) {
+      navigate("/login");
+      return;
+    }
 
-          {/* Kurs İçeriği Bölümü */}
-          <div className="  mt-8">
-            {/* Sol Taraf - Ana İçerik */}
-            <div className="lg:col-span-2">
-              {/* Öğrenilecekler */}
-              <div className="bg-white p-6 rounded-lg shadow-sm border">
-                <h2 className="text-2xl font-bold mb-4">What you'll learn</h2>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
-                  {learningObjectives.map((objective, index) => (
-                    <div key={index} className="flex items-start gap-2">
-                      <span className="text-green-600 mt-1">✓</span>
-                      <span>{objective}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
+    if (isWishlisted) {
+      dispatch(removeWashList(course.id));
+      toast.success("Removed from wishlist");
+    } else {
+      dispatch(addWashList(course));
+      toast.success("Added to wishlist");
+    }
+  };
 
-              {/* Müfredat */}
-              <div className="bg-white p-6 rounded-lg shadow-sm border mt-6">
-                <h2 className="text-2xl font-bold mb-4">Course Content</h2>
-                <div className="space-y-2">
-                  {curriculumData.map((section) => (
-                    <div key={section.id} className="border rounded-lg">
-                      <button
-                        className="w-full p-4 text-left flex justify-between items-center hover:bg-gray-50"
-                        onClick={() => toggleSection(section.id)}
-                      >
-                        <div>
-                          <span className="font-semibold">{section.title}</span>
-                          <div className="text-sm text-gray-600 mt-1">
-                            {section.lectures} lectures • {section.duration}
-                          </div>
-                        </div>
-                        {expandedSections[section.id] ? (
-                          <BsChevronUp />
-                        ) : (
-                          <BsChevronDown />
-                        )}
-                      </button>
-                      {expandedSections[section.id] && (
-                        <div className="p-4 border-t bg-gray-50">
-                          {section.items.map((item, index) => (
-                            <div
-                              key={index}
-                              className="flex justify-between items-center py-2"
-                            >
-                              <div className="flex items-center gap-3">
-                                <AiOutlinePlayCircle className="text-gray-400" />
-                                <span>{item.title}</span>
-                              </div>
-                              <span className="text-sm text-gray-600">
-                                {item.duration}
-                              </span>
-                            </div>
-                          ))}
-                        </div>
-                      )}
-                    </div>
-                  ))}
-                </div>
-              </div>
+  const purchaseCard = (
+    <div className="overflow-hidden bg-white lg:rounded-xl lg:border lg:border-border lg:shadow-[0_8px_24px_rgba(28,29,31,0.12)]">
+      <button
+        type="button"
+        onClick={openPreview}
+        className="group relative block w-full overflow-hidden bg-[#111827] text-left"
+        aria-label={`Preview ${course["headTexts:"]}`}
+      >
+        <img className="aspect-video w-full object-cover opacity-60 transition duration-500 group-hover:scale-[1.03] group-hover:opacity-45" src={course.img} alt="" />
+        <span className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-black/20" />
+        <span className="absolute inset-0 flex flex-col items-center justify-center text-center text-white">
+          <span className="flex h-16 w-16 items-center justify-center rounded-full bg-white text-liColor shadow-lg transition duration-300 group-hover:scale-110 group-hover:bg-[#f7f9fa]">
+            <BsPlayFill size={38} className="ml-1" />
+          </span>
+          <span className="mt-3 font-bold underline underline-offset-4">Preview this course</span>
+        </span>
+      </button>
 
-              {/* Gereksinimler */}
-              <div className="bg-white p-6 rounded-lg shadow-sm border mt-6">
-                <h2 className="text-2xl font-bold mb-4">Requirements</h2>
-                <ul className="list-disc list-inside space-y-2 text-gray-700">
-                  <li>Basic computer knowledge</li>
-                  <li>No programming experience needed</li>
-                  <li>Any computer will work - Windows, macOS or Linux</li>
-                </ul>
-              </div>
-
-              {/* Açıklama */}
-              <div className="bg-white p-6 rounded-lg shadow-sm border mt-6">
-                <h2 className="text-2xl font-bold mb-4">Description</h2>
-                <div className="text-gray-700 leading-relaxed">
-                  <p className="mb-4">
-                    This comprehensive course will take you from beginner to
-                    advanced level in web development. You'll learn the latest
-                    technologies and best practices used in the industry today.
-                  </p>
-                  <p>
-                    Through hands-on projects and real-world examples, you'll
-                    build a solid foundation in front-end development and create
-                    responsive, interactive websites.
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            {/* Sağ Taraf - Yan Bilgiler */}
-            <div className="space-y-6 mt-6">
-              {/* Özellikler */}
-              <div className="bg-white p-6 rounded-lg shadow-sm border">
-                <h3 className="font-bold text-lg mb-4">Features</h3>
-                <div className="space-y-3">
-                  <div className="flex items-center gap-3">
-                    <span className="w-2 h-2 bg-green-500 rounded-full"></span>
-                    <span>Full lifetime access</span>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <span className="w-2 h-2 bg-green-500 rounded-full"></span>
-                    <span>Access on mobile and TV</span>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <span className="w-2 h-2 bg-green-500 rounded-full"></span>
-                    <span>Certificate of completion</span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Hedef Kitle */}
-              <div className="bg-white p-6 rounded-lg shadow-sm border">
-                <h3 className="font-bold text-lg mb-4">
-                  Who this course is for:
-                </h3>
-                <ul className="list-disc list-inside space-y-2 text-gray-700">
-                  <li>Beginner web developers</li>
-                  <li>Students learning web development</li>
-                  <li>Career changers entering tech industry</li>
-                  <li>Anyone interested in building websites</li>
-                </ul>
-              </div>
-            </div>
-          </div>
+      <div className="p-5">
+        <div className="flex items-end gap-2">
+          <span className="text-3xl font-bold text-liColor">${course.price}</span>
+          <span className="mb-1 text-sm text-disableColor line-through">$129.99</span>
+          <span className="mb-1 text-sm font-bold text-liColor">31% off</span>
         </div>
+        <p className="mt-2 text-sm font-bold text-[#b32d0f]">12 hours left at this price!</p>
 
-        <div className="min-w-[21.25rem]  max-lg:w-[70%] lg:sticky top-20 mt-20 z-10 shadow-shadowCart mb-4 rounded-2xl bg-white overflow-hidden">
-          <picture className=" lg:h-52 block relative overflow-hidden">
-            <img
-              className="w-full h-full object-cover"
-              src={Cart.img}
-              alt={Cart["headTexts:"]}
-            />
-            <div className="w-full h-full absolute top-0 linear z-10 flex items-center justify-center flex-col pt-12">
-              <span className="cursor-pointer hover:bg-[#e3e7ea] h-16 w-16 rounded-full bg-white flex items-center justify-center">
-                <BsFillPlayFill size={44} />
-              </span>
-              <div className="font-bold text-white mt-5">
-                Preview this course
-              </div>
-            </div>
-          </picture>
+        <div className="mt-4 flex gap-2">
+          <button type="button" onClick={addToCart} className="min-h-[48px] flex-1 bg-[#a435f0] px-3 font-bold text-white hover:bg-[#8710d8]">
+            {isInCart ? "Go to cart" : "Add to cart"}
+          </button>
+          <button
+            type="button"
+            onClick={toggleWishlist}
+            aria-label={isWishlisted ? "Remove from wishlist" : "Add to wishlist"}
+            className={`flex h-12 w-12 items-center justify-center border border-liColor hover:bg-gray-secondary ${isWishlisted ? "text-[#a435f0]" : "text-liColor"}`}
+          >
+            <FiHeart size={22} fill={isWishlisted ? "currentColor" : "none"} />
+          </button>
+        </div>
+        <button type="button" onClick={buyNow} className="mt-2 min-h-[48px] w-full border border-liColor px-3 font-bold text-liColor hover:bg-gray-secondary">
+          Buy now
+        </button>
+        <p className="mt-3 text-center text-xs text-liColor">30-Day Money-Back Guarantee</p>
 
-          <div className="p-4 ">
-            <div className="font-bold text-3xl text-activeButton">
-              ${Cart.price}
-            </div>
-
-            {/* <div className="grid grid-cols-5 mt-3 gap-2">
-              <button
-                onClick={addCart}
-                className="bg-[#a435f0] hover:bg-[#8710d8] font-bold text-white py-3 col-start-1 col-end-5"
-              >
-                Add to cart
-              </button>
-              <button
-                className="border hover:bg-[#e3e7ea] flex items-center justify-center"
-                onClick={() => setWishlist(!wishlist)}
-              >
-                {wishlist ? (
-                  <AiFillHeart size={25} />
-                ) : (
-                  <AiOutlineHeart size={25} />
-                )}
-              </button>
-              <button className="border hover:bg-[#e3e7ea] font-bold text-activeButton py-3 row-start-2 col-span-5">
-                Buy now
-              </button>
-            </div> */}
-            <div className="flex items-center  gap-5 mt-4  ">
-              {/* Clicked after */}
-              <Link
-                onClick={useScroll}
-                to={`/cart-shop`}
-                className={`${
-                  cartLastLoad ? "flex" : "hidden"
-                } py-3 bg-[#a435f0] w-64 h-12  items-center justify-center text-white hover:bg-opacity-90 transition-all duration-300 `}
-              >
-                Go to cart
-              </Link>
-
-              {/* Loading animation */}
-              <button
-                className={`${
-                  cartLastLoad ? "hidden" : "block"
-                } py-3 bg-[#a435f0] w-64 h-12  text-white hover:bg-opacity-90 transition-all duration-300 ${
-                  clicked ? "block" : "hidden"
-                } ${cartLoading && "!bg-opacity-70 cursor-not-allowed"}`}
-              >
-                <div
-                  className={`animate-spin w-min mx-auto cursor-not-allowed`}
-                >
-                  <CgSpinnerTwo />
-                </div>
-              </button>
-
-              {/* Clicked before */}
-              <button
-                className={`py-3 bg-[#a435f0] !w-64 h-12 text-white hover:bg-opacity-90 transition-all duration-300 ${
-                  clicked ? "hidden " : "block"
-                }`}
-                onClick={addCart}
-              >
-                Add To Cart
-              </button>
-
-              <div
-                onClick={isWashListAdded ? RemoveWishList : wishList}
-                className="border rounded-full !w-12 h-12 flex items-center justify-center bg-white hover:bg-[#e3e7ea] duration-300 transition-all cursor-pointer"
-              >
-                {isWashListAdded ? (
-                  <AiFillHeart size={24} />
-                ) : (
-                  <FiHeart size={24} />
-                )}
-              </div>
-            </div>
-
-            <div className="text-xs my-4 lg:text-center text-activeButton mx-auto">
-              30-Day Money-Back Guarantee
-            </div>
-
-            <div className="mt-4 space-y-2 text-sm  ">
-              <div className="flex justify-between ">
-                <span>Course includes:</span>
-              </div>
-              <div className="flex items-center gap-2 ">
-                <AiOutlinePlayCircle />
-                <span>10.5 hours on-demand video</span>
-              </div>
-              <div className="flex items-center gap-2 ">
-                <span>📚</span>
-                <span>42 articles</span>
-              </div>
-              <div className="flex items-center gap-2 ">
-                <span>📥</span>
-                <span>51 downloadable resources</span>
-              </div>
-            </div>
-          </div>
+        <h2 className="mt-6 font-bold text-liColor">This course includes:</h2>
+        <ul className="mt-3 space-y-3 text-sm text-liColor">
+          <li className="flex gap-3"><BsCollectionPlay className="mt-0.5 shrink-0" /> 5.5 hours on-demand video</li>
+          <li className="flex gap-3"><BsFileEarmarkText className="mt-0.5 shrink-0" /> 18 articles and 12 exercises</li>
+          <li className="flex gap-3"><BsDownload className="mt-0.5 shrink-0" /> Downloadable resources</li>
+          <li className="flex gap-3"><BsInfinity className="mt-0.5 shrink-0" /> Full lifetime access</li>
+          <li className="flex gap-3"><BsPhone className="mt-0.5 shrink-0" /> Access on mobile and TV</li>
+          <li className="flex gap-3"><BsTrophy className="mt-0.5 shrink-0" /> Certificate of completion</li>
+        </ul>
+        <div className="mt-6 flex items-center justify-between text-sm font-bold text-activeClr">
+          <button type="button" className="hover:underline">Share</button>
+          <button type="button" className="hover:underline">Gift this course</button>
+          <button type="button" className="hover:underline">Apply Coupon</button>
         </div>
       </div>
     </div>
+  );
+
+  return (
+    <main className="pb-16 text-liColor">
+      <section className="bg-liColor text-white">
+        <div className="mx-auto max-w-[1184px] px-5 py-7 sm:px-8 lg:pb-20">
+          <nav className="mb-5 text-sm font-bold text-[#c0c4fc]" aria-label="Breadcrumb">
+            Development <span className="px-1 text-white">›</span> {course.category.charAt(0).toUpperCase() + course.category.slice(1)}
+          </nav>
+          <h1 className="font-SusseWorks text-3xl leading-tight sm:text-4xl">{course["headTexts:"]}</h1>
+          <p className="mt-4 text-lg leading-7 text-[#f7f9fa]">Learn by building practical projects, understanding the essentials, and following a clear route from first lesson to confident creator.</p>
+          {course.bestseller && <span className="mt-4 inline-block bg-[#eceb98] px-2 py-1 text-xs font-bold text-[#3d3c0a]">Bestseller</span>}
+          <div className="mt-3"><Star product={course} clr="!text-[#f3ca8c]" clr2="!text-white" /></div>
+          <p className="mt-4 text-sm">Created by <button type="button" className="font-bold text-[#c0c4fc] underline">{course["user:"]}</button></p>
+          <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm">
+            <span className="flex items-center gap-2"><BsPatchCheck /> Last updated 10/2026</span>
+            <span className="flex items-center gap-2"><BsGlobe2 /> English</span>
+            <span>English [Auto]</span>
+          </div>
+          <div className="mt-6 flex items-center gap-5 text-sm font-bold lg:hidden">
+            <button type="button" onClick={openPreview} className="flex items-center gap-2 text-[#c0c4fc] underline"><BsPlayCircleFill /> Preview</button>
+            <button type="button" className="flex items-center gap-2 text-[#c0c4fc] underline"><FiShare2 /> Share</button>
+            <button type="button" className="flex items-center gap-2 text-[#c0c4fc] underline"><FiGift /> Gift</button>
+          </div>
+        </div>
+      </section>
+
+      <div className="mx-auto max-w-[1200px] px-5 sm:px-8 lg:grid lg:grid-cols-[minmax(0,760px)_340px] lg:gap-x-8">
+        <div>
+        <div className="-mx-5 mt-0 sm:-mx-8 lg:hidden">{purchaseCard}</div>
+
+        <section className="-mx-5 mt-8 border-0 p-0 sm:mx-0 sm:border sm:border-border sm:p-6">
+          <h2 className="text-2xl font-bold">What you&apos;ll learn</h2>
+          <div className="mt-4 grid gap-x-8 gap-y-3 sm:grid-cols-2">
+            {learningObjectives.map((objective) => (
+              <p key={objective} className="flex gap-3 text-sm leading-5"><BsCheck2 size={20} className="shrink-0" /> {objective}</p>
+            ))}
+          </div>
+        </section>
+
+        <section className="mt-10">
+          <h2 className="text-2xl font-bold">Course content</h2>
+          <div className="mt-4 flex flex-wrap justify-between gap-3 text-sm">
+            <span>4 sections • 25 lectures • 4h 34m total length</span>
+            <button
+              type="button"
+              className="font-bold text-activeClr hover:underline"
+              onClick={() => setExpandedSections(Object.fromEntries(curriculumData.map((section) => [section.id, true])))}
+            >
+              Expand all sections
+            </button>
+          </div>
+          <div className="mt-4 border border-border">
+            {curriculumData.map((section) => (
+              <div key={section.id} className="border-b border-border last:border-0">
+                <button type="button" onClick={() => toggleSection(section.id)} className="flex w-full items-center gap-3 bg-gray-secondary px-4 py-4 text-left hover:bg-[#eef0f2]">
+                  {expandedSections[section.id] ? <BsChevronUp className="shrink-0" /> : <BsChevronDown className="shrink-0" />}
+                  <span className="flex-1 font-bold">{section.title}</span>
+                  <span className="hidden text-sm sm:block">{section.lectures} lectures • {section.duration}</span>
+                </button>
+                {expandedSections[section.id] && (
+                  <ul className="bg-white px-4 py-2">
+                    {section.items.map((lesson) => (
+                      <li key={lesson.title} className="flex items-center gap-3 py-3 text-sm">
+                        <AiOutlinePlayCircle className="shrink-0" />
+                        <span className="flex-1">{lesson.title}</span>
+                        {lesson.preview && <button type="button" onClick={openPreview} className="mr-2 font-bold text-activeClr underline">Preview</button>}
+                        <span className="flex items-center gap-1 text-disableColor"><BsClock /> {lesson.duration}</span>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section className="mt-10">
+          <h2 className="text-2xl font-bold">Requirements</h2>
+          <ul className="mt-4 list-disc space-y-2 pl-5 text-sm leading-6">
+            <li>No prior experience is required; you&apos;ll start with the fundamentals.</li>
+            <li>A computer with an internet connection and the willingness to practice.</li>
+            <li>Curiosity and a desire to build things as you learn.</li>
+          </ul>
+        </section>
+
+        <section className="mt-10">
+          <h2 className="text-2xl font-bold">Description</h2>
+          <div className="mt-4 space-y-4 text-sm leading-6">
+            <p>{course["headTexts:"]} is a hands-on course designed to make the important ideas feel approachable and useful. Every lesson builds toward real work you can understand, adapt, and confidently make your own.</p>
+            <p>Rather than just watching explanations, you&apos;ll work through focused examples, make practical decisions, and learn the patterns that help you keep progressing after the course ends.</p>
+          </div>
+        </section>
+
+        <section className="mt-10 border-t border-border pt-8">
+          <p className="font-bold text-activeClr">Instructor</p>
+          <h2 className="mt-1 text-2xl font-bold text-activeClr underline">{course["user:"]}</h2>
+          <p className="mt-1 text-disableColor">Professional instructor and course creator</p>
+          <div className="mt-4 flex gap-5 text-sm">
+            <div className="flex h-20 w-20 shrink-0 items-center justify-center rounded-full bg-gray-secondary text-2xl font-bold text-activeClr">{course["user:"].slice(0, 1)}</div>
+            <ul className="space-y-1">
+              <li>★ {course.rating} instructor rating</li>
+              <li>◉ {course.peopleNumber} reviews</li>
+              <li>▶ 12 courses</li>
+            </ul>
+          </div>
+        </section>
+        </div>
+        <aside className="mt-[33px] hidden self-start lg:sticky lg:top-20 lg:block">
+          {purchaseCard}
+        </aside>
+      </div>
+
+      {previewState !== "closed" && (
+        <div
+          className={`ui-modal-backdrop fixed inset-0 z-[100] flex items-center justify-center p-3 sm:p-6 ${
+            previewState === "closing" ? "ui-modal-backdrop-closing" : ""
+          }`}
+          role="dialog"
+          aria-modal="true"
+          aria-label="Course preview"
+          onMouseDown={(event) => {
+            if (event.target === event.currentTarget) closePreview();
+          }}
+        >
+          <div className={`ui-modal-panel w-full max-w-5xl overflow-hidden bg-[#101114] shadow-2xl ${previewState === "closing" ? "ui-modal-panel-closing" : ""}`}>
+            <div className="flex items-center justify-between border-b border-white/10 px-4 py-3 text-white sm:px-5">
+              <div className="min-w-0">
+                <p className="text-xs font-bold uppercase tracking-[0.12em] text-[#c0c4fc]">Free preview</p>
+                <p className="truncate pt-0.5 font-bold">{course["headTexts:"]}</p>
+              </div>
+              <button type="button" onClick={closePreview} aria-label="Close preview" className="ml-4 rounded-full p-2 text-white transition hover:bg-white/10"><BsX size={24} /></button>
+            </div>
+            <div className="relative aspect-video bg-black">
+              <img src={course.img} alt="Course preview" className="h-full w-full object-cover opacity-50" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/30" />
+              <div className="absolute inset-0 flex flex-col items-center justify-center px-6 text-center text-white">
+                <span className="mb-4 rounded-full border border-white/30 bg-black/30 px-3 py-1 text-xs font-bold backdrop-blur">Preview lecture · 04:32</span>
+                <button type="button" onClick={() => toast.error("Preview playback is unavailable in this demo.")} className="group flex h-20 w-20 items-center justify-center rounded-full bg-white text-liColor shadow-xl transition duration-300 hover:scale-110 focus:outline-none focus:ring-4 focus:ring-[#c0c4fc]"><BsPlayFill size={46} className="ml-1 transition-transform group-hover:translate-x-0.5" /></button>
+                <p className="mt-5 max-w-xl text-lg font-bold sm:text-2xl">Welcome to the course</p>
+                <p className="mt-2 max-w-lg text-sm text-[#f7f9fa]">Watch this free lesson to see the course structure and teaching style before enrolling.</p>
+              </div>
+            </div>
+            <div className="flex flex-wrap items-center gap-x-4 gap-y-3 bg-[#18191c] px-4 py-4 text-white sm:px-5">
+              <button type="button" onClick={() => toast.error("Preview playback is unavailable in this demo.")} aria-label="Play preview" className="rounded-full p-1 hover:bg-white/10"><BsPlayFill size={24} /></button>
+              <div className="h-1.5 min-w-[120px] flex-1 overflow-hidden rounded-full bg-white/20"><div className="h-full w-[18%] rounded-full bg-[#a435f0]" /></div>
+              <span className="text-xs text-white/75">00:48 / 04:32</span>
+              <button type="button" onClick={closePreview} className="ml-auto border border-white/40 px-3 py-2 text-sm font-bold transition hover:bg-white hover:text-liColor">Close preview</button>
+            </div>
+          </div>
+        </div>
+      )}
+    </main>
   );
 };
 

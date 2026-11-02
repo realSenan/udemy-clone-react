@@ -6,19 +6,19 @@ import { FiChevronDown, FiChevronUp } from "react-icons/fi";
 import { useDispatch } from "react-redux";
 import { findFilter } from "../redux/filterSlice";
 
-const Filter = ({ type, arr, name, hText, clear }) => {
+const Filter = ({ type, arr, name, hText, clearVersion }) => {
     const [height, setHeight] = useState(false);
-    const [showBtn, setShowBtn] = useState(false);
-
     const [HeaderHeight, setHeaderHeight] = useState(false);
+    const [checkedValues, setCheckedValues] = useState(Array(arr.length).fill(false));
+    const dispatch = useDispatch();
+    const showBtn = arr.length > 5;
 
     useEffect(() => {
-        arr.length > 5 && setShowBtn(true);
-        clear && setCheckedValues(Array(arr.length).fill(false));
-        clear && dispatch(findFilter(5));
-    }, [clear]);
+        setCheckedValues(Array(arr.length).fill(false));
+        dispatch(findFilter(5));
+    }, [arr.length, clearVersion, dispatch]);
 
-    const openBlock = (e) => {
+    const openBlock = () => {
         setHeaderHeight(!HeaderHeight);
     };
 
@@ -26,30 +26,35 @@ const Filter = ({ type, arr, name, hText, clear }) => {
         e.stopPropagation();
     };
 
-    const [checkedValues, setCheckedValues] = useState(Array(arr.length).fill(false));
-
-    const dispatch = useDispatch();
-
     const handleCheckboxChange = (item, index) => {
-        const newCheckedValues = Array(arr.length).fill(false);
-        newCheckedValues[index] = true;
+        const newCheckedValues =
+            type === "radio"
+                ? Array(arr.length).fill(false)
+                : [...checkedValues];
+
+        newCheckedValues[index] = type === "radio" ? true : !newCheckedValues[index];
 
         setCheckedValues(newCheckedValues);
-        item?.img && dispatch(findFilter(item.text.slice(0, 4)));
+        if (item?.img) {
+            dispatch(findFilter(newCheckedValues[index] ? item.text.slice(0, 4) : 5));
+        }
     };
 
     return (
         <div
-            onClick={openBlock}
-            className={`border-t border-border py-3  ${!HeaderHeight && "h-14 "} overflow-hidden `}
+            className={`border-t border-border py-3 ${!HeaderHeight && "h-14"} overflow-hidden`}
             id="res"
         >
-            <div className="font-bold text-xl flex items-center justify-between text-liColor cursor-pointer">
+            <button
+                type="button"
+                onClick={openBlock}
+                className="w-full font-bold text-xl flex items-center justify-between text-liColor cursor-pointer text-left"
+            >
                 {hText}
                 <span className="text-base inline-block  ">
                     {HeaderHeight ? <FiChevronUp /> : <FiChevronDown />}
                 </span>
-            </div>
+            </button>
 
             <form
                 onClick={blockEvent}
@@ -75,7 +80,7 @@ const Filter = ({ type, arr, name, hText, clear }) => {
                                 }  text-[#2D2F31] w-full gap-x-2`}
                             >
                                 {item?.img && (
-                                    <div className="flex items-center gap-1  min-w-[4.375rem] ">
+                                    <div className="flex items-center gap-1 min-w-[4.375rem] text-[#b4690e]">
                                         {item?.img?.map(
                                             (img) =>
                                                 (img == "halfStar" && (
@@ -103,7 +108,6 @@ const Filter = ({ type, arr, name, hText, clear }) => {
                 <>
                     {!height && (
                         <div className="shadow-closedShadow z-10 relative h-0 overflow-hidden">
-                            a
                         </div>
                     )}
                     <button

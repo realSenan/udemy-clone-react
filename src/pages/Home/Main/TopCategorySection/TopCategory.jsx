@@ -1,4 +1,3 @@
-import React from "react";
 import Img1 from "/src/assets/img/TopCategory/1.jpg";
 import Img2 from "/src/assets/img/TopCategory/2.jpg";
 import Img3 from "/src/assets/img/TopCategory/3.jpg";
@@ -8,111 +7,80 @@ import Img7 from "/src/assets/img/TopCategory/7.jpg";
 import Img8 from "/src/assets/img/TopCategory/8.jpg";
 import Img9 from "/src/assets/img/TopCategory/9.jpg";
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { changeValue } from "../../../../redux/searchSlice";
+import { getCatalogSearchTerm, isCatalogAvailable } from "../../../../utils/catalogAvailability";
+
+const categories = [
+  { title: "Design", image: Img1 },
+  { title: "Development", image: Img2 },
+  { title: "Marketing", image: Img3 },
+  { title: "IT and Software", image: Img4, responsiveClass: "hidden mobil:block" },
+  { title: "Personal Development", image: Img6, responsiveClass: "hidden mobil:block" },
+  { title: "Business", image: Img7, responsiveClass: "hidden mobil:block" },
+  { title: "Photography", image: Img8, responsiveClass: "hidden mobil:block" },
+  { title: "Music", image: Img9, responsiveClass: "hidden mobil:block" },
+];
 
 const TopCategory = () => {
-  return (
-    <div className="container max-w-[1340px] py-8 md:py-16  px-5">
-      <h2 className="font-bold text-2xl text-liColor">Top categories</h2>
+  const dispatch = useDispatch();
 
-      <div className="grid mobil:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 place-items-center mt-10 lg:gap-7 gap-10">
-        <Link onClick={() => window.scrollTo(0, 0)} to={"/search/?Design"}>
-          <picture className="max-w-[18.75rem] max-h-[18.75rem] block overflow-hidden cursor-pointer">
-            <img
-              src={Img1}
-              className="w-full hover:scale-105 transition-all duration-300"
-            />
-          </picture>
-          <h3 className="text-liColor font-bold text-xl mt-1">Design</h3>
-        </Link>
-        <Link onClick={() => window.scrollTo(0, 0)} to={"/search/?Development"}>
-          <picture className="max-w-[18.75rem] max-h-[18.75rem] block overflow-hidden cursor-pointer">
-            <img
-              src={Img2}
-              className="w-full hover:scale-105 transition-all duration-300"
-            />
-          </picture>
-          <h3 className="text-liColor font-bold text-xl mt-1">Development</h3>
-        </Link>
-        <Link onClick={() => window.scrollTo(0, 0)} to={"/search/?Marketing"}>
-          <picture className="max-w-[18.75rem] max-h-[18.75rem] block overflow-hidden cursor-pointer">
-            <img
-              src={Img3}
-              className="w-full hover:scale-105 transition-all duration-300"
-            />
-          </picture>
-          <h3 className="text-liColor font-bold text-xl mt-1">Marketing</h3>
-        </Link>
-        <Link
-          onClick={() => window.scrollTo(0, 0)}
-          to={"/search/?IT and Software"}
-          className="hidden mobil:block"
-        >
-          <picture className="max-w-[18.75rem] max-h-[18.75rem] block overflow-hidden cursor-pointer">
-            <img
-              src={Img4}
-              className="w-full hover:scale-105 transition-all duration-300"
-            />
-          </picture>
-          <h3 className="text-liColor font-bold text-xl mt-1">
-            IT and Software
-          </h3>
-        </Link>
-        <Link
-          onClick={() => window.scrollTo(0, 0)}
-          to={"/search/?Personal Development"}
-          className="hidden mobil:block"
-        >
-          <picture className="max-w-[18.75rem] max-h-[18.75rem] block overflow-hidden cursor-pointer">
-            <img
-              src={Img6}
-              className="w-full hover:scale-105 transition-all duration-300"
-            />
-          </picture>
-          <h3 className="text-liColor font-bold text-xl mt-1">
-            Personal Development
-          </h3>
-        </Link>
-        <Link
-          onClick={() => window.scrollTo(0, 0)}
-          to={"/search/?Business"}
-          className="hidden mobil:block"
-        >
-          <picture className="max-w-[18.75rem] max-h-[18.75rem] block overflow-hidden cursor-pointer">
-            <img
-              src={Img7}
-              className="w-full hover:scale-105 transition-all duration-300"
-            />
-          </picture>
-          <h3 className="text-liColor font-bold text-xl mt-1">Business</h3>
-        </Link>
-        <Link
-          onClick={() => window.scrollTo(0, 0)}
-          to={"/search/?Photography"}
-          className="hidden mobil:block"
-        >
-          <picture className="max-w-[18.75rem] max-h-[18.75rem] block overflow-hidden cursor-pointer">
-            <img
-              src={Img8}
-              className="w-full hover:scale-105 transition-all duration-300"
-            />
-          </picture>
-          <h3 className="text-liColor font-bold text-xl mt-1">Photography</h3>
-        </Link>
-        <Link
-          onClick={() => window.scrollTo(0, 0)}
-          to={"/search/?Music"}
-          className="hidden mobil:block"
-        >
-          <picture className="max-w-[18.75rem] max-h-[18.75rem] block overflow-hidden cursor-pointer">
-            <img
-              src={Img9}
-              className="w-full hover:scale-105 transition-all duration-300"
-            />
-          </picture>
-          <h3 className="text-liColor font-bold text-xl mt-1">Music</h3>
-        </Link>
+  const cardContent = (category, available) => (
+    <>
+      <picture className="relative block max-h-[18.75rem] max-w-[18.75rem] overflow-hidden bg-gray-secondary">
+        <img
+          src={category.image}
+          alt=""
+          className={`w-full transition duration-300 ${
+            available ? "group-hover:scale-105" : "grayscale opacity-45"
+          }`}
+        />
+        {!available && (
+          <span className="absolute inset-0 flex items-center justify-center bg-liColor/20 px-4 text-center text-sm font-bold text-white">
+            Courses coming soon
+          </span>
+        )}
+      </picture>
+      <div className="mt-2 flex items-center gap-2">
+        <h3 className={`font-bold text-xl ${available ? "text-liColor" : "text-[#8b9299]"}`}>{category.title}</h3>
+        {!available && <span className="rounded-full border border-[#b7bdc2] px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide text-[#737a80]">Soon</span>}
       </div>
-    </div>
+    </>
+  );
+
+  return (
+    <section className="container max-w-[1340px] px-5 py-8 md:py-16">
+      <h2 className="font-bold text-2xl text-liColor">Top categories</h2>
+      <div className="mt-10 grid place-items-center gap-10 mobil:grid-cols-2 lg:grid-cols-3 lg:gap-7 xl:grid-cols-4">
+        {categories.map((category) => {
+          const available = isCatalogAvailable(category.title);
+          const className = `group block w-full max-w-[18.75rem] ${category.responsiveClass || ""}`;
+
+          return available ? (
+            <Link
+              key={category.title}
+              className={className}
+              to={`/search?${encodeURIComponent(getCatalogSearchTerm(category.title))}`}
+              onClick={() => {
+                dispatch(changeValue(""));
+                window.scrollTo({ top: 0, behavior: "smooth" });
+              }}
+            >
+              {cardContent(category, true)}
+            </Link>
+          ) : (
+            <article
+              key={category.title}
+              aria-disabled="true"
+              title="Courses for this category are coming soon"
+              className={`${className} cursor-not-allowed select-none`}
+            >
+              {cardContent(category, false)}
+            </article>
+          );
+        })}
+      </div>
+    </section>
   );
 };
 
