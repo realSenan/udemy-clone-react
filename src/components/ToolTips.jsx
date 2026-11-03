@@ -40,6 +40,8 @@ const ToolTips = ({ product, tp }) => {
     }, [clicked, tp]);
 
     const addCart = (e) => {
+        e.stopPropagation();
+
         if (!isValid) {
             setClicked(true);
             setCartLoading(true);
@@ -139,6 +141,7 @@ const ToolTips = ({ product, tp }) => {
 
                 {/* Clicked before */}
                 <button
+                    type="button"
                     className={`py-3 bg-[#a435f0] !w-64 h-12 text-white hover:bg-opacity-90 transition-all duration-300 ${
                         clicked ? "hidden " : "block"
                     }`}
